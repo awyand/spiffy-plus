@@ -18,13 +18,13 @@ This app is a portal for community members to submit beautification ideas (graff
 Cool architecture picture goes here...
 
 # UI Mockups
-[UI Mockup](https://github.com/awyand/beautification-app/blob/master/readme-images/ui-mockup.jpg)
+![UI Mockup](https://github.com/awyand/beautification-app/blob/master/readme-images/ui-mockup.jpg)
 
 ## API Docs
 Description of API and routes goes here...
 
 ## DB
-[Database Structure](https://github.com/awyand/beautification-app/blob/master/readme-images/database-structure.jpg)
+![Database Structure](https://github.com/awyand/beautification-app/blob/master/readme-images/database-structure.jpg)
 
 ## Getting Started
 Instructions for installing, running tests, seeding the DB, setting up the config file goes here
