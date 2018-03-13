@@ -8,14 +8,21 @@ This app is a portal for community members to submit beautification ideas (graff
 * Google Maps display of open/ongoing/closed issues
 * Twitter feed for admin group (taking care of issues)
 
+## MVP
+* Seeded database with mock data
+* Map (Google Maps or Mapbox) w/o special styles or popups displaying mock data
+* Form for users to submit issues with functioning GET/POST routes
+* Vote buttons that increment/decrement an issue's score
+
 ## Tech Used
 * Node/Express server/app
 * MySQL/Sequelize database integration
 * Google Maps/Mapbox API
 * Twitter API
+* Cool Front-End Library (TBD)
 
 ## Architecture Diagram
-Cool architecture picture goes here...
+![Architecture Diagram]()
 
 # UI Mockups
 ![UI Mockup](https://github.com/awyand/beautification-app/blob/master/readme-images/ui-mockup.jpg)
