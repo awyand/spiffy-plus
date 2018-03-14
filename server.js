@@ -1,30 +1,41 @@
+// *******************************************************************
+// Node/Express Server
+// 
+// PARZIVAL was here
+// 
+// *******************************************************************
+
 // Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var handleBars = require("express-handlebars");
 
 
-// Require API routes
+// Require Directories
 var apiRoutes = require('./routes/apiRoutes');
+var db = require("./models");
+
 
 // Express server
 var app = express();
 var PORT = process.env.PORT || 3000;
 app.use(express.static("public"));
 
+
 // bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+
 // Handlebars
-var exphbs = require("express-handlebars");
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", handleBars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 
-// RENAME THESE AS NECESSARY VVV
+// **********RENAME THESE AS NECESSARY VVV ********************
 
-// Call API Routes and HTML Routes functions
+// Call Routes
 // require("./routes/apiRoutes")(app);
 // require("./routes/htmlRoutes")(app);
 
