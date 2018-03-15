@@ -1,20 +1,19 @@
 // *******************************************************************
 // Node/Express Server
 // 
-// PARZIVAL was here
+// Dookmarriot was here
 // 
 // *******************************************************************
-
+// Get env file
+require("dotenv").config();
 // Dependencies
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
 var handleBars = require("express-handlebars");
 
-
 // ****** DELETE IF NOT NEEDED VVV *******
 var path = require("path");
-
 
 // Require Directories
 // =============================================================
