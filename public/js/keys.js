@@ -1,6 +1,6 @@
-console.log('this is loaded');
+console.log('Keys loaded');
 
 exports.mapbox = {
-  secret_key: process.env.TOKEN
+  public_key: process.env.PUBLIC_TOKEN
  
 };
