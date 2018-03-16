@@ -1,46 +1,30 @@
 // *******************************************************************
 // Node/Express Server
-// 
-// Dookmarriot was here
-// 
 // *******************************************************************
-// Get env file
-require("dotenv").config();
+
 // Dependencies
+require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 var handleBars = require("express-handlebars");
 
-
-
-// Require Directories
-var apiRoutes = require('./routes/issue-api-routes');
-var db = require("./models");
-
-
-// Express server
+// Set up Express including bodyParser and Handlebars
 var app = express();
 var PORT = process.env.PORT || 3000;
 app.use(express.static("public"));
-
-
-// bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
-
-// Handlebars
 app.engine("handlebars", handleBars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+// Route Handling
+var htmlRouter = require("./routes/htmlRoutes");
+app.use(htmlRouter);
+// var apiRoutes = require('./routes/issue-api-routes');
 
-// **********RENAME THESE AS NECESSARY VVV ********************
-
-// Call Routes
-require("./routes/issue-api-routes")(app);
-// require("./routes/apiRoutes")(app);
-// require("./routes/htmlRoutes")(app);
+// Database
+var db = require("./models");
 
 // Listen
 app.listen(PORT, function() {
