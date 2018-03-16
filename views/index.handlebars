@@ -1,0 +1,66 @@
+<div class="header">
+  <h1>SPIFFY</h1>
+  <p>It's your city. Make it Spiffy.</p>
+</div>
+<div class="container">
+  <h2>Take a Look at Our Current Projects</h1>
+  <div class="row">
+    <div class="map six columns">
+      <img src="images/city_map.jpg">
+    </div>
+    <div class="issues six columns">
+      <div class="issue">
+        {{#each issue}}
+        <span class="issue-title">{{this.title}}</span>
+        <span class="issue-type"><u>Category:</u>{{this.tags}}</span>
+        <span class="issue-location"><u>Location:</u><!--figure out how to use latitude and longitude to get--></span>
+        <span class="issue-status"><u>Staus:</u> </span><span class="open">{{this.status}}</span>
+        <span class="issue-votes"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</span>
+        {{/each}}
+      </div>
+      <a href="#">View All </a>|<a href="#">View Your Issues</a>
+    </div>
+  </div>
+</div>
+<div class="interstitial form-title">
+  <h1>NEW PROJECT</h1>
+</div>
+<h2>Have an project in your neighborhood? Tell us about it!</h2>
+<div class="container">
+  <form class="new-issue-form">
+    <div class="row">
+      <div class="six columns">
+        <label for="user-project-name">Project Name: </label>
+        <input class="u-full-width" type="text" placeholder="Litter in the park, etc." id="userProjectName">
+      </div>
+      <div class="six columns">
+        <label for="user-project-type">Project Type: </label>
+        <select class="u-full-width" id="userProjectType">
+          <option value="Clean Up">Clean Up</option>
+          <option value="Paint">Paint</option>
+          <option value="Plant">Plant</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="user-location">Location: </label>
+        <input class="u-full-width" type="text" placeholder="Dupont Circle, 1225 19th St NW.">
+      </div>
+      <div class="six columns u-full-width">
+        <label for="userImg">Upload an Image: </label>
+        <input type="file" accept="image/*" id="userImg">
+      </div>
+    </div>
+    <button type="submit" class="u-full-width" id="submit-new-issue">Submit</button>
+  </form>
+</div>
+<div class="interstitial contact-social-media">
+  <h1>CONTACT US</h1>
+</div>
+<div class="container">
+  <div class="twitter-feed six columns">
+    <h2>Twitter Feed</h2>
+  </div>
+</div>
+<div class="footer"></div>
