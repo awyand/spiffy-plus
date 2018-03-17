@@ -20,6 +20,7 @@ module.exports = function(app) {
           res.render("index", allProjectData);
         });
     });
+    
     app.post("/api/issues", function(req, res) {
       db.Issue.create(req.body).then(function(dbIssue) {
         res.json(dbIssue);
