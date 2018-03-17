@@ -1,15 +1,16 @@
-
-html, body {
+html,
+body {
   font-family: Helvetica;
   font-weight: 100;
   text-align: center;
 }
 /* Headers and Interstitials */
-.header, .interstitial {
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.30),
-      rgba(0, 0, 0, 0.30)
-    ), url("../images/interstitial.jpg");
+
+.header,
+.interstitial {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../images/interstitial.jpg");
+
   height: 40vh;
   background-attachment: fixed;
   background-position: center;
@@ -27,7 +28,7 @@ html, body {
   color: white;
   font-size: 27vh;
   margin: 0;
-  text-shadow: 0px 0px 10px rgba(0,0,0,1);
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 
 .header p {
@@ -42,9 +43,30 @@ html, body {
 }
 
 /* Map */
-.map img{
-  width: 100%;
+
+.row.map-container {
+  display: grid;
+  grid-template-columns: 60% 40% 1fr;
+  grid-column-gap: 10px;
 }
+/* .map img{
+  height: 100vh;
+} */
+
+#map {
+  width: 0;
+  height: 500px;
+  overflow: visible;
+}
+
+.marker {
+  background-image: url("mapbox-icon.png");
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+
 
 /*Issue List */
 .issues {
@@ -74,7 +96,8 @@ html, body {
   display: block;
 }
 
-.issue-votes, .issue-status {
+.issue-votes,
+.issue-status {
   display: block;
 }
 

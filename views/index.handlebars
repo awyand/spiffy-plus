@@ -4,11 +4,12 @@
 </div>
 <div class="container">
   <h2>Take a Look at Our Current Projects</h1>
-  <div class="row">
-    <div class="map six columns">
-      <img src="images/city_map.jpg">
-    </div>
-    <div class="issues six columns">
+  <div class="row map-container">
+    {{!-- <div class="map six columns"> --}}
+      <div id='map'></div>
+      {{!-- <img src="images/city_map.jpg"> --}}
+    {{!-- </div> --}}
+    <div class="issues ">
       <div class="issue">
         {{#each issue}}
         <span class="issue-title">{{this.title}}</span>
