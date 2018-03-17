@@ -16,10 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     lon: {
       type: DataTypes.DECIMAL(10,6)
     },
-    upvotes:{
-      type: DataTypes.INTEGER
-    },
-    downvotes:{
+    score:{
       type: DataTypes.INTEGER
     },
     projectType: {
