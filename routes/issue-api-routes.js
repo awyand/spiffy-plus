@@ -26,4 +26,17 @@ module.exports = function(app) {
         res.json(dbIssue);
       });
     });
+
+    app.get("/api/issues/:user", function(req, res){
+      db.Issue.findAll({
+        where: {
+          user: req.params.user
+        }
+      }).then(function(dbIssue){
+        var userProjectData = {
+          issue: dbIssue
+        };
+        res.json(userProjectData);
+      });
+    });
 }
