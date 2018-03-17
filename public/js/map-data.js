@@ -43,13 +43,13 @@ client.geocodeForward(location, function(err, data, res) {
   }
 });
 
-function UserMapPoint(projectName, projectLocation, projectType, lat, lng ){
-    this.project_name = projectName;
-    this.project_location = projectLocation;
-    this.project_type = projectType;
-    this.lat = lat;
-    this.lng = lng;
-}
+  function UserMapPoint(projectName, projectLocation, projectType, lat, lng ){
+        this.project_name = projectName;
+        this.project_location = projectLocation;
+        this.project_type = projectType;
+        this.lat = lat;
+        this.lng = lng;
+    }
 
 // geojason conversion
 // var locationData = [
