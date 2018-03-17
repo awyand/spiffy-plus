@@ -41,8 +41,29 @@ html, body {
 }
 
 /* Map */
-.map img{
+
+.row.map-container {
+  display: grid;
+  grid-template-columns: 60% 40% 1fr;
+  grid-column-gap: 10px;
+}
+/* .map img{
   height: 100vh;
+} */
+
+#map {
+  width: 0;
+  height: 500px;
+  overflow: visible;
+}
+
+.marker {
+  background-image: url('mapbox-icon.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /*Issue List */
