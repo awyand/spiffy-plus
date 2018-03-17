@@ -44,6 +44,7 @@ $(document).ready(function() {
       }).then(function(cloudinaryRes) {
         // Call sendTweet function and pass image url
         sendTweet(cloudinaryRes.url);
+        postNewProject(cloudinaryRes.url);
       }).catch(function(cloudinaryErr) {
         // Error handling
         console.error(cloudinaryErr);
@@ -69,4 +70,21 @@ function sendTweet(imageUrl) {
       console.log(reply);
     }
   );
+}
+
+function postNewProject(imgUrl){
+  var newProject = {
+    title: $("#userProjectName").val().trim(),
+    location: $("#user-location").val().trim(),
+    projectType:$("#userProjectType").val().trim(),
+    imglocation: imgUrl
+  }
+  console.log(newProject);
+  $.ajax("/api/issues", {
+    data: newProject,
+    type: "POST"
+  }).then(function(){
+    console.log("new project added");
+    location.reload();
+  })
 }

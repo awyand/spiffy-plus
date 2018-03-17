@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-body {
-  color: red;
-=======
+
 html, body {
   font-family: Helvetica;
   font-weight: 100;
@@ -79,9 +76,12 @@ html, body {
   padding-left: 10px;
 }
 
+.issue-img {
+  height: 100px;
+}
+
 /*Form */
 
 form {
   text-align: left;
->>>>>>> e3786adce81ec183e1b63ee27144a0fd05b3e5ce
 }

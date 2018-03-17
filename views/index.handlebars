@@ -12,10 +12,11 @@
       <div class="issue">
         {{#each issue}}
         <span class="issue-title">{{this.title}}</span>
-        <span class="issue-type"><u>Category:</u>{{this.tags}}</span>
-        <span class="issue-location"><u>Location:</u><!--figure out how to use latitude and longitude to get--></span>
+        <span class="issue-type"><u>Category:</u>{{this.projectType}}</span>
+        <span class="issue-location"><u>Location:</u>{{this.location}}</span>
         <span class="issue-status"><u>Staus:</u> </span><span class="open">{{this.status}}</span>
         <span class="issue-votes"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</span>
+        <img class="issue-img" src={{this.imglocation}}>
         {{/each}}
       </div>
       <a href="#">View All </a>|<a href="#">View Your Issues</a>
@@ -45,7 +46,7 @@
     <div class="row">
       <div class="six columns">
         <label for="user-location">Location: </label>
-        <input class="u-full-width" type="text" placeholder="Dupont Circle, 1225 19th St NW.">
+        <input class="u-full-width" id="user-location" type="text" placeholder="Dupont Circle, 1225 19th St NW.">
       </div>
       <div class="six columns u-full-width">
         <label for="userImg">Upload an Image: </label>

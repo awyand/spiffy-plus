@@ -7,13 +7,14 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    location: {
+      type: DataTypes.STRING
+    },
     lat:{
-      type: DataTypes.DECIMAL(10,6),
-      allowNull: false
+      type: DataTypes.DECIMAL(10,6)
     },
     lon: {
-      type: DataTypes.DECIMAL(10,6),
-      allowNull: false
+      type: DataTypes.DECIMAL(10,6)
     },
     upvotes:{
       type: DataTypes.INTEGER
@@ -21,13 +22,12 @@ module.exports = function(sequelize, DataTypes) {
     downvotes:{
       type: DataTypes.INTEGER
     },
-    tags: {
+    projectType: {
       type: DataTypes.TEXT,
-      defaultValue: "Cleanup"
+      defaultValue: "Clean Up"
     },
     user: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.TEXT
     },
     status: {
       type: DataTypes.TEXT,
