@@ -6,6 +6,8 @@ $(document).ready(function() {
   // Cloudinary Variables
   var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/spiffy-plus/upload";
   var CLOUDINARY_UPLOAD_PRESET = "prdda0cv";
+  // Default image (i.e. for when user doesn't upload an image)
+  var SPIFFY_LOGO_URL = "http://res.cloudinary.com/spiffy-plus/image/upload/v1521299063/spiffy-temp-logo.png";
 
   // Variables for uploading images from form
   // These have to be global since we're separating the Choose File button from the upload action
@@ -32,8 +34,12 @@ $(document).ready(function() {
     // Prevent default
     e.preventDefault();
 
-    // If imageToUpload and formData have data
-    if (imageToUpload && formData) {
+    // If no image is provided
+    if (!imageToUpload) {
+      // Call sendTweet with default image
+      sendTweet(SPIFFY_LOGO_URL);
+    } else {
+      // Otherwise the user uploaded an image
       // Make an AJAX POST request to Cloudinary
       $.ajax({
         url: CLOUDINARY_URL,
@@ -57,9 +63,13 @@ function sendTweet(imageUrl) {
   var cb = new Codebird();
   cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
   cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
+  // Grab pertinent information from form
+  var tweetTitle = $("#userProjectName").val().trim();
+  var tweetLocation = $("#user-location").val().trim();
+  var tweetType = $("#userProjectType").val().trim().toLowerCase();
   // Create message
   var params = {
-    status: `We just received a new request! Check it out: ${imageUrl}`
+    status: `We just received a new ${tweetType} request! Here's the info:\nTitle: ${tweetTitle}\nLocation: ${tweetLocation}\nImage: ${imageUrl}`
   };
   // Post message
   cb.__call("statuses_update", params, function(reply, rate, err) {
