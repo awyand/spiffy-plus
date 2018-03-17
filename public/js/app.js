@@ -47,6 +47,7 @@ $(document).ready(function() {
         type: "POST",
         contentType: false,
         processData: false
+
       }).then(function(cloudinaryRes) {
         // Call sendTweet function and pass image url
         sendTweet(cloudinaryRes.url);
@@ -61,21 +62,26 @@ $(document).ready(function() {
 function sendTweet(imageUrl) {
   // Set up Codebird
   var cb = new Codebird();
+
   cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
   cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
   // Grab pertinent information from form
+
   var tweetInfo = {
     title: $("#userProjectName").val().trim(),
     location: $("#user-location").val().trim(),
     type: $("#userProjectType").val().trim().toLowerCase(),
     username: $("#user-name").val().trim()
   };
+
   // Create message
   var params = {
     status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}`
   };
   // Post message
   cb.__call("statuses_update", params, function(reply, rate, err) {
+
+
       // call postNewProject and pass imageUrl and tweetUrl as args
       postNewProject(imageUrl, reply.id_str);
     });
@@ -90,14 +96,17 @@ function postNewProject(imgUrl, twitterUrl){
     user: $("#user-name").val().trim(),
     tweetURL: twitterUrl
   }
+
   console.log(newProject);
   $.ajax("/api/issues", {
     data: newProject,
     type: "POST"
-  }).then(function(){
+  }).then(function() {
     console.log("new project added");
+    
     // location.reload();
   })
+
 }
 
 /*Modal Open and Close*/
