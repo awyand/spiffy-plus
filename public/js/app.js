@@ -17,9 +17,10 @@ $(document).ready(function() {
   ////////////////////////////
 
   // When the user selects an image using the Choose File button (triggers a change)
-  $("#file-upload").on("change", function() {
+  $("#userImg").on("change", function() {
     // Store the file object in imageToUpload
     imageToUpload = $(this)[0].files[0];
+
     // Construct FormData object
     formData = new FormData();
     formData.append("file", imageToUpload);
@@ -27,7 +28,10 @@ $(document).ready(function() {
   });
 
   // When the user clicks the upload button
-  $("#file-upload-button").on("click", function() {
+  $("#submit-new-issue").on("click", function(e) {
+    // Prevent default
+    e.preventDefault();
+
     // If imageToUpload and formData have data
     if (imageToUpload && formData) {
       // Make an AJAX POST request to Cloudinary
@@ -38,9 +42,8 @@ $(document).ready(function() {
         contentType: false,
         processData: false
       }).then(function(cloudinaryRes) {
-        // Currently just logging the image's new URL to console
-        console.log(cloudinaryRes.url);
-        // And then
+        // Call sendTweet function and pass image url
+        sendTweet(cloudinaryRes.url);
       }).catch(function(cloudinaryErr) {
         // Error handling
         console.error(cloudinaryErr);
@@ -48,3 +51,22 @@ $(document).ready(function() {
     }
   });
 });
+
+function sendTweet(imageUrl) {
+  // Set up Codebird
+  var cb = new Codebird();
+  cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
+  cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
+  // Create message
+  var params = {
+    status: `We just received a new request! Check it out: ${imageUrl}`
+  };
+  // Post message
+  cb.__call(
+    "statuses_update",
+    params,
+    function(reply, rate, err) {
+      console.log(reply);
+    }
+  );
+}
