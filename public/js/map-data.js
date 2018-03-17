@@ -31,9 +31,11 @@ client.geocodeForward(location, function(err, data, res) {
   passedLocation = data.features[1];
 
     console.log(locationPoints.features);
- 
 
-  // Create an function to push each entered address to the array
+
+    // Create an function to push each entered address to the array
+
+    //  Create constuctor with data to plug into variable to be converted to geojson
 
 
   if (err) {
@@ -41,12 +43,20 @@ client.geocodeForward(location, function(err, data, res) {
   }
 });
 
+function UserMapPoint(projectName, projectLocation, projectType, lat, lng ){
+    this.project_name = projectName;
+    this.project_location = projectLocation;
+    this.project_type = projectType;
+    this.lat = lat;
+    this.lng = lng;
+}
+
 // geojason conversion
-var locationData = [
-    { name: 'Location A', category: 'Store', street: 'Market', lat: 39.984, lng: -75.343 },
-    { name: 'Location B', category: 'House', street: 'Broad', lat: 39.284, lng: -75.833 },
-    { name: 'Location C', category: 'Office', street: 'South', lat: 39.123, lng: -74.534 }
-  ];
+// var locationData = [
+//     { name: 'Location A', category: 'Store', street: 'Market', lat: 39.984, lng: -75.343 },
+//     { name: 'Location B', category: 'House', street: 'Broad', lat: 39.284, lng: -75.833 },
+//     { name: 'Location C', category: 'Office', street: 'South', lat: 39.123, lng: -74.534 }
+//   ];
 
 
-  GeoJSON.parse(locationData, {Point: ['lat', 'lng']});
+//   GeoJSON.parse(locationData, {Point: ['lat', 'lng']});
