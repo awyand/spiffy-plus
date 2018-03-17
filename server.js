@@ -26,7 +26,9 @@ app.use(htmlRouter);
 // Database
 var db = require("./models");
 
-// Listen
-app.listen(PORT, function() {
+// Sync sequelize models and start up app
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
+  });
 });
