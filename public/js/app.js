@@ -59,56 +59,90 @@ $(document).ready(function() {
   });
 });
 
-function sendTweet(imageUrl) {
-  // Set up Codebird
-  var cb = new Codebird();
-
-  cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
-  cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
-  // Grab pertinent information from form
-
-  var tweetInfo = {
-    title: $("#userProjectName").val().trim(),
-    location: $("#user-location").val().trim(),
-    type: $("#userProjectType").val().trim().toLowerCase(),
-    username: $("#user-name").val().trim()
-  };
-
-  // Create message
-  var params = {
-    status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}`
-  };
-  // Post message
-  cb.__call("statuses_update", params, function(reply, rate, err) {
-
-
-      // call postNewProject and pass imageUrl and tweetUrl as args
-      postNewProject(imageUrl, reply.id_str);
-    });
-}
-
-function postNewProject(imgUrl, twitterUrl){
-  var newProject = {
-    title: $("#userProjectName").val().trim(),
-    location: $("#user-location").val().trim(),
-    projectType:$("#userProjectType").val().trim(),
-    imglocation: imgUrl,
-    user: $("#user-name").val().trim(),
-    tweetURL: twitterUrl,
-    userName: userName,
-    userEmail: userEmail
+// When user clicks upvote or downvote button
+$(".vote-btn").on("click", function() {
+  // Set type of vote
+  var voteType;
+  if($(this).hasClass("upvote-btn")) {
+    voteType = "up";
+  } else if ($(this).hasClass("downvote-btn")) {
+    voteType = "down";
   }
 
-  console.log(newProject);
-  $.ajax("/api/issues", {
-    data: newProject,
-    type: "POST"
-  }).then(function() {
-    console.log("new project added");
-    location.reload();
-  })
+  // Set API route based on ID
+  var apiRoute = `/api/issues/${$(this).attr("data-id")}`;
 
-}
+  // AJAX request to get current score and perform appropriate PUT request based on voteType
+  // i.e. either increment or decrement current score
+  $.ajax(apiRoute, {
+    type: "GET"
+  }).then(function(res) {
+    var newScore;
+    // if voteType is up
+    if (voteType === "up") {
+      newScore = res.score + 1;
+    } else if (voteType === "down") {
+      newScore = res.score - 1;
+    }
+    // AJAX PUT request to update score
+    $.ajax(apiRoute, {
+      data: {
+        score: newScore
+      },
+      type: "PUT"
+    }).then(function(updateResponse) {
+      // Set element with class issue-score and matching data-id to score from response
+      $(`.issue-score[data-id="${updateResponse.id}"]`).text(updateResponse.score);
+    });
+  });
+});
+
+
+  function sendTweet(imageUrl) {
+    // Set up Codebird
+    var cb = new Codebird();
+
+    cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
+    cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
+    // Grab pertinent information from form
+
+    var tweetInfo = {
+      title: $("#userProjectName").val().trim(),
+      location: $("#user-location").val().trim(),
+      type: $("#userProjectType").val().trim().toLowerCase(),
+      username: $("#user-name").val().trim()
+    };
+
+    // Create message
+    var params = {
+      status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}`
+    };
+    // Post message
+    cb.__call("statuses_update", params, function(reply, rate, err) {
+        // call postNewProject and pass imageUrl and tweetUrl as args
+        postNewProject(imageUrl, reply.id_str);
+      });
+  }
+
+  function postNewProject(imgUrl, twitterUrl){
+    var newProject = {
+      title: $("#userProjectName").val().trim(),
+      location: $("#user-location").val().trim(),
+      projectType:$("#userProjectType").val().trim(),
+      imglocation: imgUrl,
+      user: $("#user-name").val().trim(),
+      tweetURL: twitterUrl,
+      score: 0,
+      userName: userName,
+      userEmail: userEmail
+    }
+
+    console.log(newProject);
+    $.ajax("/api/issues", {
+      data: newProject,
+      type: "POST"
+    }).then(function() {
+      console.log("new project added");
 
 $("#viewOne").on("click", function(){
   var user = "hillary";

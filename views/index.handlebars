@@ -16,12 +16,18 @@
         {{#each issue}}
         <p class="issue-title">{{this.title}}</p>
         <p class="issue-type">CATEGORY: {{this.projectType}}</p>
-        <p class="issue-location issue-item">LOCATION: {{this.location}}</p>
-        <p class="issue-status issue-item">STATUS: </span><span class="open">{{this.status}}</p>
-        <p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</p>
-        <img class="issue-img issue-item" src={{this.imglocation}}>
+        <p class="issue-location">LOCATION: {{this.location}}</p>
+        <p class="issue-status">STATUS: </span><span class="open">{{this.status}}</p>
+        <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
+        <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
+        <p class="issue-score" data-id={{this.id}}>{{this.score}}</p>
+        </div>
+        <div class="six columns">
+        <img class="issue-img" src={{this.imglocation}} style="height: 200px">
+        </div>
         <button type="button" class="close">Close &times;</button>
         {{/each}}
+      </div>
       </div>
     </div>
   </div>
