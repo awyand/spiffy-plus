@@ -74,6 +74,7 @@ function postNewProject(imgUrl, twitterUrl){
     location: $("#user-location").val().trim(),
     projectType:$("#userProjectType").val().trim(),
     imglocation: imgUrl,
+    user: $("#user-name").val().trim()
     tweetURL: twitterUrl
   }
   console.log(newProject);
@@ -85,3 +86,14 @@ function postNewProject(imgUrl, twitterUrl){
     // location.reload();
   })
 }
+
+/*Modal Open and Close*/
+/*Open modal*/
+$(document).on('click', '.issue', function() {
+  $(this).next("div").show(200);
+});
+/*close modal*/
+$(document).on('click', '.close', function(){
+  console.log("close button clicked");
+  $('.modal').hide(200);
+})
