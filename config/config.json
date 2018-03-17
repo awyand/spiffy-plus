@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "NEWPASS",
+    "password": null,
     "database": "spiffy",
     "host": "127.0.0.1",
     "dialect": "mysql"
