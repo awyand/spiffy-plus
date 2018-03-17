@@ -84,7 +84,7 @@ function postNewProject(imgUrl, twitterUrl){
     location: $("#user-location").val().trim(),
     projectType:$("#userProjectType").val().trim(),
     imglocation: imgUrl,
-    user: $("#user-name").val().trim()
+    user: $("#user-name").val().trim(),
     tweetURL: twitterUrl
   }
   console.log(newProject);
@@ -93,9 +93,18 @@ function postNewProject(imgUrl, twitterUrl){
     type: "POST"
   }).then(function(){
     console.log("new project added");
-    // location.reload();
+    location.reload();
   })
 }
+
+// function getUserProjects
+//When user selects "view my issues"
+$("#viewOneUser").on("click", function(){
+  var user = "hillary";
+  $.get("/api/issues/" + user, function(data) {
+      console.log("Posts", data);
+    });
+});
 
 /*Modal Open and Close*/
 /*Open modal*/
