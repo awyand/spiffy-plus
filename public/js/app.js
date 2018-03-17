@@ -44,7 +44,6 @@ $(document).ready(function() {
       }).then(function(cloudinaryRes) {
         // Call sendTweet function and pass image url
         sendTweet(cloudinaryRes.url);
-        postNewProject(cloudinaryRes.url);
       }).catch(function(cloudinaryErr) {
         // Error handling
         console.error(cloudinaryErr);
@@ -63,21 +62,19 @@ function sendTweet(imageUrl) {
     status: `We just received a new request! Check it out: ${imageUrl}`
   };
   // Post message
-  cb.__call(
-    "statuses_update",
-    params,
-    function(reply, rate, err) {
-      console.log(reply);
-    }
-  );
+  cb.__call("statuses_update", params, function(reply, rate, err) {
+      // call postNewProject and pass imageUrl and tweetUrl as args
+      postNewProject(imageUrl, reply.id_str);
+    });
 }
 
-function postNewProject(imgUrl){
+function postNewProject(imgUrl, twitterUrl){
   var newProject = {
     title: $("#userProjectName").val().trim(),
     location: $("#user-location").val().trim(),
     projectType:$("#userProjectType").val().trim(),
-    imglocation: imgUrl
+    imglocation: imgUrl,
+    tweetURL: twitterUrl
   }
   console.log(newProject);
   $.ajax("/api/issues", {
@@ -85,6 +82,6 @@ function postNewProject(imgUrl){
     type: "POST"
   }).then(function(){
     console.log("new project added");
-    location.reload();
+    // location.reload();
   })
 }
