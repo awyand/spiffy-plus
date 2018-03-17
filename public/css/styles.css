@@ -1,15 +1,14 @@
-
-html, body {
+html,
+body {
   font-family: Helvetica;
   font-weight: 100;
   text-align: center;
 }
 /* Headers and Interstitials */
-.header, .interstitial {
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.45),
-      rgba(0, 0, 0, 0.45)
-    ), url("../images/interstitial.jpg");
+.header,
+.interstitial {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../images/interstitial.jpg");
   height: 40vh;
   background-attachment: fixed;
   background-position: center;
@@ -27,7 +26,7 @@ html, body {
   color: white;
   font-size: 15rem;
   margin: 0;
-  text-shadow: 0px 0px 10px rgba(0,0,0,1);
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 
 .header p {
@@ -58,7 +57,7 @@ html, body {
 }
 
 .marker {
-  background-image: url('mapbox-icon.png');
+  background-image: url("mapbox-icon.png");
   background-size: cover;
   width: 50px;
   height: 50px;
@@ -85,7 +84,8 @@ html, body {
   display: block;
 }
 
-.issue-votes, .issue-status {
+.issue-votes,
+.issue-status {
   display: block;
 }
 
