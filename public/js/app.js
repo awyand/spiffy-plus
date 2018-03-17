@@ -108,6 +108,31 @@ function postNewProject(imgUrl, twitterUrl){
 
 }
 
+$("#viewOne").on("click", function(){
+  var user = "hillary";
+  $(".issue").empty();
+  $.ajax("/api/issues/" + user, {
+    type: "GET"
+  }).then(function(data) {
+    console.log(data);
+    console.log(data.issue[0].title);
+    console.log(data.issue.length);
+    for(i=0; i < data.issue.length; i++){
+      var newIssueDiv = $('<div class="issue">').html(
+        '<p class="issue-title">' + data.issue[i].title
+        +'</p><p class="issue-type">CATEGORY: ' + data.issue[i].projectType
+        +'</p><p class="issue-location issue-item">LOCATION: '+ data.issue[i].projectType
+        +'</p><p class="issue-status issue-item">STATUS: </span><span class="open">' + data.issue[i].status
+        +'</p><p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>'+data.issue[i].upvotes
+        +'<i class="far fa-thumbs-down"></i>'+data.issue[i].downvotes
+        +'</p><img class="issue-img issue-item" src='+data.issue[i].imglocation
+        +'<button type="button" class="close">Close &times;</button>'
+      );
+      $(".issues").append(newIssueDiv); 
+    }
+  })
+})
+
 /*Modal Open and Close*/
 /*Open modal*/
 $(document).on('click', '.issue', function() {

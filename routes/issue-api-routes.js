@@ -25,7 +25,7 @@ module.exports = function(app) {
         res.json(dbIssue);
       });
     });
-    
+
     app.get("/api/issues/:user", function(req, res){
       db.Issue.findAll({
         where: {
@@ -35,7 +35,7 @@ module.exports = function(app) {
         var userProjectData = {
           issue: dbIssue
         };
-        res.render("index", userProjectData);
-      })
-    })
+        res.json(userProjectData);
+      });
+    });
 }
