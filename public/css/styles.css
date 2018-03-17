@@ -1,15 +1,16 @@
-
-html, body {
+html,
+body {
   font-family: Helvetica;
   font-weight: 100;
   text-align: center;
 }
 /* Headers and Interstitials */
-.header, .interstitial {
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.45),
-      rgba(0, 0, 0, 0.45)
-    ), url("../images/interstitial.jpg");
+
+.header,
+.interstitial {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../images/interstitial.jpg");
+
   height: 40vh;
   background-attachment: fixed;
   background-position: center;
@@ -25,9 +26,9 @@ html, body {
 
 .header h1 {
   color: white;
-  font-size: 15rem;
+  font-size: 27vh;
   margin: 0;
-  text-shadow: 0px 0px 10px rgba(0,0,0,1);
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 
 .header p {
@@ -38,12 +39,34 @@ html, body {
 .interstitial h1 {
   font-size: 10rem;
   color: white;
+  padding-top: 5vh;
 }
 
 /* Map */
-.map img{
-  height: 100vh;
+
+.row.map-container {
+  display: grid;
+  grid-template-columns: 60% 1fr;
+  grid-column-gap: 10px;
 }
+/* .map img{
+  height: 100vh;
+} */
+
+#map {
+  width: 0;
+  height: 500px;
+  overflow: visible;
+}
+
+.marker {
+  background-image: url("mapbox-icon.png");
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+
 
 /*Issue List */
 .issues {
@@ -58,30 +81,64 @@ html, body {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+.issue:hover {
+  background: #cccccc;
+}
+
+.issue-description p {
+  font-size: 1.5em;
+  text-align: left;
+}
+
 .issue-title {
   padding: 2px;
   font-size: 1.5em;
   display: block;
 }
 
-.issue-votes, .issue-status {
+.issue-votes,
+.issue-status {
   display: block;
 }
 
-.issue-status {
-  display: inline-block;
-}
-
-.issue span {
+.far {
   padding-left: 10px;
 }
 
 .issue-img {
-  height: 100px;
+  width: 100%;
 }
 
 /*Form */
 
 form {
   text-align: left;
+}
+
+/*MODAL*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.issue-description {
+  background-color: #fefefe;
+   margin: 15% auto; /* 15% from the top and centered */
+   padding: 20px;
+   border: 1px solid #888;
+   width: 60%;
+   border-radius: 5px;
+}
+
+.close {
+  display: block;
+  margin: 0 auto;
 }
