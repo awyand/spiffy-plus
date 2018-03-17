@@ -41,14 +41,16 @@ $(document).ready(function() {
         type: "POST",
         contentType: false,
         processData: false
-      }).then(function(cloudinaryRes) {
-        // Call sendTweet function and pass image url
-        sendTweet(cloudinaryRes.url);
-        postNewProject(cloudinaryRes.url);
-      }).catch(function(cloudinaryErr) {
-        // Error handling
-        console.error(cloudinaryErr);
-      });
+      })
+        .then(function(cloudinaryRes) {
+          // Call sendTweet function and pass image url
+          sendTweet(cloudinaryRes.url);
+          postNewProject(cloudinaryRes.url);
+        })
+        .catch(function(cloudinaryErr) {
+          // Error handling
+          console.error(cloudinaryErr);
+        });
     }
   });
 });
@@ -56,35 +58,43 @@ $(document).ready(function() {
 function sendTweet(imageUrl) {
   // Set up Codebird
   var cb = new Codebird();
-  cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
-  cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
+  cb.setConsumerKey(
+    "fBm9xMcWCrSIzi4sjqC9mCI9T",
+    "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg"
+  );
+  cb.setToken(
+    "973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu",
+    "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu"
+  );
   // Create message
   var params = {
     status: `We just received a new request! Check it out: ${imageUrl}`
   };
   // Post message
-  cb.__call(
-    "statuses_update",
-    params,
-    function(reply, rate, err) {
-      console.log(reply);
-    }
-  );
+  cb.__call("statuses_update", params, function(reply, rate, err) {
+    console.log(reply);
+  });
 }
 
-function postNewProject(imgUrl){
+function postNewProject(imgUrl) {
   var newProject = {
-    title: $("#userProjectName").val().trim(),
-    location: $("#user-location").val().trim(),
-    projectType:$("#userProjectType").val().trim(),
+    title: $("#userProjectName")
+      .val()
+      .trim(),
+    location: $("#user-location")
+      .val()
+      .trim(),
+    projectType: $("#userProjectType")
+      .val()
+      .trim(),
     imglocation: imgUrl
-  }
+  };
   console.log(newProject);
   $.ajax("/api/issues", {
     data: newProject,
     type: "POST"
-  }).then(function(){
+  }).then(function() {
     console.log("new project added");
     location.reload();
-  })
+  });
 }
