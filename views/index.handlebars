@@ -1,5 +1,5 @@
 <div class="header">
-  <h1>SPIFFY</h1>
+  <h1 id="signIn">SPIFFY</h1>
   <p>It's your city. Make it Spiffy.</p>
 </div>
 <div class="container">
@@ -10,29 +10,19 @@
       {{!-- <img src="images/city_map.jpg"> --}}
     {{!-- </div> --}}
     <div class="issues">
-      <a href="#">View All </a>|<a href="#">View Your Issues</a>
+
+      <button id="viewAll">View All </button><button id="viewOne">View Your Issues</button>
       <div class="issue">
         {{#each issue}}
-        </div>
-        <span class="issue-title">{{this.title}}</span>
-      </div>
-      <div class="modal">
-      <div class="issue-description row">
-        <div class="six columns">
         <p class="issue-title">{{this.title}}</p>
         <p class="issue-type">CATEGORY: {{this.projectType}}</p>
-        <p class="issue-location">LOCATION: {{this.location}}</p>
-        <p class="issue-status">STATUS: </span><span class="open">{{this.status}}</p>
-        <p class="issue-votes"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</p>
-        </div>
-        <div class="six columns">
-        <img class="issue-img" src={{this.imglocation}}>
-        </div>
+        <p class="issue-location issue-item">LOCATION: {{this.location}}</p>
+        <p class="issue-status issue-item">STATUS: </span><span class="open">{{this.status}}</p>
+        <p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</p>
+        <img class="issue-img issue-item" src={{this.imglocation}}>
         <button type="button" class="close">Close &times;</button>
         {{/each}}
       </div>
-      </div>
-      
     </div>
   </div>
 </div>
@@ -42,12 +32,6 @@
 <h2>Have an project in your neighborhood? Tell us about it!</h2>
 <div class="container">
   <form class="new-issue-form">
-    <div class="row">
-      <div class="twelve columns">
-        <label for="user-name">Name: </label>
-        <input class="u-full-width" id="user-name" type="text">
-      </div>
-    </div>
     <div class="row">
       <div class="six columns">
         <label for="user-project-name">Project Name: </label>
@@ -87,3 +71,5 @@
   </div>
 </div>
 <div class="footer"></div>
+<div id="my-signin2"></div>
+<a href="#" onclick="signOut();">Sign out</a>

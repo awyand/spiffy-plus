@@ -20,9 +20,23 @@ module.exports = function(app) {
           res.render("index", allProjectData);
         });
     });
+    
     app.post("/api/issues", function(req, res) {
       db.Issue.create(req.body).then(function(dbIssue) {
         res.json(dbIssue);
+      });
+    });
+
+    app.get("/api/issues/:user", function(req, res){
+      db.Issue.findAll({
+        where: {
+          user: req.params.user
+        }
+      }).then(function(dbIssue){
+        var userProjectData = {
+          issue: dbIssue
+        };
+        res.json(userProjectData);
       });
     });
 }
