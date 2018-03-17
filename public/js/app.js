@@ -94,7 +94,9 @@ function postNewProject(imgUrl, twitterUrl){
     projectType:$("#userProjectType").val().trim(),
     imglocation: imgUrl,
     user: $("#user-name").val().trim(),
-    tweetURL: twitterUrl
+    tweetURL: twitterUrl,
+    userName: userName,
+    userEmail: userEmail
   }
 
   console.log(newProject);
