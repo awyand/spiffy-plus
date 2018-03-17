@@ -19,9 +19,6 @@ app.engine("handlebars", handleBars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // // Route Handling
-// var htmlRouter = require("./routes/htmlRoutes");
-// app.use(htmlRouter);
-// require("./routes/htmlRoutes.js")(app);
 require("./routes/issue-api-routes.js")(app);
 
 // Database

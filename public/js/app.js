@@ -77,7 +77,8 @@ function postNewProject(imgUrl){
     title: $("#userProjectName").val().trim(),
     location: $("#user-location").val().trim(),
     projectType:$("#userProjectType").val().trim(),
-    imglocation: imgUrl
+    imglocation: imgUrl,
+    user: $("#user-name").val().trim()
   }
   console.log(newProject);
   $.ajax("/api/issues", {
@@ -88,3 +89,14 @@ function postNewProject(imgUrl){
     location.reload();
   })
 }
+
+/*Modal Open and Close*/
+/*Open modal*/
+$(document).on('click', '.issue', function() {
+  $(this).next("div").show(200);
+});
+/*close modal*/
+$(document).on('click', '.close', function(){
+  console.log("close button clicked");
+  $('.modal').hide(200);
+})
