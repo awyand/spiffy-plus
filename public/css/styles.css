@@ -46,7 +46,7 @@ body {
 
 .row.map-container {
   display: grid;
-  grid-template-columns: 60% 40% 1fr;
+  grid-template-columns: 60% 1fr;
   grid-column-gap: 10px;
 }
 /* .map img{
