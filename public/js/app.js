@@ -66,13 +66,17 @@ function sendTweet(imageUrl) {
   cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
   cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
   // Grab pertinent information from form
-  var tweetTitle = $("#userProjectName").val().trim();
-  var tweetLocation = $("#user-location").val().trim();
-  var tweetType = $("#userProjectType").val().trim().toLowerCase();
-  
+
+  var tweetInfo = {
+    title: $("#userProjectName").val().trim(),
+    location: $("#user-location").val().trim(),
+    type: $("#userProjectType").val().trim().toLowerCase(),
+    username: $("#user-name").val().trim()
+  };
+
   // Create message
   var params = {
-    status: `We just received a new ${tweetType} request! Here's the info:\nTitle: ${tweetTitle}\nLocation: ${tweetLocation}\nImage: ${imageUrl}`
+    status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}`
   };
   // Post message
   cb.__call("statuses_update", params, function(reply, rate, err) {
@@ -89,7 +93,7 @@ function postNewProject(imgUrl, twitterUrl){
     location: $("#user-location").val().trim(),
     projectType:$("#userProjectType").val().trim(),
     imglocation: imgUrl,
-    user: $("#user-name").val().trim()
+    user: $("#user-name").val().trim(),
     tweetURL: twitterUrl
   }
 
