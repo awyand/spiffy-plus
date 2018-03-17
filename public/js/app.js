@@ -94,7 +94,9 @@ function postNewProject(imgUrl, twitterUrl){
     projectType:$("#userProjectType").val().trim(),
     imglocation: imgUrl,
     user: $("#user-name").val().trim(),
-    tweetURL: twitterUrl
+    tweetURL: twitterUrl,
+    upvotes: 0,
+    downvotes: 0
   }
 
   console.log(newProject);
@@ -103,8 +105,8 @@ function postNewProject(imgUrl, twitterUrl){
     type: "POST"
   }).then(function() {
     console.log("new project added");
-    
-    // location.reload();
+
+    location.reload();
   })
 
 }
