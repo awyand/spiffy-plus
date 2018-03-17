@@ -9,30 +9,19 @@
       <div id='map'></div>
       {{!-- <img src="images/city_map.jpg"> --}}
     {{!-- </div> --}}
-    <div class="issues ">
-      <a href="#">View All </a>|<a href="#">View Your Issues</a>
+    <div class="issues">
+      <button id="viewAll">View All </button><button id="viewOne">View Your Issues</button>
       <div class="issue">
         {{#each issue}}
-        </div>
-        <span class="issue-title">{{this.title}}</span>
-      </div>
-      <div class="modal">
-      <div class="issue-description row">
-        <div class="six columns">
         <p class="issue-title">{{this.title}}</p>
         <p class="issue-type">CATEGORY: {{this.projectType}}</p>
-        <p class="issue-location">LOCATION: {{this.location}}</p>
-        <p class="issue-status">STATUS: </span><span class="open">{{this.status}}</p>
-        <p class="issue-votes"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</p>
-        </div>
-        <div class="six columns">
-        <img class="issue-img" src={{this.imglocation}}>
-        </div>
+        <p class="issue-location issue-item">LOCATION: {{this.location}}</p>
+        <p class="issue-status issue-item">STATUS: </span><span class="open">{{this.status}}</p>
+        <p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</p>
+        <img class="issue-img issue-item" src={{this.imglocation}}>
         <button type="button" class="close">Close &times;</button>
         {{/each}}
       </div>
-      </div>
-      
     </div>
   </div>
 </div>
