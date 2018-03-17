@@ -10,6 +10,20 @@ module.exports = function(sequelize, DataTypes) {
     location: {
       type: DataTypes.STRING
     },
+    userName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        min: 1
+      }
+    },
+    userEmail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        min: 11
+      }
+    },
     lat:{
       type: DataTypes.DECIMAL(10,6)
     },
@@ -22,9 +36,6 @@ module.exports = function(sequelize, DataTypes) {
     projectType: {
       type: DataTypes.TEXT,
       defaultValue: "Clean Up"
-    },
-    user: {
-      type: DataTypes.TEXT
     },
     status: {
       type: DataTypes.TEXT,

@@ -38,6 +38,7 @@ module.exports = function(app) {
       });
     });
 
+
     app.put("/api/issues/:id", function(req, res) {
       db.Issue.update(req.body, {
         where: {
@@ -50,7 +51,18 @@ module.exports = function(app) {
           }
         }).then(function(dbIssue) {
           res.json(dbIssue);
-        })
+        });
+
+    app.get("/api/issues/:user", function(req, res){
+      db.Issue.findAll({
+        where: {
+          user: req.params.user
+        }
+      }).then(function(dbIssue){
+        var userProjectData = {
+          issue: dbIssue
+        };
+        res.json(userProjectData);
       });
     });
 }
