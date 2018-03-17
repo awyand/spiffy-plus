@@ -13,12 +13,22 @@
       <div class="issue">
         {{#each issue}}
         <span class="issue-title">{{this.title}}</span>
-        <span class="issue-type"><u>Category:</u>{{this.projectType}}</span>
-        <span class="issue-location"><u>Location:</u>{{this.location}}</span>
-        <span class="issue-status"><u>Staus:</u> </span><span class="open">{{this.status}}</span>
-        <span class="issue-votes"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</span>
+      </div>
+      <div class="modal">
+      <div class="issue-description row">
+        <div class="six columns">
+        <p class="issue-title">{{this.title}}</p>
+        <p class="issue-type">CATEGORY: {{this.projectType}}</p>
+        <p class="issue-location">LOCATION: {{this.location}}</p>
+        <p class="issue-status">STATUS: </span><span class="open">{{this.status}}</p>
+        <p class="issue-votes"><i class="far fa-thumbs-up"></i>{{this.upvotes}}<i class="far fa-thumbs-down"></i>{{this.downvotes}}</p>
+        </div>
+        <div class="six columns">
         <img class="issue-img" src={{this.imglocation}}>
+        </div>
+        <button type="button" class="close">Close &times;</button>
         {{/each}}
+      </div>
       </div>
       <a href="#">View All </a>|<a href="#">View Your Issues</a>
     </div>
@@ -30,6 +40,12 @@
 <h2>Have an project in your neighborhood? Tell us about it!</h2>
 <div class="container">
   <form class="new-issue-form">
+    <div class="row">
+      <div class="twelve columns">
+        <label for="user-name">Name: </label>
+        <input class="u-full-width" id="user-name" type="text">
+      </div>
+    </div>
     <div class="row">
       <div class="six columns">
         <label for="user-project-name">Project Name: </label>
@@ -61,6 +77,9 @@
   <h1>CONTACT US</h1>
 </div>
 <div class="container">
+  <div class="six columns contact-form">
+    <h2>Contact Form</h2>
+  </div>
   <div class="twitter-feed six columns">
     <h2>Twitter Feed</h2>
   </div>
