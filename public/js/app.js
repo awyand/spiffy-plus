@@ -113,6 +113,7 @@ $(document).ready(function() {
         title: $("#userProjectName").val().trim(),
         location: $("#user-location").val().trim(),
         type: $("#userProjectType").val().trim().toLowerCase(),
+        username: userName
       };
 
       // Create message
@@ -160,9 +161,9 @@ $(document).ready(function() {
     }
 
     $("#viewOne").on("click", function() {
-      var user = "hillary";
+      var userEmail = "hillary";
       $(".issue").empty();
-      $.ajax("/api/issues/" + user, {
+      $.ajax("/api/issues/" + userEmail, {
         type: "GET"
       }).then(function(data) {
         console.log(data);
@@ -172,7 +173,7 @@ $(document).ready(function() {
           var newIssueDiv = $('<div class="issue">').html(
             '<p class="issue-title">' + data.issue[i].title +
             '</p><p class="issue-type">CATEGORY: ' + data.issue[i].projectType +
-            '</p><p class="issue-location issue-item">LOCATION: ' + data.issue[i].projectType +
+            '</p><p class="issue-location issue-item">LOCATION: ' + data.issue[i].location +
             '</p><p class="issue-status issue-item">STATUS: </span><span class="open">' + data.issue[i].status +
             '</p><p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>' + data.issue[i].upvotes +
             '<i class="far fa-thumbs-down"></i>' + data.issue[i].downvotes +

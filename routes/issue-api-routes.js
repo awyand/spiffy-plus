@@ -33,10 +33,10 @@ module.exports = function(app) {
     });
 
     // Get issues by user
-    app.get("/api/issues/:user", function(req, res) {
+    app.get("/api/issues/:userEmail", function(req, res) {
       db.Issue.findAll({
         where: {
-          user: req.params.user
+          userEmail: req.params.userEmail
         }
       }).then(function(dbIssue) {
         var userProjectData = {
