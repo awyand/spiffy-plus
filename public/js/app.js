@@ -186,19 +186,19 @@ $(document).ready(function() {
 
     /*Modal Open and Close*/
     /*Open modal*/
-    $(document).on('click', '.issue', function() {
-      $(this).next("div").show(200);
+    $(document).on('click', '.issue-header', function() {
+      $(this).next("div").fadeIn(200);
     });
     /*close modal*/
     $(document).on('click', '.close', function() {
       console.log("close button clicked");
-      $('.modal').hide(200);
+      $('.modal').fadeOut(200);
     });
 
     // ************************************************************************************************
     // ***************************** GOOGLE AUTHENTICATION ********************************************
     // ************************************************************************************************
-    
+
     // variables where we will store the users info on log in
     var userName = "";
     var userEmail = "";

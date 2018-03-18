@@ -4,78 +4,77 @@
 </div>
 <div class="container">
   <h2>Take a Look at Our Current Projects</h1>
-  <div class="row map-container">
-    {{!-- <div class="map six columns"> --}}
-      <div id='map'></div>
-      {{!-- <img src="images/city_map.jpg"> --}}
-    {{!-- </div> --}}
+  <div class="current-project-info">
+    <div id='map'></div>
     <div class="issues">
-
       <button id="viewAll">View All </button><button id="viewOne">View Your Issues</button>
-      <div class="issue">
-        {{#each issue}}
+      {{#each issue}}
+      <div class="issue issue-header">
         <p class="issue-title">{{this.title}}</p>
-        <p class="issue-type">CATEGORY: {{this.projectType}}</p>
-        <p class="issue-location">LOCATION: {{this.location}}</p>
-        <p class="issue-status">STATUS: </span><span class="open">{{this.status}}</p>
-        <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
-        <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
-        <p class="issue-score" data-id={{this.id}}>{{this.score}}</p>
-        </div>
-        <div class="six columns">
-        <img class="issue-img" src={{this.imglocation}} style="height: 200px">
+      </div>
+      <div class="modal">
+      <div class="issue-body">
+        <div class="issue-title">{{this.title}}</div>
+        <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
+        <div class="issue-details">
+          <p class="issue-type"><u>CATEGORY:</u> {{this.projectType}}</p>
+          <p class="issue-location"><u>LOCATION:</u> {{this.location}}</p>
+          <p class="issue-status"><u>STATUS:</u> </span><span class="open">{{this.status}}</p>
+          <p class="issue-score" data-id={{this.id}}><u>SCORE:</u> {{this.score}}</p>
+          <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
+          <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
         </div>
         <button type="button" class="close">Close &times;</button>
-        {{/each}}
-      </div>
-      </div>
     </div>
+    </div>
+    {{/each}}
   </div>
+</div>
 </div>
 <div class="interstitial form-title">
   <h1>NEW PROJECT</h1>
 </div>
 <h2>Have an project in your neighborhood? Tell us about it!</h2>
-<div class="container">
-  <form class="new-issue-form">
-    <div class="row">
-      <div class="six columns">
-        <label for="user-project-name">Project Name: </label>
-        <input class="u-full-width" type="text" placeholder="Litter in the park, etc." id="userProjectName">
-      </div>
-      <div class="six columns">
-        <label for="user-project-type">Project Type: </label>
-        <select class="u-full-width" id="userProjectType">
+  <div class="container">
+    <form class="new-issue-form">
+      <div class="row">
+        <div class="six columns">
+          <label for="user-project-name">Project Name: </label>
+          <input class="u-full-width" type="text" placeholder="Litter in the park, etc." id="userProjectName">
+        </div>
+        <div class="six columns">
+          <label for="user-project-type">Project Type: </label>
+          <select class="u-full-width" id="userProjectType">
           <option value="Clean Up">Clean Up</option>
           <option value="Paint">Paint</option>
           <option value="Plant">Plant</option>
         </select>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="six columns">
-        <label for="user-location">Location: </label>
-        <input class="u-full-width" id="user-location" type="text" placeholder="Dupont Circle, 1225 19th St NW.">
+      <div class="row">
+        <div class="six columns">
+          <label for="user-location">Location: </label>
+          <input class="u-full-width" id="user-location" type="text" placeholder="Dupont Circle, 1225 19th St NW.">
+        </div>
+        <div class="six columns u-full-width">
+          <label for="userImg">Upload an Image: </label>
+          <input type="file" accept="image/*" id="userImg">
+        </div>
       </div>
-      <div class="six columns u-full-width">
-        <label for="userImg">Upload an Image: </label>
-        <input type="file" accept="image/*" id="userImg">
-      </div>
-    </div>
-    <button type="submit" class="u-full-width" id="submit-new-issue">Submit</button>
-  </form>
-</div>
-<div class="interstitial contact-social-media">
-  <h1>CONTACT US</h1>
-</div>
-<div class="container">
-  <div class="six columns contact-form">
-    <h2>Contact Form</h2>
+      <button type="submit" class="u-full-width" id="submit-new-issue">Submit</button>
+    </form>
   </div>
-  <div class="twitter-feed six columns">
-    <h2>Twitter Feed</h2>
+  <div class="interstitial contact-social-media">
+    <h1>CONTACT US</h1>
   </div>
-</div>
-<div class="footer"></div>
-<div id="my-signin2"></div>
-<a href="#" id ="signOut-Btn">Sign out</a>
+  <div class="container">
+    <div class="six columns contact-form">
+      <h2>Contact Form</h2>
+    </div>
+    <div class="twitter-feed six columns">
+      <h2>Twitter Feed</h2>
+    </div>
+  </div>
+  <div class="footer"></div>
+  <div id="my-signin2"></div>
+  <a href="#" id="signOut-Btn">Sign out</a>
