@@ -76,12 +76,21 @@ $(document).ready(function() {
       $.ajax(apiRoute, {
         type: "GET"
       }).then(function(res) {
-        // Creat newScore variable
+        // Create newScore variable
         var newScore;
+        // Create newStatus variable and set it to current status
+        var newStatus = res.status;
         // If voteType is up
         if (voteType === "up") {
           // Add one to current score
           newScore = res.score + 1;
+          // If current status is New and new score is 5
+          if (res.status === "New" && newScore === 5) {
+            // Set newStatus to Open
+            newStatus = "Open";
+            // Send new tweet replying to original tweet
+            replyToTweet(res.tweetID, newStatus, res.title);
+          }
         } else if (voteType === "down") {
           // Else if voteType is down, subtract one from current score
           newScore = res.score - 1;
@@ -90,12 +99,15 @@ $(document).ready(function() {
         // AJAX PUT request to update score
         $.ajax(apiRoute, {
           data: {
-            score: newScore
+            score: newScore,
+            status: newStatus
           },
           type: "PUT"
         }).then(function(updateResponse) {
           // Set element with class issue-score and matching data-id to score from response
-          $(`.issue-score[data-id="${updateResponse.id}"]`).text(updateResponse.score);
+          $(`.issue-score[data-id="${updateResponse.id}"]`).text(" " + updateResponse.score);
+          // Set element with class issue-status-span and matching data-id to status from response
+          $(`.issue-status[data-id="${updateResponse.id}"]`).text(" " + updateResponse.status);
         });
       });
     });
@@ -118,7 +130,7 @@ $(document).ready(function() {
 
       // Create message
       var params = {
-        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}`
+        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\nOnce this issue reaches a score of 5, our team of volunteers will start working.  Visit spiffy.plus to vote!`
       };
 
       // Post message
@@ -129,6 +141,38 @@ $(document).ready(function() {
         } else {
           // call postNewProject and pass imageUrl and tweetID as args
           postNewProject(imageUrl, reply.id_str);
+        }
+      });
+    }
+
+    // function to reply to a tweet with a status update
+    function replyToTweet(originalTweetID, newStatus, issueTitle) {
+      // Set up Codebird
+      var cb = new Codebird();
+      cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
+      cb.setToken("973723797613367298-sBw6uEPUauV5v2ceKQYlvuZofplRlYu", "knYbR6dulgqloyYCwxZtd6BeSuesb3DbgdsyPQwsKaKBu");
+
+      // Set update status based on newStatus
+      var statusUpdate;
+      if (newStatus === "Open") {
+        statusUpdate = `Project "${issueTitle}" has received the required number of upvotes and we've changed its status to OPEN.  We're already hard at work and will update you all when this issue has been closed.`;
+      } else if (newStatus === "Closed") {
+        statusUpdate = `Our volunteers have completed work on project "${issueTitle}" and we are marking it CLOSED. Thanks for the tip, have a spiffy day!`;
+      }
+
+      // Create message and point it at originalTweetID
+      var params = {
+        status: statusUpdate,
+        in_reply_to_status_id: originalTweetID
+      }
+
+      // Post message
+      cb.__call("statuses_update", params, function(reply, rate, err) {
+        // Error handling
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(reply);
         }
       });
     }
@@ -169,13 +213,13 @@ $(document).ready(function() {
         console.log(data.issue[0].title);
         console.log(data.issue.length);
         for (i = 0; i < data.issue.length; i++) {
+
           var newIssueDiv = $('<div class="issue">').html(
             '<p class="issue-title">' + data.issue[i].title +
-            '</p><p class="issue-type">CATEGORY: ' + data.issue[i].projectType +
-            '</p><p class="issue-location issue-item">LOCATION: ' + data.issue[i].location +
-            '</p><p class="issue-status issue-item">STATUS: </span><span class="open">' + data.issue[i].status +
-            '</p><p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>' + data.issue[i].upvotes +
-            '<i class="far fa-thumbs-down"></i>' + data.issue[i].downvotes +
+            '</p><p><u>CATEGORY:</u><span class="issue-type" data-id=' + data.issue[i].id + '> ' + data.issue[i].projectType + '</span>' +
+            '</p><p><u>LOCATION:</u><span class="issue-location" data-id=' + data.issue[i].id + '> ' + data.issue[i].location + '</span>' +
+            '</p><p><u>STATUS:</u><span class=' + data.issue[i].status + ' data-id=' + data.issue[i].id + '> ' + data.issue[i].status + '</span>' +
+            '</p><p><u>SCORE:</u><span class="issue-score" data-id=' + data.issue[i].id + '> ' + data.issue[i].score + '</span>' +
             '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
             '><button type="button" class="close">Close &times;</button>'
           );

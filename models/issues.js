@@ -59,7 +59,7 @@ module.exports = function(sequelize, DataTypes) {
     // Status (initially set to Open, affected by votes and admin interaction)
     status: {
       type: DataTypes.TEXT,
-      defaultValue: "Open"
+      defaultValue: "New"
     },
 
     // Image URL, returned from Cloudinary API call upon upload
