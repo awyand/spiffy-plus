@@ -70,6 +70,14 @@ module.exports = function(sequelize, DataTypes) {
     // Tweet ID, returned from Twitter API call upon upload
     tweetID:{
       type: DataTypes.TEXT
+    },
+
+    // Modify default properties for createdAt and updatedAt fields to be date only
+    createdAt:{
+      type: DataTypes.DATEONLY
+    },
+    updatedAt:{
+      type: DataTypes.DATEONLY
     }
   });
   return Issue;
