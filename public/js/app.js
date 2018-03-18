@@ -132,6 +132,38 @@ $(document).ready(function() {
       });
     });
 
+    // Function to handle Close Issue button being clicked
+    $(".close-issue-btn").on("click", function(e) {
+      // Prevent default
+      e.preventDefault();
+      // Set API route based on ID
+      var apiRoute = `/api/issues/${$(this).attr("data-id")}`;
+      // Get issue from db
+      $.ajax(apiRoute, {
+        type: "GET"
+      }).then(function(res) {
+        // If status is not closed
+        if (res.status !== "Closed") {
+          // AJAX PUT request to update status
+          $.ajax(apiRoute, {
+            data: {
+              status: "Closed"
+            },
+            type: "PUT"
+          }).then(function(updateResponse) {
+            // Set status on page based on response
+            $(`.issue-status[data-id="${updateResponse.id}"]`).text(" " + updateResponse.status);
+            // Disable voting buttons
+            $(`.vote-btn[data-id=${updateResponse.id}]`).prop("disabled", true);
+            // Send update tweet
+            replyToTweet(updateResponse.tweetID, "Closed", updateResponse.title);
+          });
+        } else {
+          console.log("Already closed.");
+        }
+      });
+    });
+
 
     // Function to send tweet, which takes an image URL as an arg
     function sendTweet(imageUrl) {
