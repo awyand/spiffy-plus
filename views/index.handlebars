@@ -41,7 +41,7 @@
       <div class="row">
         <div class="six columns">
           <label for="user-project-name">Project Name: </label>
-          <input class="u-full-width" type="text" placeholder="Litter in the park, etc." id="userProjectName">
+          <input required class="u-full-width" type="text" placeholder="Litter in the park, etc." id="userProjectName">
         </div>
         <div class="six columns">
           <label for="user-project-type">Project Type: </label>
@@ -55,14 +55,15 @@
       <div class="row">
         <div class="six columns">
           <label for="user-location">Location: </label>
-          <input class="u-full-width" id="user-location" type="text" placeholder="Dupont Circle, 1225 19th St NW.">
+          <input required class="u-full-width" id="user-location" type="text">
         </div>
         <div class="six columns u-full-width">
           <label for="userImg">Upload an Image: </label>
           <input type="file" accept="image/*" id="userImg">
         </div>
       </div>
-      <button type="submit" class="u-full-width" id="submit-new-issue">Submit</button>
+      <button type="submit" id="submit-new-issue">Submit</button>
+      <div class="error-message"></div>
     </form>
   </div>
   <div class="interstitial contact-social-media">
