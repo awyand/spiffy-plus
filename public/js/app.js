@@ -161,7 +161,6 @@ $(document).ready(function() {
     }
 
     $("#viewOne").on("click", function() {
-      var userEmail = "hillary";
       $(".issue").empty();
       $.ajax("/api/issues/" + userEmail, {
         type: "GET"
@@ -199,8 +198,17 @@ $(document).ready(function() {
     // ************************************************************************************************
     // ***************************** GOOGLE AUTHENTICATION ********************************************
     // ************************************************************************************************
+    
+    // variables where we will store the users info on log in
     var userName = "";
     var userEmail = "";
+
+
+    renderButton();
+
+    $(document).on('click', '#signOut-Btn', function() {
+      signOut();
+    });
 
 
     function onSuccess(googleUser) {
@@ -212,12 +220,13 @@ $(document).ready(function() {
       userEmail = profile.getEmail();
       userName = profile.getName();
       console.log(userName + ": " + userEmail);
-    }
+    };
 
     function onFailure(error) {
       console.log(error);
-    }
+    };
 
+    // render google sign in button
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
@@ -228,8 +237,9 @@ $(document).ready(function() {
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
-    }
+    };
 
+    // google sign out function
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function() {
