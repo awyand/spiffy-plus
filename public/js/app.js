@@ -220,6 +220,7 @@ $(document).ready(function() {
             '</p><p><u>LOCATION:</u><span class="issue-location" data-id=' + data.issue[i].id + '> ' + data.issue[i].location + '</span>' +
             '</p><p><u>STATUS:</u><span class=' + data.issue[i].status + ' data-id=' + data.issue[i].id + '> ' + data.issue[i].status + '</span>' +
             '</p><p><u>SCORE:</u><span class="issue-score" data-id=' + data.issue[i].id + '> ' + data.issue[i].score + '</span>' +
+            '</p><p><u>DATE ADDED:</u><span class="issue-date" data-id=' + data.issue[i].id + '> ' + data.issue[i].createdAt + '</span>' +
             '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
             '><button type="button" class="close">Close &times;</button>'
           );
