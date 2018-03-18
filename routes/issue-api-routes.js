@@ -23,6 +23,9 @@ module.exports = function(app) {
 
     // Get issue by ID
     app.get("/api/issues/:id", function(req, res) {
+
+      console.log("Here's the req: " + req);
+
       db.Issue.findOne({
         where: {
           id: req.params.id
@@ -30,6 +33,7 @@ module.exports = function(app) {
       }).then(function(dbIssue) {
         res.json(dbIssue);
       });
+      console.log("Here's the res: " + res);
     });
 
     // Get issues by user

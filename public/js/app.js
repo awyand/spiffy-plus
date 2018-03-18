@@ -219,7 +219,6 @@ $(document).ready(function() {
       //console.log('Image URL: ' + profile.getImageUrl());
       userEmail = profile.getEmail();
       userName = profile.getName();
-      console.log(userName + ": " + userEmail);
     };
 
     function onFailure(error) {
