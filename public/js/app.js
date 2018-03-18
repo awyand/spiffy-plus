@@ -110,9 +110,8 @@ function postNewProject(imgUrl, twitterUrl){
 }
 
 $("#viewOne").on("click", function(){
-  var user = "hillary";
   $(".issue").empty();
-  $.ajax("/api/issues/" + user, {
+  $.ajax("/api/issues/" + userEmail, {
     type: "GET"
   }).then(function(data) {
     console.log(data);
