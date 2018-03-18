@@ -71,7 +71,7 @@ function sendTweet(imageUrl) {
     title: $("#userProjectName").val().trim(),
     location: $("#user-location").val().trim(),
     type: $("#userProjectType").val().trim().toLowerCase(),
-    username: $("#user-name").val().trim()
+    username: userName
   };
 
   // Create message
@@ -93,7 +93,6 @@ function postNewProject(imgUrl, twitterUrl){
     location: $("#user-location").val().trim(),
     projectType:$("#userProjectType").val().trim(),
     imglocation: imgUrl,
-    user: $("#user-name").val().trim(),
     tweetURL: twitterUrl,
     userName: userName,
     userEmail: userEmail
