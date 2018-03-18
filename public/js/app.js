@@ -3,8 +3,6 @@ $(document).ready(function() {
     ////// GLOBAL VARIABLES //////
     //////////////////////////////
 
-    var testGlobal = "original";
-
     // Cloudinary Variables
     var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/spiffy-plus/upload";
     var CLOUDINARY_UPLOAD_PRESET = "prdda0cv";
