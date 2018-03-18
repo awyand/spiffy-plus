@@ -35,7 +35,26 @@ $(document).ready(function() {
     $("#submit-new-issue").on("click", function(e) {
       // Prevent default
       e.preventDefault();
-
+      //Client side form validation:
+      //Check to make sure the user is signed in
+      if (userEmail === "") {
+        $(".error-message").html("Please sign in to add a new project.");
+        return;
+      }
+      //Check to make sure they've entered a project name
+      else if ($("#userProjectName").val() === ""){
+        $(".error-message").html("Error - please enter a user project name");
+        $("#userProjectName").attr("style", "border:1px solid red");
+        $("#user-location").attr("style", "border:1px solid #D1D1D1");
+        return;
+      }
+      //Check to make sure they've entered a Location
+      else if ($("#user-location").val() === ""){
+        $(".error-message").html("Error - please enter a location");
+        $("#user-location").attr("style", "border:1px solid red");
+        $("#userProjectName").attr("style", "border:1px solid #D1D1D1");
+        return;
+      } else {
       // If no image is provided
       if (!imageToUpload) {
         // Call sendTweet with default image
@@ -58,6 +77,7 @@ $(document).ready(function() {
           console.error(cloudinaryErr);
         });
       }
+    }
     });
 
     // When user clicks upvote or downvote button

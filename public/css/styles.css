@@ -98,6 +98,10 @@ form {
   text-align: left;
 }
 
+.error-message {
+  color: red;
+}
+
 /*MODAL*/
 .modal {
     display: none;
