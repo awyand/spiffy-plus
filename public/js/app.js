@@ -89,7 +89,7 @@ $(document).ready(function() {
             // Set newStatus to Open
             newStatus = "Open";
             // Send new tweet replying to original tweet
-            replyToTweet(res.tweetID, newStatus);
+            replyToTweet(res.tweetID, newStatus, res.title);
           }
         } else if (voteType === "down") {
           // Else if voteType is down, subtract one from current score
@@ -146,7 +146,7 @@ $(document).ready(function() {
     }
 
     // function to reply to a tweet with a status update
-    function replyToTweet(originalTweetID, newStatus) {
+    function replyToTweet(originalTweetID, newStatus, issueTitle) {
       // Set up Codebird
       var cb = new Codebird();
       cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
@@ -155,9 +155,9 @@ $(document).ready(function() {
       // Set update status based on newStatus
       var statusUpdate;
       if (newStatus === "Open") {
-        statusUpdate = "This issue has received the required number of upvotes and we've changed its status to OPEN.  We're already hard at work and will update you all when this issue has been closed.";
+        statusUpdate = `Project "${issueTitle}" has received the required number of upvotes and we've changed its status to OPEN.  We're already hard at work and will update you all when this issue has been closed.`;
       } else if (newStatus === "Closed") {
-        statusUpdate = "Our volunteers have completed work on this project and we are marking it CLOSED. Thanks for the tip, have a spiffy day!";
+        statusUpdate = `Our volunteers have completed work on project "${issueTitle}" and we are marking it CLOSED. Thanks for the tip, have a spiffy day!`;
       }
 
       // Create message and point it at originalTweetID
@@ -201,7 +201,7 @@ $(document).ready(function() {
       });
 
       // Reload page
-      // location.reload();
+      location.reload();
     }
 
     $("#viewOne").on("click", function() {
