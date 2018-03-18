@@ -37,7 +37,7 @@ module.exports = function(app) {
     });
 
     // Get issues by user
-    app.get("/api/issues/:userEmail", function(req, res) {
+    app.get("/api/issues/userEmail/:userEmail", function(req, res) {
       db.Issue.findAll({
         where: {
           userEmail: req.params.userEmail

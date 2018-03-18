@@ -162,7 +162,7 @@ $(document).ready(function() {
 
     $("#viewOne").on("click", function() {
       $(".issue").empty();
-      $.ajax("/api/issues/" + userEmail, {
+      $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
       }).then(function(data) {
         console.log(data);
@@ -177,7 +177,7 @@ $(document).ready(function() {
             '</p><p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>' + data.issue[i].upvotes +
             '<i class="far fa-thumbs-down"></i>' + data.issue[i].downvotes +
             '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
-            '<button type="button" class="close">Close &times;</button>'
+            '><button type="button" class="close">Close &times;</button>'
           );
           $(".issues").append(newIssueDiv);
         }
