@@ -161,9 +161,8 @@ $(document).ready(function() {
     }
 
     $("#viewOne").on("click", function() {
-      var userEmail = "hillary";
       $(".issue").empty();
-      $.ajax("/api/issues/" + userEmail, {
+      $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
       }).then(function(data) {
         console.log(data);
@@ -178,7 +177,7 @@ $(document).ready(function() {
             '</p><p class="issue-votes issue-item"><i class="far fa-thumbs-up"></i>' + data.issue[i].upvotes +
             '<i class="far fa-thumbs-down"></i>' + data.issue[i].downvotes +
             '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
-            '<button type="button" class="close">Close &times;</button>'
+            '><button type="button" class="close">Close &times;</button>'
           );
           $(".issues").append(newIssueDiv);
         }
@@ -199,8 +198,17 @@ $(document).ready(function() {
     // ************************************************************************************************
     // ***************************** GOOGLE AUTHENTICATION ********************************************
     // ************************************************************************************************
+    
+    // variables where we will store the users info on log in
     var userName = "";
     var userEmail = "";
+
+
+    renderButton();
+
+    $(document).on('click', '#signOut-Btn', function() {
+      signOut();
+    });
 
 
     function onSuccess(googleUser) {
@@ -211,13 +219,13 @@ $(document).ready(function() {
       //console.log('Image URL: ' + profile.getImageUrl());
       userEmail = profile.getEmail();
       userName = profile.getName();
-      console.log(userName + ": " + userEmail);
-    }
+    };
 
     function onFailure(error) {
       console.log(error);
-    }
+    };
 
+    // render google sign in button
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
@@ -228,8 +236,9 @@ $(document).ready(function() {
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
-    }
+    };
 
+    // google sign out function
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function() {
