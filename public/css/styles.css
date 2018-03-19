@@ -1,3 +1,4 @@
+/******************************* OVERALL STYLES ******************************/
 html,
 body {
   font-family: Helvetica;
@@ -8,7 +9,8 @@ body {
 p {
   margin-bottom: 5px;
 }
-/* Headers and Interstitials */
+
+/************************ HEADERS AND INTERSTITIALS ***************************/
 .header,
 .interstitial {
   background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
@@ -44,14 +46,14 @@ p {
   padding-top: 5vh;
 }
 
-/*Current Project div (map and modals)*/
+/******************** CURRENT PROJECTS DIV (MAP & ISSUE LIST) *****************/
 .current-project-info {
   display: grid;
   grid-template-columns: 60% 1fr;
   grid-column-gap: 10px;
 }
 
-/*Map*/
+/***** MAP *****/
 
 #map {
   width: 0;
@@ -68,7 +70,7 @@ p {
   cursor: pointer;
 }
 
-
+/***** ISSUES ****/
 .issues {
   padding-bottom: 20px;
 }
@@ -92,15 +94,6 @@ p {
   display: block;
 }
 
-/*Form */
-
-form {
-  text-align: left;
-}
-
-.error-message {
-  color: red;
-}
 
 
 /*MODALS*/
@@ -158,7 +151,7 @@ form {
   margin-bottom: 10px;
 }
 
-/*Vote buttons*/
+/***** VOTE BUTTONS ******/
 .vote-btn {
   padding: 0px 5px;
   border: none;
@@ -168,8 +161,24 @@ form {
 .svg-inline--fa.fa-w-16 {
     width: 3em;
 }
+
+/***** CLOSE ISSUE BUTTON *****/
+.close-issue-btn {
+  display: none;
+}
+
+/***** CLOSE MODAL BUTTON *****/
 .close {
   display: block;
   margin: 0 auto;
   grid-column: span 2;
+}
+
+/********************************* FORM ***************************************/
+form {
+  text-align: left;
+}
+
+.error-message {
+  color: red;
 }
