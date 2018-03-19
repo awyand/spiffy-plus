@@ -331,6 +331,10 @@ getGeoLocation('Charlottesville, VA');
       //console.log('Image URL: ' + profile.getImageUrl());
       userEmail = profile.getEmail();
       userName = profile.getName();
+      //If the user is admin (spiffyplus@gmail.com), show the close issue button
+      if (userEmail === "spiffyplus@gmail.com"){
+        $(".close-issue-btn").attr("style", "display:block");
+      }
     };
 
     function onFailure(error) {
@@ -358,6 +362,8 @@ getGeoLocation('Charlottesville, VA');
 
         userEmail = "";
         userName = "";
+
+        $(".close-issue-btn").attr("style", "display:none");
       });
     }
 });
