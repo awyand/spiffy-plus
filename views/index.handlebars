@@ -24,6 +24,7 @@
           <p><u>DATE ADDED:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
           <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
           <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
+          <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
           <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
         </div>
         <button type="button" class="close">Close &times;</button>
