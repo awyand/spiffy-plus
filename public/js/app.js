@@ -259,11 +259,16 @@ getGeoLocation('Charlottesville, VA');
         type: "POST"
       }).then(function() {
         console.log("new project added");
+      //Show the form sucess Modal
+        $("#formSuccess").fadeIn(200);
       });
-
-      // Reload page
-      location.reload();
     }
+
+    //Form Sucess Modal
+    $("#back-to-top").on("click", function() {
+      $("#formSuccess").attr("style", "display:none");
+      location.reload();
+    });
 
     $("#viewOne").on("click", function() {
       $(".issue").empty();
@@ -283,7 +288,8 @@ getGeoLocation('Charlottesville, VA');
             '</p><p><u>SCORE:</u><span class="issue-score" data-id=' + data.issue[i].id + '> ' + data.issue[i].score + '</span>' +
             '</p><p><u>DATE ADDED:</u><span class="issue-date" data-id=' + data.issue[i].id + '> ' + data.issue[i].createdAt + '</span>' +
             '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
-            '><button type="button" class="close">Close &times;</button>'
+            '><a class="button twitter-btn" data-id=' + data.issue[i].id + ' href="https://twitter.com/spiffyplus/status/' + data.issue[i].tweetID + ' target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter' +
+            '</a><button type="button" class="close">Close &times;</button>'
           );
           $(".issues").append(newIssueDiv);
         }

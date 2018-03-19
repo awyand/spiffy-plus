@@ -102,7 +102,8 @@ form {
   color: red;
 }
 
-/*MODAL*/
+
+/*MODALS*/
 .modal {
     display: none;
     position: fixed;
@@ -116,7 +117,7 @@ form {
     background-color: rgba(50,69,82,0.5);
 }
 
-.issue-body {
+.issue-body, .form-success {
   background-color: #fefefe;
    margin: 15% auto;
    padding: 20px;
@@ -126,6 +127,10 @@ form {
    display: grid;
    grid-template-columns: 1fr 1fr;
    grid-gap: 25px;
+}
+
+.form-success {
+  grid-template-columns: 1fr;
 }
 
 .issue-img {
