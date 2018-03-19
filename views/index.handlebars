@@ -4,7 +4,7 @@
 </div>
 <div class="container">
   <h2>Take a Look at Our Current Projects</h1>
-  <div class="current-project-info">
+  <div class="current-project-info" id="currentProjectInfo">
     <div id='map'></div>
     <div class="issues">
       <button id="viewAll">View All </button><button id="viewOne">View Your Issues</button>
@@ -67,18 +67,14 @@
       <button type="submit" id="submit-new-issue">Submit</button>
       <div class="error-message"></div>
     </form>
-  </div>
-  <div class="interstitial contact-social-media">
-    <h1>CONTACT US</h1>
-  </div>
-  <div class="container">
-    <div class="six columns contact-form">
-      <h2>Contact Form</h2>
-    </div>
-    <div class="twitter-feed six columns">
-      <h2>Twitter Feed</h2>
+    <div class="modal" id="formSuccess">
+      <div class="form-success" >
+        <p>Your project has been submitted!</p>
+        <a id="back-to-top" href="#currentProjectInfo">See all our current projects</a>
+      </div>
     </div>
   </div>
+
   <div class="footer"></div>
   <div id="my-signin2"></div>
   <a href="#" id="signOut-Btn">Sign out</a>
