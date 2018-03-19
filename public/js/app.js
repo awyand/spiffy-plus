@@ -250,11 +250,16 @@ $(document).ready(function() {
         type: "POST"
       }).then(function() {
         console.log("new project added");
+      //Show the form sucess Modal
+        $("#formSuccess").fadeIn(200);
       });
-
-      // Reload page
-      location.reload();
     }
+
+    //Form Sucess Modal
+    $("#back-to-top").on("click", function() {
+      $("#formSuccess").attr("style", "display:none");
+      location.reload();
+    });
 
     $("#viewOne").on("click", function() {
       $(".issue").empty();
