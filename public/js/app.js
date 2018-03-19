@@ -1,4 +1,9 @@
+// import * as getGeoLocation from './map.js';
+// var MapboxClient = require('mapbox');
+console.log(getGeoLocation);
 $(document).ready(function() {
+ 
+getGeoLocation('Charlottesville, VA');
     //////////////////////////////
     ////// GLOBAL VARIABLES //////
     //////////////////////////////
@@ -232,9 +237,13 @@ $(document).ready(function() {
     // Function to post new project to Spiffy API/database
     // Takes image URL and twitter ID as argument
     function postNewProject(imgUrl, twitterID) {
+      var enteredLocation = $("#user-location").val().trim();
+      // var GetMatchingGeoCodeName = new AddLocationToDb(UserEnteredLocation);
+      // var thisOne = GetMatchingGeoCodeName.getGeoLocation();
       var newProject = {
         title: $("#userProjectName").val().trim(),
         location: $("#user-location").val().trim(),
+        // location: getGeoLocation(enteredLocation),
         projectType: $("#userProjectType").val().trim(),
         imglocation: imgUrl,
         tweetID: twitterID,

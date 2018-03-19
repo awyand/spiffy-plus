@@ -28,11 +28,24 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
      <!-- MapBox -->
+     <script src='https://unpkg.com/mapbox@1.0.0-beta9/dist/mapbox-sdk.min.js'></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-supported/v1.3.0/mapbox-gl-supported.js'></script>
+    <script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9'
+});
+</script>
 		<!-- Custom JS -->
-    <script type="text/javascript" src="js/app.js"></script>
+    {{!-- <script src="js/bundle.js"></script> --}}
+    {{!-- <script type="text/javascript" src="js/geojson.min.js"></script> --}}
     <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/map-data.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    
   </body>
 </html>
