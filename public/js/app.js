@@ -268,6 +268,12 @@ $(document).ready(function() {
 
 
     $("#viewOne").on("click", function() {
+
+      if (userEmail === "") {
+        googleFailure();
+
+      } else {
+
       $(".issue").empty();
       $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
@@ -290,6 +296,7 @@ $(document).ready(function() {
           $(".issues").append(newIssueDiv);
         }
       })
+      } 
     });
 
     /*Modal Open and Close*/
@@ -311,14 +318,16 @@ $(document).ready(function() {
     var userName = "";
     var userEmail = "";
 
-    // on page load render the google btn
+    // on page load render the google btn to the nav
     renderButton("1");
 
+    // execute sign out
     $(document).on('click', '#google-signOut', function() {
       signOut();
     });
 
 
+    // function that renders google btn
     function onSuccess(googleUser) {
       var profile = googleUser.getBasicProfile();
       //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -331,10 +340,10 @@ $(document).ready(function() {
       // render sign out button
       $("nav").empty();
       $("nav").html(`
-      <ul>
-      <li class="nav-logo">Home</li>
-      <li class="googleBtn" id="google-signOut">Sign Out</li>
-    </ul>
+        <ul>
+          <li class="nav-logo">Home</li>
+          <li class="googleBtn" id="google-signOut">Sign Out</li>
+        </ul>
       `)
       //If the user is admin (spiffyplus@gmail.com), show the close issue button
       if (userEmail === "spiffyplus@gmail.com"){
@@ -350,11 +359,10 @@ $(document).ready(function() {
       console.log(error);
     };
 
-    var signInBtn;
     // render google sign in button
+    var signInBtn;
     function renderButton(btnNum) {
       signInBtn = "google-signIn" + btnNum;
-      console.log(signInBtn);
       gapi.signin2.render(signInBtn, {
         'scope': 'profile email',
         'width': 240,
@@ -379,10 +387,10 @@ $(document).ready(function() {
         // render the sign in button
         $("nav").empty();
         $("nav").html(`
-        <ul>
-        <li class="nav-logo">Home</li>
-        <li class="googleBtn" id="google-signIn1">Sign Out</li>
-      </ul>
+          <ul>
+            <li class="nav-logo">Home</li>
+            <li class="googleBtn" id="google-signIn1">Sign Out</li>
+          </ul>
         `)
 
         renderButton("1");
@@ -392,10 +400,14 @@ $(document).ready(function() {
       });
     }
 
-// google sign in failure modal
-function googleFailure() {
-  document.getElementById("google-signIn-failure").style.display = "block";
-  renderButton("2");
-}
+  // google sign in failure modal
+  function googleFailure() {
+    document.getElementById("google-signIn-failure").style.display = "block";
+    renderButton("2");
+  }
+
+  $(".close-btn").on("click", function() {
+    document.getElementById("google-signIn-failure").style.display = "none";
+  });
 
 });
