@@ -1,5 +1,5 @@
-// var MapboxClient = require('mapbox');
-
+// GLOBAL VARS
+var PassedlocationName = "";
 // add map to screen
 function createMap() {
   mapboxgl.accessToken =
@@ -19,39 +19,22 @@ var client = new MapboxClient(
   "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
 );
 
-function getGeoLocation(userEnteredLocation) {
-console.log(client);
+function getGeoLocation(userEnteredLocation, cb) {
   var formattedLocation = userEnteredLocation.split(" ").join("+");
   client.geocodeForward(formattedLocation, function(err, data, res) {
-      // data is the geocoding result as parsed JSON
-      // return long/lat based on address
-      // passedLocation = data.features[1].geometry.coordinates;
-    
-      // This specifies only the feature object
-      // passedLocation = data.features[1];
-      var PassedlocationName = data.features[1].matching_place_name;
-      // add the logged data to a variable that gets exported to the database
-    console.log('The Matching name is' + PassedlocationName);
-  //   console.log(passedLocation);
-  //   console.log(locationName);
-    
-    //   console.log(locationPoints.features);
-    
-    
-      // Create an function to push each entered address to the array
-    
-      //  Create constuctor with data to plug into variable to be converted to geojson
-      // var userEnteredData = new UserMapPoint();
-    
-    
-      if (err) {
-        return console.log("Error occurred: " + err);
-      }
-    });
+    // data is the geocoding result as parsed JSON
 
+    // Matching geoCode Location
+    PassedLocationName = data.features[1].matching_place_name;
+  // Retur call back with location name
+    return cb(PassedLocationName);
+
+    // add the logged data to a variable that gets exported to the database
+    console.log("The Matching name is this in map.js" + PassedLocationName);
+
+    if (err) {
+      return console.log("Error occurred: " + err);
+      alert('sorry this location did not compute. Try again');
+    }
+  });
 }
-
-// export function getGeoLocation(userEnteredLocation);
-
-
-
