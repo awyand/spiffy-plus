@@ -1,5 +1,33 @@
 // GLOBAL VARS
 var PassedlocationName = "";
+
+var geojson = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-77.042941, 38.985874]
+      },
+      properties: {
+        title: "Zip: 20012",
+        description: "Washington, D.C."
+      }
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-77.019023, 38.912068]
+      },
+      properties: {
+        title: "Zip: 20001",
+        description: "Washington, DC"
+      }
+    }
+  ]
+};
 // add map to screen
 function createMap() {
   mapboxgl.accessToken =
@@ -10,6 +38,30 @@ function createMap() {
     style: "mapbox://styles/mapbox/streets-v10",
     center: [-77.040615, 38.931188],
     zoom: 11
+  });
+
+  geojson.features.forEach(function(marker) {
+    // create a HTML element for each feature
+    var el = document.createElement("div");
+    el.className = "marker";
+
+    // make a marker for each feature and add to the map
+    new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates)
+      
+      // add popup
+
+      .setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+          .setHTML(
+            "<h4>" +
+              marker.properties.title +
+              "</h4><p>" +
+              marker.properties.description +
+              "</p>"
+          )
+      )
+      .addTo(map);
   });
 }
 
@@ -39,3 +91,4 @@ function getGeoLocation(userEnteredLocation, cb) {
     }
   });
 }
+
