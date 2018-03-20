@@ -227,38 +227,38 @@ $(document).ready(function() {
         }
       });
     }
-
-    // Function to post new project to Spiffy API/database
+  // Function to post new project to Spiffy API/database
     // Takes image URL and twitter ID as argument
     function postNewProject(imgUrl, twitterID) {
-      var newProject = {
-        title: $("#userProjectName").val().trim(),
-        location: $("#user-location").val().trim(),
-        projectType: $("#userProjectType").val().trim(),
-        imglocation: imgUrl,
-        tweetID: twitterID,
-        score: 0,
-        userName: userName,
-        userEmail: userEmail
-      }
 
-      console.log(newProject);
+      var userEnteredLocation = $("#user-location").val().trim();
+      // function to run geoCoder first to grab matching location name for database
+      getGeoLocation(userEnteredLocation, function(location){
+        // pass return location name from call back into newProject variable
+        var newProject = {
+          title: $("#userProjectName").val().trim(),
+          location: location,
+          projectType: $("#userProjectType").val().trim(),
+          imglocation: imgUrl,
+          tweetID: twitterID,
+          score: 0,
+          userName: userName,
+          userEmail: userEmail
+        }
 
-      $.ajax("/api/issues", {
-        data: newProject,
-        type: "POST"
-      }).then(function() {
-        console.log("new project added");
-      //Show the form sucess Modal
-        $("#formSuccess").fadeIn(200);
+        console.log(newProject);
+
+        $.ajax("/api/issues", {
+          data: newProject,
+          type: "POST"
+        }).then(function() {
+
+          console.log("new project added");
+          
+        });
+
       });
     }
-
-    //Form Sucess Modal
-    $("#back-to-top").on("click", function() {
-      $("#formSuccess").attr("style", "display:none");
-      location.reload();
-    });
 
     $("#viewOne").on("click", function() {
       $(".issue").empty();
@@ -278,8 +278,7 @@ $(document).ready(function() {
             '</p><p><u>SCORE:</u><span class="issue-score" data-id=' + data.issue[i].id + '> ' + data.issue[i].score + '</span>' +
             '</p><p><u>DATE ADDED:</u><span class="issue-date" data-id=' + data.issue[i].id + '> ' + data.issue[i].createdAt + '</span>' +
             '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
-            '><a class="button twitter-btn" data-id=' + data.issue[i].id + ' href="https://twitter.com/spiffyplus/status/' + data.issue[i].tweetID + ' target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter' +
-            '</a><button type="button" class="close">Close &times;</button>'
+            '><button type="button" class="close">Close &times;</button>'
           );
           $(".issues").append(newIssueDiv);
         }
