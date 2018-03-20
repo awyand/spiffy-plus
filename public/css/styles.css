@@ -10,6 +10,29 @@ p {
   margin-bottom: 5px;
 }
 
+
+/* Navbar */
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightgray;
+}
+
+nav ul li {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.googleBtn {
+  float: right;
+}
+
 /************************ HEADERS AND INTERSTITIALS ***************************/
 .header,
 .interstitial {
