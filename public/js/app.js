@@ -36,8 +36,7 @@ $(document).ready(function() {
       //Client side form validation:
       //Check to make sure the user is signed in
       if (userEmail === "") {
-        $(".error-message").html("Please sign in to add a new project.");
-        return;
+        googleFailure();
       }
       //Check to make sure they've entered a project name
       else if ($("#userProjectName").val() === ""){
@@ -255,7 +254,7 @@ $(document).ready(function() {
       });
     }
 
-    //Form Sucess Modal
+    //Form Success Modal
     $("#back-to-top").on("click", function() {
       $("#formSuccess").attr("style", "display:none");
       location.reload();
@@ -307,7 +306,7 @@ $(document).ready(function() {
     var userEmail = "";
 
     // on page load render the google btn
-    renderButton();
+    renderButton("1");
 
     $(document).on('click', '#google-signOut', function() {
       signOut();
@@ -331,15 +330,26 @@ $(document).ready(function() {
       <li class="googleBtn" id="google-signOut">Sign Out</li>
     </ul>
       `)
+      //If the user is admin (spiffyplus@gmail.com), show the close issue button
+      if (userEmail === "spiffyplus@gmail.com"){
+        $(".close-issue-btn").attr("style", "display:block");
+      }
+
+      // close modal if open
+      document.getElementById("google-signIn-failure").style.display = "none";
+
     };
 
     function onFailure(error) {
       console.log(error);
     };
 
+    var signInBtn;
     // render google sign in button
-    function renderButton() {
-      gapi.signin2.render('google-signIn', {
+    function renderButton(btnNum) {
+      signInBtn = "google-signIn" + btnNum;
+      console.log(signInBtn);
+      gapi.signin2.render(signInBtn, {
         'scope': 'profile email',
         'width': 240,
         'height': 50,
@@ -365,12 +375,20 @@ $(document).ready(function() {
         $("nav").html(`
         <ul>
         <li class="nav-logo">Home</li>
-        <li class="googleBtn" id="google-signIn">Sign Out</li>
+        <li class="googleBtn" id="google-signIn1">Sign Out</li>
       </ul>
         `)
 
-        renderButton();
+        renderButton("1");
 
+        $(".close-issue-btn").attr("style", "display:none");
       });
     }
+
+// google sign in failure modal
+function googleFailure() {
+  document.getElementById("google-signIn-failure").style.display = "block";
+  renderButton("2");
+}
+
 });
