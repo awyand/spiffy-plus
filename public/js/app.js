@@ -307,10 +307,10 @@ $(document).ready(function() {
     var userName = "";
     var userEmail = "";
 
-
+    // on page load render the google btn
     renderButton();
 
-    $(document).on('click', '#signOut-Btn', function() {
+    $(document).on('click', '#google-signOut', function() {
       signOut();
     });
 
@@ -323,6 +323,16 @@ $(document).ready(function() {
       //console.log('Image URL: ' + profile.getImageUrl());
       userEmail = profile.getEmail();
       userName = profile.getName();
+
+      // render sign out button
+      $("nav").empty();
+      $("nav").html(`
+      <ul>
+      <li class="nav-logo">Home</li>
+      <li class="googleBtn" id="google-signOut">Sign Out</li>
+    </ul>
+      `)
+      
       //If the user is admin (spiffyplus@gmail.com), show the close issue button
       if (userEmail === "spiffyplus@gmail.com"){
         $(".close-issue-btn").attr("style", "display:block");
@@ -335,7 +345,7 @@ $(document).ready(function() {
 
     // render google sign in button
     function renderButton() {
-      gapi.signin2.render('my-signin2', {
+      gapi.signin2.render('google-signIn', {
         'scope': 'profile email',
         'width': 240,
         'height': 50,
@@ -352,10 +362,23 @@ $(document).ready(function() {
       auth2.signOut().then(function() {
         console.log('User signed out.');
 
+        // empty the variables holding user info
         userEmail = "";
         userName = "";
 
+        // render the sign in button
+        $("nav").empty();
+        $("nav").html(`
+        <ul>
+        <li class="nav-logo">Home</li>
+        <li class="googleBtn" id="google-signIn">Sign Out</li>
+      </ul>
+        `)
+
+        renderButton();
+
         $(".close-issue-btn").attr("style", "display:none");
+
       });
     }
 });
