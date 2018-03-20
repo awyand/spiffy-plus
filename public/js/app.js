@@ -6,8 +6,6 @@ $(document).ready(function() {
     // Cloudinary Variables
     var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/spiffy-plus/upload";
     var CLOUDINARY_UPLOAD_PRESET = "prdda0cv";
-    // Default image (i.e. for when user doesn't upload an image)
-    var SPIFFY_LOGO_URL = "http://res.cloudinary.com/spiffy-plus/image/upload/v1521299063/spiffy-temp-logo.png";
 
     // Variables for uploading images from form
     // These have to be global since we're separating the Choose File button from the upload action
@@ -54,8 +52,9 @@ $(document).ready(function() {
       } else {
       // If no image is provided
       if (!imageToUpload) {
-        // Call sendTweet with default image
-        sendTweet(SPIFFY_LOGO_URL);
+        //Send an error message to upload an image
+        $(".error-message").html("Error - please upload a photo");
+        return;
       } else {
         // Otherwise the user uploaded an image
         // Make an AJAX POST request to Cloudinary
@@ -108,7 +107,7 @@ $(document).ready(function() {
             // Set newStatus to Open
             newStatus = "Open";
             // Send new tweet replying to original tweet
-            replyToTweet(res.tweetID, newStatus, res.title);
+            replyToTweet(res.tweetID, newStatus, res.title, res.id, res.userName);
           }
         } else if (voteType === "down") {
           // Else if voteType is down, subtract one from current score
@@ -155,7 +154,7 @@ $(document).ready(function() {
             // Disable voting buttons
             $(`.vote-btn[data-id=${updateResponse.id}]`).prop("disabled", true);
             // Send update tweet
-            replyToTweet(updateResponse.tweetID, "Closed", updateResponse.title);
+            replyToTweet(updateResponse.tweetID, "Closed", updateResponse.title, updateResponse.id, updateResponse.userName);
           });
         } else {
           console.log("Already closed.");
@@ -181,7 +180,7 @@ $(document).ready(function() {
 
       // Create message
       var params = {
-        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\nOnce this issue reaches a score of 5, our team of volunteers will start working.  Visit spiffy.plus to vote!`
+        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\n\nProject Title: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\n\nOnce this issue reaches a score of 5, our team of volunteers will start working.  Visit spiffy.plus to vote!`
       };
 
       // Post message
@@ -197,7 +196,7 @@ $(document).ready(function() {
     }
 
     // function to reply to a tweet with a status update
-    function replyToTweet(originalTweetID, newStatus, issueTitle) {
+    function replyToTweet(originalTweetID, newStatus, issueTitle, issueID, issueUserName) {
       // Set up Codebird
       var cb = new Codebird();
       cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
@@ -206,9 +205,9 @@ $(document).ready(function() {
       // Set update status based on newStatus
       var statusUpdate;
       if (newStatus === "Open") {
-        statusUpdate = `Project "${issueTitle}" has received the required number of upvotes and we've changed its status to OPEN.  We're already hard at work and will update you all when this issue has been closed.`;
+        statusUpdate = `We've started work on a project! The following project reached the required score and our volunteers are already hard at work. Here's the info:\n\nSpiffy+ ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Title: ${issueTitle}\n\nStay tuned, we'll provide an update when this issue is complete.`;
       } else if (newStatus === "Closed") {
-        statusUpdate = `Our volunteers have completed work on project "${issueTitle}" and we are marking it CLOSED. Thanks for the tip, have a spiffy day!`;
+        statusUpdate = `Project Complete! Our volunteers have completed work on the following project:\n\nSpiffy+ ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Title: ${issueTitle}\n\nThanks to ${issueUserName} for the tip, and have a spiffy day!`;
       }
 
       // Create message and point it at originalTweetID
@@ -382,6 +381,7 @@ $(document).ready(function() {
         renderButton("1");
 
         $(".close-issue-btn").attr("style", "display:none");
+
       });
     }
 
