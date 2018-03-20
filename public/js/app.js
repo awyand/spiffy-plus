@@ -55,8 +55,9 @@ $(document).ready(function() {
       } else {
       // If no image is provided
       if (!imageToUpload) {
-        // Call sendTweet with default image
-        sendTweet(SPIFFY_LOGO_URL);
+        //Send an error message to upload an image
+        $(".error-message").html("Error - please upload a photo");
+        return;
       } else {
         // Otherwise the user uploaded an image
         // Make an AJAX POST request to Cloudinary
