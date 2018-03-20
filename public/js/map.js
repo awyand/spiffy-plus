@@ -23,9 +23,10 @@ function getGeoLocation(userEnteredLocation, cb) {
   var formattedLocation = userEnteredLocation.split(" ").join("+");
   client.geocodeForward(formattedLocation, function(err, data, res) {
     // data is the geocoding result as parsed JSON
-
+      // console.log(data);
     // Matching geoCode Location
-    PassedLocationName = data.features[1].matching_place_name;
+    PassedLocationName = data.features[0].matching_place_name;
+    // console.log(PassedLocationName);
   // Retur call back with location name
     return cb(PassedLocationName);
 
