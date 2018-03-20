@@ -55,8 +55,9 @@ $(document).ready(function() {
       } else {
       // If no image is provided
       if (!imageToUpload) {
-        // Call sendTweet with default image
-        sendTweet(SPIFFY_LOGO_URL);
+        //Send an error message to upload an image
+        $(".error-message").html("Error - please upload a photo");
+        return;
       } else {
         // Otherwise the user uploaded an image
         // Make an AJAX POST request to Cloudinary
@@ -331,6 +332,11 @@ $(document).ready(function() {
       <li class="googleBtn" id="google-signOut">Sign Out</li>
     </ul>
       `)
+      
+      //If the user is admin (spiffyplus@gmail.com), show the close issue button
+      if (userEmail === "spiffyplus@gmail.com"){
+        $(".close-issue-btn").attr("style", "display:block");
+      }
     };
 
     function onFailure(error) {
@@ -370,6 +376,8 @@ $(document).ready(function() {
         `)
 
         renderButton();
+
+        $(".close-issue-btn").attr("style", "display:none");
 
       });
     }
