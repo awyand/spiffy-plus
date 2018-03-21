@@ -6,8 +6,6 @@ $(document).ready(function() {
     // Cloudinary Variables
     var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/spiffy-plus/upload";
     var CLOUDINARY_UPLOAD_PRESET = "prdda0cv";
-    // Default image (i.e. for when user doesn't upload an image)
-    var SPIFFY_LOGO_URL = "http://res.cloudinary.com/spiffy-plus/image/upload/v1521299063/spiffy-temp-logo.png";
 
     // Variables for uploading images from form
     // These have to be global since we're separating the Choose File button from the upload action
@@ -36,8 +34,7 @@ $(document).ready(function() {
       //Client side form validation:
       //Check to make sure the user is signed in
       if (userEmail === "") {
-        $(".error-message").html("Please sign in to add a new project.");
-        return;
+        googleFailure();
       }
       //Check to make sure they've entered a project name
       else if ($("#userProjectName").val() === ""){
@@ -110,7 +107,7 @@ $(document).ready(function() {
             // Set newStatus to Open
             newStatus = "Open";
             // Send new tweet replying to original tweet
-            replyToTweet(res.tweetID, newStatus, res.title);
+            replyToTweet(res.tweetID, newStatus, res.title, res.id, res.userName);
           }
         } else if (voteType === "down") {
           // Else if voteType is down, subtract one from current score
@@ -157,7 +154,7 @@ $(document).ready(function() {
             // Disable voting buttons
             $(`.vote-btn[data-id=${updateResponse.id}]`).prop("disabled", true);
             // Send update tweet
-            replyToTweet(updateResponse.tweetID, "Closed", updateResponse.title);
+            replyToTweet(updateResponse.tweetID, "Closed", updateResponse.title, updateResponse.id, updateResponse.userName);
           });
         } else {
           console.log("Already closed.");
@@ -183,7 +180,7 @@ $(document).ready(function() {
 
       // Create message
       var params = {
-        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\nTitle: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\nOnce this issue reaches a score of 5, our team of volunteers will start working.  Visit spiffy.plus to vote!`
+        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\n\nProject Title: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\n\nOnce this issue reaches a score of 5, our team of volunteers will start working.  Visit spiffy.plus to vote!`
       };
 
       // Post message
@@ -199,7 +196,7 @@ $(document).ready(function() {
     }
 
     // function to reply to a tweet with a status update
-    function replyToTweet(originalTweetID, newStatus, issueTitle) {
+    function replyToTweet(originalTweetID, newStatus, issueTitle, issueID, issueUserName) {
       // Set up Codebird
       var cb = new Codebird();
       cb.setConsumerKey("fBm9xMcWCrSIzi4sjqC9mCI9T", "awCSRWNXzqCl1Rz3k5fvZl5XyKOwAX4PE7tVthASHjGm52OqOg");
@@ -208,9 +205,9 @@ $(document).ready(function() {
       // Set update status based on newStatus
       var statusUpdate;
       if (newStatus === "Open") {
-        statusUpdate = `Project "${issueTitle}" has received the required number of upvotes and we've changed its status to OPEN.  We're already hard at work and will update you all when this issue has been closed.`;
+        statusUpdate = `We've started work on a project! The following project reached the required score and our volunteers are already hard at work. Here's the info:\n\nSpiffy+ ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Title: ${issueTitle}\n\nStay tuned, we'll provide an update when this issue is complete.`;
       } else if (newStatus === "Closed") {
-        statusUpdate = `Our volunteers have completed work on project "${issueTitle}" and we are marking it CLOSED. Thanks for the tip, have a spiffy day!`;
+        statusUpdate = `Project Complete! Our volunteers have completed work on the following project:\n\nSpiffy+ ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Title: ${issueTitle}\n\nThanks to ${issueUserName} for the tip, and have a spiffy day!`;
       }
 
       // Create message and point it at originalTweetID
@@ -229,40 +226,54 @@ $(document).ready(function() {
         }
       });
     }
-
-    // Function to post new project to Spiffy API/database
+  // Function to post new project to Spiffy API/database
     // Takes image URL and twitter ID as argument
     function postNewProject(imgUrl, twitterID) {
-      var newProject = {
-        title: $("#userProjectName").val().trim(),
-        location: $("#user-location").val().trim(),
-        projectType: $("#userProjectType").val().trim(),
-        imglocation: imgUrl,
-        tweetID: twitterID,
-        score: 0,
-        userName: userName,
-        userEmail: userEmail
-      }
 
-      console.log(newProject);
+      var userEnteredLocation = $("#user-location").val().trim();
+      // function to run geoCoder first to grab matching location name for database
+      getGeoLocation(userEnteredLocation, function(location){
+        // pass return location name from call back into newProject variable
+        var newProject = {
+          title: $("#userProjectName").val().trim(),
+          location: location,
+          projectType: $("#userProjectType").val().trim(),
+          imglocation: imgUrl,
+          tweetID: twitterID,
+          score: 0,
+          userName: userName,
+          userEmail: userEmail
+        }
 
-      $.ajax("/api/issues", {
-        data: newProject,
-        type: "POST"
-      }).then(function() {
-        console.log("new project added");
-      //Show the form sucess Modal
-        $("#formSuccess").fadeIn(200);
+        console.log(newProject);
+
+        $.ajax("/api/issues", {
+          data: newProject,
+          type: "POST"
+        }).then(function() {
+
+          console.log("new project added");
+          
+        });
+
       });
     }
 
-    //Form Sucess Modal
-    $("#back-to-top").on("click", function() {
-      $("#formSuccess").attr("style", "display:none");
-      location.reload();
-    });
+
+    //Form Success Modal
+    //$("#back-to-top").on("click", function() {
+     // $("#formSuccess").attr("style", "display:none");
+      //location.reload();
+    //});
+
 
     $("#viewOne").on("click", function() {
+
+      if (userEmail === "") {
+        googleFailure();
+
+      } else {
+
       $(".issue").empty();
       $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
@@ -273,6 +284,7 @@ $(document).ready(function() {
         $(".issue-header").remove();
         $(".issue-body-modal").remove();
         for (i = 0; i < data.issue.length; i++) {
+
           var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data.issue[i].title + "</p>");
           var newIssueBody = $("<div class='issue-body'>").html("<button type='button' class='close'>Close &times;</button>");
           var newIssueBodyTitle = $("<div class='issue-title'>").html(data.issue[i].title);
@@ -294,8 +306,10 @@ $(document).ready(function() {
           $(newModal).append(newIssueBody);
           $(".issues").append(newIssueDivTitle);
           $(".issues").append(newModal);
+
         }
       })
+      } 
     });
 
     /*Modal Open and Close*/
@@ -317,14 +331,16 @@ $(document).ready(function() {
     var userName = "";
     var userEmail = "";
 
-    // on page load render the google btn
-    renderButton();
+    // on page load render the google btn to the nav
+    renderButton("1");
 
+    // execute sign out
     $(document).on('click', '#google-signOut', function() {
       signOut();
     });
 
 
+    // function that renders google btn
     function onSuccess(googleUser) {
       var profile = googleUser.getBasicProfile();
       //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -337,16 +353,20 @@ $(document).ready(function() {
       // render sign out button
       $("nav").empty();
       $("nav").html(`
-      <ul>
-      <li class="nav-logo">Home</li>
-      <li class="googleBtn" id="google-signOut">Sign Out</li>
-    </ul>
+        <ul>
+          <li class="nav-logo">Home</li>
+          <li class="googleBtn" id="google-signOut">Sign Out</li>
+        </ul>
       `)
 
       //If the user is admin (spiffyplus@gmail.com), show the close issue button
       if (userEmail === "spiffyplus@gmail.com"){
         $(".close-issue-btn").attr("style", "display:block");
       }
+
+      // close modal if open
+      document.getElementById("google-signIn-failure").style.display = "none";
+
     };
 
     function onFailure(error) {
@@ -354,8 +374,10 @@ $(document).ready(function() {
     };
 
     // render google sign in button
-    function renderButton() {
-      gapi.signin2.render('google-signIn', {
+    var signInBtn;
+    function renderButton(btnNum) {
+      signInBtn = "google-signIn" + btnNum;
+      gapi.signin2.render(signInBtn, {
         'scope': 'profile email',
         'width': 240,
         'height': 50,
@@ -379,16 +401,27 @@ $(document).ready(function() {
         // render the sign in button
         $("nav").empty();
         $("nav").html(`
-        <ul>
-        <li class="nav-logo">Home</li>
-        <li class="googleBtn" id="google-signIn">Sign Out</li>
-      </ul>
+          <ul>
+            <li class="nav-logo">Home</li>
+            <li class="googleBtn" id="google-signIn1">Sign Out</li>
+          </ul>
         `)
 
-        renderButton();
+        renderButton("1");
 
         $(".close-issue-btn").attr("style", "display:none");
 
       });
     }
+
+  // google sign in failure modal
+  function googleFailure() {
+    document.getElementById("google-signIn-failure").style.display = "block";
+    renderButton("2");
+  }
+
+  $(".close-btn").on("click", function() {
+    document.getElementById("google-signIn-failure").style.display = "none";
+  });
+
 });
