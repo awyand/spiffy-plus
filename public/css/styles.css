@@ -29,6 +29,7 @@ nav ul li {
 }
 
 .googleBtn {
+  cursor: pointer;
   float: right;
 }
 
@@ -51,6 +52,10 @@ nav ul li {
   color: white;
   font-size: 27vh;
   margin: 0;
+}
+
+.header h1 span {
+  color: red;
 }
 
 .header p {
@@ -174,11 +179,24 @@ nav ul li {
 }
 
 .signIn-modal {
-  width: 250px;
   height: 100px;
   margin-left: auto;
   margin-right: auto;
+  width: 250px;
 }
+
+.close-btn {
+  background: #ccc;
+  padding: 2px 5px;
+  margin-left: 92%;
+  width: 5%;
+}
+
+.close-btn:hover {
+  color:#fff;
+  cursor: pointer;
+}
+
 
 /***** VOTE BUTTONS ******/
 .vote-btn {
@@ -349,8 +367,6 @@ form {
 	text-align: center;
   width: 35px;
 }
-
-/* If you don't want the footer to be responsive, remove these media queries */
 
 @media (max-width: 880px) {
 
