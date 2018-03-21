@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     //////////////////////////////
     ////// GLOBAL VARIABLES //////
@@ -16,6 +17,19 @@ $(document).ready(function() {
     ////// EVENT HANDLERS //////
     ////////////////////////////
 
+
+    ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
+    function initAutocomplete() {
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
+      autocomplete = new google.maps.places.Autocomplete(
+        (document.getElementById('user-location')), {
+          types: ['address']
+        });
+      };
+      $(document).ready(initAutocomplete);
+
+
     // When the user selects an image using the Choose File button (triggers a change)
     $("#userImg").on("change", function() {
       // Store the file object in imageToUpload
@@ -31,6 +45,7 @@ $(document).ready(function() {
     $("#submit-new-issue").on("click", function(e) {
       // Prevent default
       e.preventDefault();
+
       //Client side form validation:
       //Check to make sure the user is signed in
       if (userEmail === "") {
@@ -284,14 +299,48 @@ $(document).ready(function() {
 
 
     //Form Success Modal
-    //$("#back-to-top").on("click", function() {
-     // $("#formSuccess").attr("style", "display:none");
-      //location.reload();
-    //});
+    $("#back-to-top").on("click", function() {
+     $("#formSuccess").attr("style", "display:none");
+      location.reload();
+    });
 
+    //////////////////////////// ISSUE VIEWS ///////////////////////////////////
+    ////////////////// VIEW ALL, VIEW NEW, VIEW ONE USER ///////////////////////
 
+    //Function to create the appropriate divs and populate them
+    function createIssueCards(data) {
+    $(".issue-header").remove();
+    $(".issue-body-modal").remove();
+    for (i = 0; i < data.issue.length; i++) {
+
+      var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data.issue[i].title + "</p>");
+      var newIssueBody = $("<div class='issue-body'>").html("<button type='button' class='close'>Close &times;</button>");
+      var newIssueBodyTitle = $("<div class='issue-title'>").html(data.issue[i].title);
+      var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ data.issue[i].imglocation +"'>")
+      var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + data.issue[i].id + ">" + data.issue[i].projectType + "</span>"
+          + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + data.issue[i].id + ">" + data.issue[i].location + "</span>"
+          + "</p><p><u>STATUS:</u><span class='" + data.issue[i].status + "' data-id=" + data.issue[i].id + "> " + data.issue[i].status + "</span>"
+          + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + data.issue[i].id + "> " + data.issue[i].score + "</span>"
+          + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + data.issue[i].id + "> " + data.issue[i].createdAt + "</span>"
+          + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-up'></i></button>"
+          + "<button type='button' class='vote-btn downvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-down'></i></button>"
+          + "<a class='button twitter-btn' data-id="+ data.issue[i].id +" href='https://twitter.com/spiffyplus/status/"+ data.issue[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
+          + "<button type='button' class='close-issue-btn' data-id="+ data.issue[i].tweetID +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
+        );
+      var newModal = $('<div class="modal issue-body-modal">');
+      $(newIssueBody).prepend(newIssueDetails);
+      $(newIssueBody).prepend(newIssueImg);
+      $(newIssueBody).prepend(newIssueBodyTitle);
+      $(newModal).append(newIssueBody);
+      $(".issues").append(newIssueDivTitle);
+      $(".issues").append(newModal);
+
+    };
+  };
+  //VIEW BUTTONS
+  ///VIEW MY ISSUES Function
     $("#viewOne").on("click", function() {
-
+  //verify the user is signed in
       if (userEmail === "") {
         googleFailure();
 
@@ -301,36 +350,7 @@ $(document).ready(function() {
       $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
       }).then(function(data) {
-        console.log(data);
-        console.log(data.issue[0].title);
-        console.log(data.issue.length);
-        $(".issue-header").remove();
-        $(".issue-body-modal").remove();
-        for (i = 0; i < data.issue.length; i++) {
-
-          var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data.issue[i].title + "</p>");
-          var newIssueBody = $("<div class='issue-body'>").html("<button type='button' class='close'>Close &times;</button>");
-          var newIssueBodyTitle = $("<div class='issue-title'>").html(data.issue[i].title);
-          var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ data.issue[i].imglocation +"'>")
-          var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + data.issue[i].id + ">" + data.issue[i].projectType + "</span>"
-              + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + data.issue[i].id + ">" + data.issue[i].location + "</span>"
-              + "</p><p><u>STATUS:</u><span class='" + data.issue[i].status + "' data-id=" + data.issue[i].id + "> " + data.issue[i].status + "</span>"
-              + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + data.issue[i].id + "> " + data.issue[i].score + "</span>"
-              + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + data.issue[i].id + "> " + data.issue[i].createdAt + "</span>"
-              + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-up'></i></button>"
-              + "<button type='button' class='vote-btn downvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-down'></i></button>"
-              + "<a class='button twitter-btn' data-id="+ data.issue[i].id +" href='https://twitter.com/spiffyplus/status/"+ data.issue[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
-              + "<button type='button' class='close-issue-btn' data-id="+ data.issue[i].tweetID +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
-            );
-          var newModal = $('<div class="modal issue-body-modal">');
-          $(newIssueBody).prepend(newIssueDetails);
-          $(newIssueBody).prepend(newIssueImg);
-          $(newIssueBody).prepend(newIssueBodyTitle);
-          $(newModal).append(newIssueBody);
-          $(".issues").append(newIssueDivTitle);
-          $(".issues").append(newModal);
-
-        }
+        createIssueCards(data);
       })
       }
     });
