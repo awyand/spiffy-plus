@@ -180,7 +180,7 @@ $(document).ready(function() {
 
       // Create message
       var params = {
-        status: `We just received a new ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\n\nProject Title: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\n\nOnce this issue reaches a score of 5, our team of volunteers will start working.  Visit spiffy.plus to vote!`
+        status: `New ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\n\nProject Name: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\n\n. Visit spiffy.plus to vote and we'll get started right away!`
       };
 
       // Post message
@@ -205,9 +205,9 @@ $(document).ready(function() {
       // Set update status based on newStatus
       var statusUpdate;
       if (newStatus === "Open") {
-        statusUpdate = `We've started work on a project! The following project reached the required score and our volunteers are already hard at work. Here's the info:\n\nSpiffy+ ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Title: ${issueTitle}\n\nStay tuned, we'll provide an update when this issue is complete.`;
+        statusUpdate = `We've started work on a project! Here's the info:\n\nSpiffy ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Name: ${issueTitle}\n\nStay tuned for updates!`;
       } else if (newStatus === "Closed") {
-        statusUpdate = `Project Complete! Our volunteers have completed work on the following project:\n\nSpiffy+ ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Title: ${issueTitle}\n\nThanks to ${issueUserName} for the tip, and have a spiffy day!`;
+        statusUpdate = `Project Complete! We've completed work on the following project:\n\nSpiffy ID: ${issueID}\nSubmitted By: ${issueUserName}\nProject Name: ${issueTitle}\n\nThanks for the tip, and have a spiffy day!`;
       }
 
       // Create message and point it at originalTweetID
@@ -253,7 +253,7 @@ $(document).ready(function() {
         }).then(function() {
 
           console.log("new project added");
-          
+
         });
 
       });
@@ -309,7 +309,7 @@ $(document).ready(function() {
 
         }
       })
-      } 
+      }
     });
 
     /*Modal Open and Close*/
