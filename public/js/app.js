@@ -270,20 +270,30 @@ $(document).ready(function() {
         console.log(data);
         console.log(data.issue[0].title);
         console.log(data.issue.length);
+        $(".issue-header").remove();
+        $(".issue-body-modal").remove();
         for (i = 0; i < data.issue.length; i++) {
-
-          var newIssueDiv = $('<div class="issue">').html(
-            '<p class="issue-title">' + data.issue[i].title +
-            '</p><p><u>CATEGORY:</u><span class="issue-type" data-id=' + data.issue[i].id + '> ' + data.issue[i].projectType + '</span>' +
-            '</p><p><u>LOCATION:</u><span class="issue-location" data-id=' + data.issue[i].id + '> ' + data.issue[i].location + '</span>' +
-            '</p><p><u>STATUS:</u><span class=' + data.issue[i].status + ' data-id=' + data.issue[i].id + '> ' + data.issue[i].status + '</span>' +
-            '</p><p><u>SCORE:</u><span class="issue-score" data-id=' + data.issue[i].id + '> ' + data.issue[i].score + '</span>' +
-            '</p><p><u>DATE ADDED:</u><span class="issue-date" data-id=' + data.issue[i].id + '> ' + data.issue[i].createdAt + '</span>' +
-            '</p><img class="issue-img issue-item" src=' + data.issue[i].imglocation +
-            '><a class="button twitter-btn" data-id=' + data.issue[i].id + ' href="https://twitter.com/spiffyplus/status/' + data.issue[i].tweetID + ' target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter' +
-            '</a><button type="button" class="close">Close &times;</button>'
-          );
-          $(".issues").append(newIssueDiv);
+          var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data.issue[i].title + "</p>");
+          var newIssueBody = $("<div class='issue-body'>").html("<button type='button' class='close'>Close &times;</button>");
+          var newIssueBodyTitle = $("<div class='issue-title'>").html(data.issue[i].title);
+          var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ data.issue[i].imglocation +"'>")
+          var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + data.issue[i].id + ">" + data.issue[i].projectType + "</span>"
+              + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + data.issue[i].id + ">" + data.issue[i].location + "</span>"
+              + "</p><p><u>STATUS:</u><span class='" + data.issue[i].status + "' data-id=" + data.issue[i].id + "> " + data.issue[i].status + "</span>"
+              + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + data.issue[i].id + "> " + data.issue[i].score + "</span>"
+              + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + data.issue[i].id + "> " + data.issue[i].createdAt + "</span>"
+              + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-up'></i></button>"
+              + "<button type='button' class='vote-btn downvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-down'></i></button>"
+              + "<a class='button twitter-btn' data-id="+ data.issue[i].id +" href='https://twitter.com/spiffyplus/status/"+ data.issue[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
+              + "<button type='button' class='close-issue-btn' data-id="+ data.issue[i].tweetID +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
+            );
+          var newModal = $('<div class="modal issue-body-modal">');
+          $(newIssueBody).prepend(newIssueDetails);
+          $(newIssueBody).prepend(newIssueImg);
+          $(newIssueBody).prepend(newIssueBodyTitle);
+          $(newModal).append(newIssueBody);
+          $(".issues").append(newIssueDivTitle);
+          $(".issues").append(newModal);
         }
       })
     });
@@ -332,7 +342,7 @@ $(document).ready(function() {
       <li class="googleBtn" id="google-signOut">Sign Out</li>
     </ul>
       `)
-      
+
       //If the user is admin (spiffyplus@gmail.com), show the close issue button
       if (userEmail === "spiffyplus@gmail.com"){
         $(".close-issue-btn").attr("style", "display:block");
