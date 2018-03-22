@@ -200,23 +200,21 @@ $(document).ready(function() {
 
       // Post message
       cb.__call("statuses_update", params, function(reply, rate, err) {
-        console.log(reply.errors[0].code);
 
         // If Twitter API responded with error stating the tweet is too long
-        if (reply.errors[0].code === 186) {
-          // Tell user to shorten some fields in order to make it short enough
-          $(".error-message").html("Error - Please shorten your project name and/or location.");
-          $("#userProjectName").attr("style", "border:1px solid red");
-          $("#user-location").attr("style", "border:1px solid #D1D1D1");
-        } else if (reply.httpstatus !== 200) {
-          // Else, if Twitter API responded with anything other than 200 OK
-          // Alert user that there was an error and to try again
-          $(".error-message").html(`Error ${reply.httpstatus} - Please see console for more details.`);
-          $("#userProjectName").attr("style", "border:1px solid red");
-          $("#user-location").attr("style", "border:1px solid #D1D1D1");
-          // If there were errors
-          if (reply.errors) {
-            // Log them so the user can examine
+        // If reply errors exists
+        if (reply.errors) {
+          // Check to see if code is 187 (tweet too long)
+          if (reply.errors[0].code === 186) {
+            // Tell user to shorten some fields in order to make it short enough
+            $(".error-message").html("Error - Please shorten your project name and/or location.");
+            $("#userProjectName").attr("style", "border:1px solid red");
+            $("#user-location").attr("style", "border:1px solid #D1D1D1");
+          } else {
+            // Alert user that there was an error and to try again
+            $(".error-message").html(`Error ${reply.httpstatus} - Please see console for more details.`);
+            $("#userProjectName").attr("style", "border:1px solid red");
+            $("#user-location").attr("style", "border:1px solid #D1D1D1");
             console.log(reply.errors);
           }
         } else if (reply.httpstatus === 200) {
