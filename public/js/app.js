@@ -13,7 +13,15 @@ $(document).ready(function() {
     // Sets up the users location as a global variable
     var userEnteredLocation;
 
+    //User Email
+    var userEmail;
+    ////////////////////////////
+    ////// EVENT HANDLERS //////
+    ////////////////////////////
+
+
     //////////////////////// GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
+
 
     function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
@@ -345,7 +353,9 @@ $(document).ready(function() {
       $(newModal).append(newIssueBody);
       $(".issues").append(newIssueDivTitle);
       $(".issues").append(newModal);
-
+      if (userEmail === "spiffyplus@gmail.com"){
+        $(".close-issue-btn").attr("style", "display:block");
+      }
     };
   };
   //VIEW BUTTONS
