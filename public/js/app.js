@@ -1,8 +1,6 @@
-
 $(document).ready(function() {
-    //////////////////////////////
-    ////// GLOBAL VARIABLES //////
-    //////////////////////////////
+
+    //////////////////////// GLOBALS ////////////////////////////////
 
     // Cloudinary Variables
     var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/spiffy-plus/upload";
@@ -13,12 +11,8 @@ $(document).ready(function() {
     var imageToUpload;
     var formData;
 
-    ////////////////////////////
-    ////// EVENT HANDLERS //////
-    ////////////////////////////
+    //////////////////////// GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
 
-
-    ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
     function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
       // location types.
@@ -27,8 +21,18 @@ $(document).ready(function() {
           types: ['address']
         });
       };
+
       $(document).ready(initAutocomplete);
 
+
+    //////////////////////// TIPPY TOOLTIPS ////////////////////////////////
+
+    tippy('.tippy-btn', {
+      arrow: true
+    });
+
+
+    //////////////////////// EVENT HANDLERS ////////////////////////////////
 
     // When the user selects an image using the Choose File button (triggers a change)
     $("#userImg").on("change", function() {
@@ -177,6 +181,14 @@ $(document).ready(function() {
       });
     });
 
+    //Form Success Modal
+    $("#back-to-top").on("click", function() {
+     $("#formSuccess").attr("style", "display:none");
+      location.reload();
+    });
+
+
+    //////////////////////// TWITTER API FUNCTIONS ////////////////////////////////
 
     // Function to send tweet, which takes an image URL as an arg
     function sendTweet(imageUrl) {
@@ -262,7 +274,10 @@ $(document).ready(function() {
         }
       });
     }
-  // Function to post new project to Spiffy API/database
+
+    //////////////////////// SPIFFY API FUNCTIONS ////////////////////////////////
+
+    // Function to post new project to Spiffy API/database
     // Takes image URL and twitter ID as argument
     function postNewProject(imgUrl, twitterID) {
 
@@ -296,11 +311,7 @@ $(document).ready(function() {
     }
 
 
-    //Form Success Modal
-    $("#back-to-top").on("click", function() {
-     $("#formSuccess").attr("style", "display:none");
-      location.reload();
-    });
+
 
     //////////////////////////// ISSUE VIEWS ///////////////////////////////////
     ////////////////// VIEW ALL, VIEW NEW, VIEW ONE USER ///////////////////////
