@@ -94,7 +94,7 @@ $(document).ready(function() {
     });
 
     // When user clicks upvote or downvote button
-    $(".vote-btn").on("click", function() {
+    $(document).on("click", ".vote-btn", function() {
       // Set type of vote (for use during AJAX PUT below)
       var voteType;
       if ($(this).hasClass("upvote-btn")) {
@@ -308,24 +308,24 @@ $(document).ready(function() {
     ////////////////// VIEW ALL, VIEW NEW, VIEW ONE USER ///////////////////////
 
     //Function to create the appropriate divs and populate them
-    function createIssueCards(data, dataPackage) {
+    function createIssueCards(data) {
     $(".issue-header").remove();
     $(".issue-body-modal").remove();
-    for (i = 0; i < dataPackage.length; i++) {
+    for (i = 0; i < data.length; i++) {
 
-      var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + dataPackage[i].title + "</p>");
+      var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data[i].title + "</p>");
       var newIssueBody = $("<div class='issue-body'>").html("<button type='button' class='close'>Close &times;</button>");
-      var newIssueBodyTitle = $("<div class='issue-title'>").html(dataPackage[i].title);
-      var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ dataPackage[i].imglocation +"'>")
-      var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + dataPackage[i].id + ">" + dataPackage[i].projectType + "</span>"
-          + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + dataPackage[i].id + ">" + dataPackage[i].location + "</span>"
-          + "</p><p><u>STATUS:</u><span class='" + dataPackage[i].status + "' data-id=" + dataPackage[i].id + "> " + dataPackage[i].status + "</span>"
-          + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + dataPackage[i].id + "> " + dataPackage[i].score + "</span>"
-          + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + dataPackage[i].id + "> " + dataPackage[i].createdAt + "</span>"
-          + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + dataPackage[i].id + "><i class='far fa-thumbs-up'></i></button>"
-          + "<button type='button' class='vote-btn downvote-btn' data-id=" + dataPackage[i].id + "><i class='far fa-thumbs-down'></i></button>"
-          + "<a class='button twitter-btn' data-id="+ dataPackage[i].id +" href='https://twitter.com/spiffyplus/status/"+ dataPackage[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
-          + "<button type='button' class='close-issue-btn' data-id="+ dataPackage[i].tweetID +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
+      var newIssueBodyTitle = $("<div class='issue-title'>").html(data[i].title);
+      var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ data[i].imglocation +"'>")
+      var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + data[i].id + ">" + data[i].projectType + "</span>"
+          + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + data[i].id + ">" + data[i].location + "</span>"
+          + "</p><p><u>STATUS:</u><span class='" + data[i].status + "' data-id=" + data[i].id + "> " + data[i].status + "</span>"
+          + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + data[i].id + "> " + data[i].score + "</span>"
+          + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + data[i].id + "> " + data[i].createdAt + "</span>"
+          + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + data[i].id + "><i class='far fa-thumbs-up'></i></button>"
+          + "<button type='button' class='vote-btn downvote-btn' data-id=" + data[i].id + "><i class='far fa-thumbs-down'></i></button>"
+          + "<a class='button twitter-btn' data-id="+ data[i].id +" href='https://twitter.com/spiffyplus/status/"+ data[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
+          + "<button type='button' class='close-issue-btn' data-id="+ data[i].id +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
         );
       var newModal = $('<div class="modal issue-body-modal">');
       $(newIssueBody).prepend(newIssueDetails);
@@ -350,7 +350,7 @@ $(document).ready(function() {
       $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
       }).then(function(data) {
-        createIssueCards(data, data);
+        createIssueCards(data);
         console.log(data);
       })
       }
@@ -362,7 +362,7 @@ $(document).ready(function() {
       $.ajax("api/all", {
         type: "GET"
       }).then(function(data){
-        createIssueCards(data, data);
+        createIssueCards(data);
         console.log(data);
       });
     });
@@ -373,7 +373,7 @@ $(document).ready(function() {
       $.ajax("api/issues/status/new", {
         type: "GET"
       }).then(function(data){
-        createIssueCards(data, data);
+        createIssueCards(data);
         console.log(data);
       });
     });
