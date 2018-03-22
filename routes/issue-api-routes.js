@@ -20,11 +20,14 @@ module.exports = function(app) {
         res.render("index", allProjectData);
       });
     });
-
+    //Get all issues for view all button
+    app.get("/api/all", function(req, res) {
+      db.Issue.findAll({}).then(function(dbIssue) {
+        res.json(dbIssue);
+      })
+    })
     // Get issue by ID
-    app.get("/api/issues/:id", function(req, res) {
-
-      console.log("Here's the req: " + req);
+    app.get("/api/issues/:id", function(req, res) {;
 
       db.Issue.findOne({
         where: {
@@ -33,7 +36,6 @@ module.exports = function(app) {
       }).then(function(dbIssue) {
         res.json(dbIssue);
       });
-      console.log("Here's the res: " + res);
     });
 
     // Get issues by user
@@ -43,10 +45,7 @@ module.exports = function(app) {
           userEmail: req.params.userEmail
         }
       }).then(function(dbIssue) {
-        var userProjectData = {
-          issue: dbIssue
-        };
-        res.json(userProjectData);
+        res.json(dbIssue);
       });
     });
 
