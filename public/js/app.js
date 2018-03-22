@@ -14,7 +14,8 @@ $(document).ready(function() {
     var formData;
     // Sets up the users location as a global variable
     var userEnteredLocation;
-
+    //User Email
+    var userEmail;
     ////////////////////////////
     ////// EVENT HANDLERS //////
     ////////////////////////////
@@ -334,7 +335,9 @@ $(document).ready(function() {
       $(newModal).append(newIssueBody);
       $(".issues").append(newIssueDivTitle);
       $(".issues").append(newModal);
-
+      if (userEmail === "spiffyplus@gmail.com"){
+        $(".close-issue-btn").attr("style", "display:block");
+      }
     };
   };
   //VIEW BUTTONS
