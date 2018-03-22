@@ -350,7 +350,7 @@ $(document).ready(function() {
       $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
       }).then(function(data) {
-        createIssueCards(data, data.issue);
+        createIssueCards(data, data);
         console.log(data);
       })
       }
@@ -363,6 +363,18 @@ $(document).ready(function() {
         type: "GET"
       }).then(function(data){
         createIssueCards(data, data);
+        console.log(data);
+      });
+    });
+
+    //VIEW ALL ISSUES
+    $("#viewNew").on("click", function() {
+      $(".issue").empty();
+      $.ajax("api/issues/status/new", {
+        type: "GET"
+      }).then(function(data){
+        createIssueCards(data, data);
+        console.log(data);
       });
     });
 

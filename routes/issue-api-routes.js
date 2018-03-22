@@ -49,6 +49,16 @@ module.exports = function(app) {
       });
     });
 
+    // Get issues by new status
+    app.get("/api/issues/status/new", function(req, res) {
+      db.Issue.findAll({
+        where: {
+          status: "New"
+        }
+      }).then(function(dbIssue) {
+        res.json(dbIssue);
+      });
+    });
     // POST ROUTES
 
     // Post new issue
