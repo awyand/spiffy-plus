@@ -12,6 +12,8 @@ $(document).ready(function() {
     // These have to be global since we're separating the Choose File button from the upload action
     var imageToUpload;
     var formData;
+    // Sets up the users location as a global variable
+    var userEnteredLocation;
 
     ////////////////////////////
     ////// EVENT HANDLERS //////
