@@ -516,4 +516,4 @@ $(document).ready(function() {
 
 });
 
-mapPointsNotLoggedIn();
+
