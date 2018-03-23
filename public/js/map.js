@@ -1,35 +1,34 @@
 // GLOBAL VARS
 var PassedlocationName = "";
 
-var client = new MapboxClient(
-  "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
-);
 
 function getGeoLocation(userEnteredLocation, cb) {
+  // Format userEnteredLocation for use in Mapbox
   var formattedLocation = userEnteredLocation.split(" ").join("+");
+
+  // Log formattedLocation
+  console.log(formattedLocation);
+
+  // call Mapbox geocode function
   client.geocodeForward(formattedLocation, function(err, data, res) {
-    // data is the geocoding result as parsed JSON
-      // console.log(data);
-    // Matching geoCode Location
-    PassedLocationName = data.features[0].matching_place_name;
-    // console.log(PassedLocationName);
-  // Retur call back with location name
-    return cb(PassedLocationName);
 
-    // add the logged data to a variable that gets exported to the database
-    console.log("The Matching name is this in map.js" + PassedLocationName);
+    // Get latitude and longitude from response
+    var lat = data.features[0].geometry.coordinates[1];
+    var long = data.features[0].geometry.coordinates[0];
 
+    // Error handling
     if (err) {
       return console.log("Error occurred: " + err);
       alert('sorry this location did not compute. Try again');
     }
+
+    // Return lat and long to callback function
+    return cb(lat, long);
   });
 }
 
-
-
 // All new leaflet shit
-
+// This needs to go into function
 // Set API route based on ID
      var apiRoute = `/api/issues/`;
 

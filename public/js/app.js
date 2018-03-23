@@ -220,7 +220,7 @@ $(document).ready(function() {
 
       // Create message
       var params = {
-        status: `New ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\n\nProject Name: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\n\n. Visit spiffy.plus to vote and we'll get started right away!`
+        status: `New ${tweetInfo.type} request from ${tweetInfo.username}! Here's the info:\n\nProject Name: ${tweetInfo.title}\nLocation: ${tweetInfo.location}\nImage: ${imageUrl}\n\n Visit spiffy.plus to vote and we'll get started right away!`
       };
 
       // Post message
@@ -296,17 +296,19 @@ $(document).ready(function() {
 
       var userEnteredLocation = $("#user-location").val().trim();
       // function to run geoCoder first to grab matching location name for database
-      getGeoLocation(userEnteredLocation, function(location){
+      getGeoLocation(userEnteredLocation, function(geocodeLat, geocodeLong){
         // pass return location name from call back into newProject variable
         var newProject = {
           title: $("#userProjectName").val().trim(),
-          location: location,
+          location: userEnteredLocation,
           projectType: $("#userProjectType").val().trim(),
           imglocation: imgUrl,
           tweetID: twitterID,
           score: 0,
           userName: userName,
-          userEmail: userEmail
+          userEmail: userEmail,
+          lat: geocodeLat,
+          lon: geocodeLong
         }
 
         console.log(newProject);
