@@ -29,6 +29,9 @@ $(document).ready(function() {
       };
       $(document).ready(initAutocomplete);
 
+      ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
+
+     
 
     // When the user selects an image using the Choose File button (triggers a change)
     $("#userImg").on("change", function() {
@@ -468,3 +471,5 @@ $(document).ready(function() {
   });
 
 });
+
+mapPointsNotLoggedIn();

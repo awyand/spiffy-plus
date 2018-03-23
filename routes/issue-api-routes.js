@@ -21,6 +21,16 @@ module.exports = function(app) {
       });
     });
 
+    // Get all issues in DB
+
+      // GET route for getting all of the posts
+  app.get("/api/issues", function(req, res) {
+    db.Issue.findAll({})
+      .then(function(dbIssue) {
+        res.json(dbIssue);
+      });
+  });
+
     // Get issue by ID
     app.get("/api/issues/:id", function(req, res) {
 

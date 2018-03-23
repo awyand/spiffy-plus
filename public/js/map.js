@@ -1,33 +1,78 @@
 // GLOBAL VARS
 var PassedlocationName = "";
 
-var geojson = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-77.042941, 38.985874]
-      },
-      properties: {
-        title: "Zip: 20012",
-        description: "Washington, D.C."
-      }
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-77.019023, 38.912068]
-      },
-      properties: {
-        title: "Zip: 20001",
-        description: "Washington, DC"
-      }
-    }
-  ]
-};
+// var geojson = {
+//   type: "FeatureCollection",
+//   features: [
+//     {
+//       type: "Feature",
+//       geometry: {
+//         type: "Point",
+//         coordinates: [-77.042941, 38.985874]
+//       },
+//       properties: {
+//         title: "Zip: 20012",
+//         description: "Washington, D.C."
+//       }
+//     },
+//     {
+//       type: "Feature",
+//       geometry: {
+//         type: "Point",
+//         coordinates: [-77.019023, 38.912068]
+//       },
+//       properties: {
+//         title: "Zip: 20001",
+//         description: "Washington, DC"
+//       }
+//     }
+//   ]
+// };
+
+// console.log(geojson)
+
+function mapPointsNotLoggedIn(){
+     // Set API route based on ID
+     var apiRoute = `/api/issues/`;
+
+     // AJAX request to get current score and perform appropriate PUT request based on voteType
+     // i.e. either increment or decrement current score
+
+     var geojson = {
+      type: "FeatureCollection",
+      features: []
+    };
+
+     $.ajax(apiRoute, {
+       type: 'GET'
+     }).then(function(res) {
+       for (let i = 0; i < res.length; i++) {
+        console.log(res[i].lon);
+
+        var parsedLat = parseFloat(res[i].lat);
+        var parseLon = parseFloat(res[i].lon);
+
+        var featuresPushed = {
+          type:"Feature",
+          geometry:{
+            type:"Point",
+            coordinates:[parsedLat, parseLon]
+          },
+          properties: {
+            title:res[i].title,
+            description:res[i].projectType
+          }
+
+        };
+        geojson.features.push(featuresPushed); 
+       }
+       console.log(geojson);
+
+     });
+
+}
+
+
 // add map to screen
 function createMap() {
   mapboxgl.accessToken =
