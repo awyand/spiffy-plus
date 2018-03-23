@@ -1,8 +1,6 @@
-
 $(document).ready(function() {
-    //////////////////////////////
-    ////// GLOBAL VARIABLES //////
-    //////////////////////////////
+
+    //////////////////////// GLOBALS ////////////////////////////////
 
     // Cloudinary Variables
     var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/spiffy-plus/upload";
@@ -12,13 +10,19 @@ $(document).ready(function() {
     // These have to be global since we're separating the Choose File button from the upload action
     var imageToUpload;
     var formData;
+    // Sets up the users location as a global variable
+    var userEnteredLocation;
 
+    //User Email
+    var userEmail;
     ////////////////////////////
     ////// EVENT HANDLERS //////
     ////////////////////////////
 
 
-    ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
+    //////////////////////// GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
+
+
     function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
       // location types.
@@ -27,11 +31,21 @@ $(document).ready(function() {
           types: ['address']
         });
       };
+
       $(document).ready(initAutocomplete);
 
       ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
 
      
+
+    //////////////////////// TIPPY TOOLTIPS ////////////////////////////////
+
+    tippy('.tippy-btn', {
+      arrow: true
+    });
+
+
+    //////////////////////// EVENT HANDLERS ////////////////////////////////
 
     // When the user selects an image using the Choose File button (triggers a change)
     $("#userImg").on("change", function() {
@@ -95,7 +109,7 @@ $(document).ready(function() {
     });
 
     // When user clicks upvote or downvote button
-    $(".vote-btn").on("click", function() {
+    $(document).on("click", ".vote-btn", function() {
       // Set type of vote (for use during AJAX PUT below)
       var voteType;
       if ($(this).hasClass("upvote-btn")) {
@@ -180,6 +194,14 @@ $(document).ready(function() {
       });
     });
 
+    //Form Success Modal
+    $("#back-to-top").on("click", function() {
+     $("#formSuccess").attr("style", "display:none");
+      location.reload();
+    });
+
+
+    //////////////////////// TWITTER API FUNCTIONS ////////////////////////////////
 
     // Function to send tweet, which takes an image URL as an arg
     function sendTweet(imageUrl) {
@@ -203,23 +225,21 @@ $(document).ready(function() {
 
       // Post message
       cb.__call("statuses_update", params, function(reply, rate, err) {
-        console.log(reply.errors[0].code);
 
         // If Twitter API responded with error stating the tweet is too long
-        if (reply.errors[0].code === 186) {
-          // Tell user to shorten some fields in order to make it short enough
-          $(".error-message").html("Error - Please shorten your project name and/or location.");
-          $("#userProjectName").attr("style", "border:1px solid red");
-          $("#user-location").attr("style", "border:1px solid #D1D1D1");
-        } else if (reply.httpstatus !== 200) {
-          // Else, if Twitter API responded with anything other than 200 OK
-          // Alert user that there was an error and to try again
-          $(".error-message").html(`Error ${reply.httpstatus} - Please see console for more details.`);
-          $("#userProjectName").attr("style", "border:1px solid red");
-          $("#user-location").attr("style", "border:1px solid #D1D1D1");
-          // If there were errors
-          if (reply.errors) {
-            // Log them so the user can examine
+        // If reply errors exists
+        if (reply.errors) {
+          // Check to see if code is 187 (tweet too long)
+          if (reply.errors[0].code === 186) {
+            // Tell user to shorten some fields in order to make it short enough
+            $(".error-message").html("Error - Please shorten your project name and/or location.");
+            $("#userProjectName").attr("style", "border:1px solid red");
+            $("#user-location").attr("style", "border:1px solid #D1D1D1");
+          } else {
+            // Alert user that there was an error and to try again
+            $(".error-message").html(`Error ${reply.httpstatus} - Please see console for more details.`);
+            $("#userProjectName").attr("style", "border:1px solid red");
+            $("#user-location").attr("style", "border:1px solid #D1D1D1");
             console.log(reply.errors);
           }
         } else if (reply.httpstatus === 200) {
@@ -267,7 +287,10 @@ $(document).ready(function() {
         }
       });
     }
-  // Function to post new project to Spiffy API/database
+
+    //////////////////////// SPIFFY API FUNCTIONS ////////////////////////////////
+
+    // Function to post new project to Spiffy API/database
     // Takes image URL and twitter ID as argument
     function postNewProject(imgUrl, twitterID) {
 
@@ -292,7 +315,7 @@ $(document).ready(function() {
           data: newProject,
           type: "POST"
         }).then(function() {
-
+        $("#formSuccess").attr("style", "display:block");
           console.log("new project added");
 
         });
@@ -301,11 +324,7 @@ $(document).ready(function() {
     }
 
 
-    //Form Success Modal
-    $("#back-to-top").on("click", function() {
-     $("#formSuccess").attr("style", "display:none");
-      location.reload();
-    });
+
 
     //////////////////////////// ISSUE VIEWS ///////////////////////////////////
     ////////////////// VIEW ALL, VIEW NEW, VIEW ONE USER ///////////////////////
@@ -314,21 +333,21 @@ $(document).ready(function() {
     function createIssueCards(data) {
     $(".issue-header").remove();
     $(".issue-body-modal").remove();
-    for (i = 0; i < data.issue.length; i++) {
+    for (i = 0; i < data.length; i++) {
 
-      var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data.issue[i].title + "</p>");
+      var newIssueDivTitle = $("<div class='issue issue-header'>").html("<p class='issue-title'>" + data[i].title + "</p>");
       var newIssueBody = $("<div class='issue-body'>").html("<button type='button' class='close'>Close &times;</button>");
-      var newIssueBodyTitle = $("<div class='issue-title'>").html(data.issue[i].title);
-      var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ data.issue[i].imglocation +"'>")
-      var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + data.issue[i].id + ">" + data.issue[i].projectType + "</span>"
-          + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + data.issue[i].id + ">" + data.issue[i].location + "</span>"
-          + "</p><p><u>STATUS:</u><span class='" + data.issue[i].status + "' data-id=" + data.issue[i].id + "> " + data.issue[i].status + "</span>"
-          + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + data.issue[i].id + "> " + data.issue[i].score + "</span>"
-          + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + data.issue[i].id + "> " + data.issue[i].createdAt + "</span>"
-          + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-up'></i></button>"
-          + "<button type='button' class='vote-btn downvote-btn' data-id=" + data.issue[i].id + "><i class='far fa-thumbs-down'></i></button>"
-          + "<a class='button twitter-btn' data-id="+ data.issue[i].id +" href='https://twitter.com/spiffyplus/status/"+ data.issue[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
-          + "<button type='button' class='close-issue-btn' data-id="+ data.issue[i].tweetID +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
+      var newIssueBodyTitle = $("<div class='issue-title'>").html(data[i].title);
+      var newIssueImg = $("<div class='issue-img-div'>").html("<img class='issue-img' src='"+ data[i].imglocation +"'>")
+      var newIssueDetails = $("<div class='issue-details'>").html("<p><u>CATEGORY:</u><span class='issue-type' data-id=" + data[i].id + ">" + data[i].projectType + "</span>"
+          + "</p><p><u>LOCATION:</u><span class='issue-location' data-id=" + data[i].id + ">" + data[i].location + "</span>"
+          + "</p><p><u>STATUS:</u><span class='" + data[i].status + "' data-id=" + data[i].id + "> " + data[i].status + "</span>"
+          + "</p><p><u>SCORE:</u><span class='issue-score' data-id=" + data[i].id + "> " + data[i].score + "</span>"
+          + "</p><p><u>DATE:</u><span class='issue-date' data-id=" + data[i].id + "> " + data[i].createdAt + "</span>"
+          + "</p><button type='button' class='vote-btn upvote-btn' data-id=" + data[i].id + "><i class='far fa-thumbs-up'></i></button>"
+          + "<button type='button' class='vote-btn downvote-btn' data-id=" + data[i].id + "><i class='far fa-thumbs-down'></i></button>"
+          + "<a class='button twitter-btn' data-id="+ data[i].id +" href='https://twitter.com/spiffyplus/status/"+ data[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
+          + "<button type='button' class='close-issue-btn' data-id="+ data[i].id +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
         );
       var newModal = $('<div class="modal issue-body-modal">');
       $(newIssueBody).prepend(newIssueDetails);
@@ -337,12 +356,14 @@ $(document).ready(function() {
       $(newModal).append(newIssueBody);
       $(".issues").append(newIssueDivTitle);
       $(".issues").append(newModal);
-
+      if (userEmail === "spiffyplus@gmail.com"){
+        $(".close-issue-btn").attr("style", "display:block");
+      }
     };
   };
   //VIEW BUTTONS
   ///VIEW MY ISSUES Function
-    $("#viewOne").on("click", function() {
+    $("#viewOneUser").on("click", function() {
   //verify the user is signed in
       if (userEmail === "") {
         googleFailure();
@@ -354,16 +375,39 @@ $(document).ready(function() {
         type: "GET"
       }).then(function(data) {
         createIssueCards(data);
+        console.log(data);
       })
       }
     });
 
-    /*Modal Open and Close*/
-    /*Open modal*/
+    //VIEW ALL ISSUES
+    $("#viewAll").on("click", function() {
+      $(".issue").empty();
+      $.ajax("api/all", {
+        type: "GET"
+      }).then(function(data){
+        createIssueCards(data);
+        console.log(data);
+      });
+    });
+
+    //VIEW ALL ISSUES
+    $("#viewNew").on("click", function() {
+      $(".issue").empty();
+      $.ajax("api/issues/status/new", {
+        type: "GET"
+      }).then(function(data){
+        createIssueCards(data);
+        console.log(data);
+      });
+    });
+
+////////////////////////////  MODALS ////////////////////////////////////////////
+//OPEN MODAL
     $(document).on('click', '.issue-header', function() {
       $(this).next("div").fadeIn(200);
     });
-    /*close modal*/
+//CLOSE MODAL
     $(document).on('click', '.close', function() {
       console.log("close button clicked");
       $('.modal').fadeOut(200);
