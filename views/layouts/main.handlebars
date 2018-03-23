@@ -30,11 +30,36 @@
   <!-- Font Awesome -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"></script>
+   <!-- leaflet. FML -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+   integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+   crossorigin=""></script>
   <!--CSS - Skeleton & Custom CSS -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+  <body>
+    <!-- Handlebars Body -->
+    {{{ body }}}
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<!-- Codebird -->
+		<script type="text/javascript" src="js/codebird.js"></script>
+    <!-- Google Authentication -->
+    {{!-- <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> --}}
+    <!-- Google Maps (Autocomlete)-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSAYHZn9fz13c3bsl_RcS13HJu8wDJXCU&libraries=places">
+	</script>
+     <!-- MapBox -->
+     <script src='https://unpkg.com/mapbox@1.0.0-beta9/dist/mapbox-sdk.min.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
 
 <body>
 
@@ -55,6 +80,7 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
   <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-supported/v1.3.0/mapbox-gl-supported.js'></script>
+  <script type="text/javascript" src="js/geojson.min.js"></script>
   <!-- Tippy -->
   <script src="https://unpkg.com/tippy.js@2.4.0/dist/tippy.all.min.js"></script>
   <!-- Custom JS -->

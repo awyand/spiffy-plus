@@ -1,75 +1,6 @@
 // GLOBAL VARS
 var PassedlocationName = "";
 
-var geojson = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-77.042941, 38.985874]
-      },
-      properties: {
-        title: "Zip: 20012",
-        description: "Washington, D.C."
-      }
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-77.019023, 38.912068]
-      },
-      properties: {
-        title: "Zip: 20001",
-        description: "Washington, DC"
-      }
-    }
-  ]
-};
-// add map to screen
-function createMap() {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A";
-
-  var map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/streets-v10",
-    center: [-77.040615, 38.931188],
-    zoom: 11
-  });
-
-  geojson.features.forEach(function(marker) {
-    // create a HTML element for each feature
-    var el = document.createElement("div");
-    el.className = "marker";
-
-    // make a marker for each feature and add to the map
-    new mapboxgl.Marker(el)
-      .setLngLat(marker.geometry.coordinates)
-
-      // add popup
-
-      .setPopup(
-        new mapboxgl.Popup({ offset: 25 }) // add popups
-          .setHTML(
-            "<h4>" +
-              marker.properties.title +
-              "</h4><p>" +
-              marker.properties.description +
-              "</p>"
-          )
-      )
-      .addTo(map);
-  });
-}
-
-createMap();
-
-var client = new MapboxClient(
-  "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
-);
 
 function getGeoLocation(userEnteredLocation, cb) {
   // Format userEnteredLocation for use in Mapbox
@@ -95,3 +26,50 @@ function getGeoLocation(userEnteredLocation, cb) {
     return cb(lat, long);
   });
 }
+
+// All new leaflet shit
+// This needs to go into function
+// Set API route based on ID
+     var apiRoute = `/api/issues/`;
+
+$.ajax(apiRoute, {
+         type: 'GET'
+       }).then(function(res) {
+      
+      // Empty array to hold map point data
+        var points = []; 
+
+        // Create map via leaflet.js
+        var mymap = L.map("map").setView([38.931, -77.038], 12);
+      // choose style of map via mapBox
+        L.tileLayer(
+          "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A",
+          {
+            attribution:
+              'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: "mapbox.streets",
+            accessToken:
+              "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
+          }
+        ).addTo(mymap);
+       
+        //  loop to create a array of data points to drop into map
+        for (let i = 0; i < res.length; i++) {
+         
+          var parsedTitle = res[i].title;
+          var allpoints = [`${parsedTitle}` , parseFloat(res[i].lon) , parseFloat(res[i].lat) ];
+          // push all the points from database into map.
+          points.push(allpoints);
+
+         }
+         console.log(points);
+        //  Loop through array of points to drop onto map.
+         for (var i = 0; i < points.length; i++) {
+          marker = new L.marker([points[i][1],points[i][2]])
+            .bindPopup(points[i][0])
+            .addTo(mymap);
+        }
+        });
+
+

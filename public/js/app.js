@@ -34,6 +34,9 @@ $(document).ready(function() {
 
       $(document).ready(initAutocomplete);
 
+      ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
+
+     
 
     //////////////////////// TIPPY TOOLTIPS ////////////////////////////////
 
@@ -514,3 +517,5 @@ $(document).ready(function() {
   });
 
 });
+
+

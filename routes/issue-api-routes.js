@@ -20,6 +20,17 @@ module.exports = function(app) {
         res.render("index", allProjectData);
       });
     });
+
+    // Get all issues in DB
+
+      // GET route for getting all of the posts
+  app.get("/api/issues", function(req, res) {
+    db.Issue.findAll({})
+      .then(function(dbIssue) {
+        res.json(dbIssue);
+      });
+  });
+
     //Get all issues for view all button
     app.get("/api/all", function(req, res) {
       db.Issue.findAll({}).then(function(dbIssue) {
