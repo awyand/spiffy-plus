@@ -16,7 +16,8 @@ nav ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: lightgray;
+  background-color: #2c92b7;
+  font-size: 1.2em;
 }
 
 nav ul li {
@@ -71,26 +72,29 @@ nav ul li {
 /************************ HEADERS AND INTERSTITIALS ***************************/
 .header,
 .interstitial {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-    url("../images/interstitial.jpg");
-
-  height: 40vh;
+  background: #2c92b7;
+  height: 42vh;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 20px;
-  margin-top: 20px;
 }
 
+.penguin-img {
+  height: 27vh;
+  display: inline;
+  padding-right: 30px;
+}
 .header h1 {
   color: white;
   font-size: 27vh;
   margin: 0;
+  display: inline-block;
 }
 
 .header h1 span {
-  color: red;
+  color: #ffb732;
 }
 
 .header p {
