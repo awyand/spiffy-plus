@@ -1,8 +1,7 @@
 /******************************* OVERALL STYLES ******************************/
 html,
 body {
-  font-family: Helvetica;
-  font-weight: 100;
+  font-family: 'Raleway', sans-serif;
   text-align: center;
 }
 
@@ -183,17 +182,16 @@ nav ul li {
     height: 100%;
     z-index:999;
     overflow: auto;
-    background-color: rgb(50,69,82);
-    background-color: rgba(50,69,82,0.5);
+    background-color: rgba(9, 49, 70, 0.6);;
 }
 
 .issue-body, .form-success, .google-failure {
   background-color: #fefefe;
    margin: 15% auto;
-   padding: 20px;
-   border: 1px solid #888;
-   width: 500px;
-   border-radius: 5px;
+   padding: 30px;
+   border: 1px solid #2d607d;
+   width: 50%;
+   border-radius: 3px;
    display: grid;
    grid-template-columns: 1fr 1fr;
    grid-gap: 25px;
