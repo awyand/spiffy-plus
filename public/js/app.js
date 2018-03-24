@@ -569,7 +569,7 @@ var projects = [
 
 {
   title : "Paint",
-  desc : "Commission an artist to breath life in your community with a mural or other street art.",
+  desc : "Commission an artist to breath life into your community with a mural or other street art.",
   image : "images/paint.jpg",
 },
 
