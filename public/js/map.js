@@ -1,5 +1,8 @@
 // GLOBAL VARS
 var PassedlocationName = "";
+var client = new MapboxClient(
+  "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
+);
 
 
 function getGeoLocation(userEnteredLocation, cb) {
