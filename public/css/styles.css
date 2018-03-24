@@ -10,30 +10,6 @@ p {
   margin-bottom: 5px;
 }
 
-/******************************* NAVBAR STYLES ******************************/
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #2c92b7;
-  font-size: 1.2em;
-}
-
-nav ul li {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.googleBtn {
-  cursor: pointer;
-  float: right;
-}
-
 /******************************* TIPPY BUTTONS ******************************/
 .tippyTip {
   font-size: 16px;
@@ -69,28 +45,126 @@ nav ul li {
       transition: border-bottom-width 0.1s 0s, height 0.2s 0.1s, width 0.2s 0.2s, margin 0.2s 0.2s;
 }
 
+/******************************* NAVBAR STYLES ******************************/
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 1.2em;
+  background-color: rgba(0,0,0,.1);
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+nav ul li {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.googleBtn {
+  cursor: pointer;
+  float: right;
+}
+
+#google-signOut {
+  background-color: lightgray;
+  box-shadow: 2px 2px rgb(65, 64, 64);
+  color: black;
+  height: 40px;
+  padding-top: 10px;
+  width: 240px;
+}
+
+#google-signOut:hover {
+  background-color: rgb(241, 236, 236);
+}
+
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+
+
 /************************ HEADERS AND INTERSTITIALS ***************************/
 .header,
 .interstitial {
-  background: #2c92b7;
-  height: 42vh;
+  background:#2c92b7;
+  height: 100vh;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.header {
+  margin-bottom: 0;
 }
 
 .penguin-img {
   height: 27vh;
   display: inline;
   padding-right: 30px;
+  position: absolute;
+	left: 17%;
+	top: 50%;
+	transform: translate(-17%, -50%);
 }
+
 .header h1 {
   color: white;
   font-size: 27vh;
+  font-weight: bolder;
   margin: 0;
   display: inline-block;
+  text-shadow: 6px 4px rgba(0,0,0,0.5);
+  position: absolute;
+	left: 65%;
+	top: 50%;
+	transform: translate(-65%, -50%);
 }
 
 .header h1 span {
@@ -100,6 +174,10 @@ nav ul li {
 .header p {
   color: white;
   font-size: 2rem;
+  position: absolute;
+	left: 50%;
+	top: 70%;
+	transform: translate(-50%, -70%);
 }
 
 .interstitial {
@@ -112,7 +190,54 @@ nav ul li {
   padding-top: 5vh;
 }
 
+/******************************* ABOUT SPIFFY+ ********************************/
+.about {
+  height: 100vh;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+  position: relative;
+  top: 6%;
+}
+
+.grid-item {
+  font-size: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  opacity: .8;
+}
+
+.grid-item:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.card-image {
+  height: 40vh;
+  width: 100%;
+}
+
+.card-contents h4 {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.card-contents p {
+  font-size: 14px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 /******************** CURRENT PROJECTS DIV (MAP & ISSUE LIST) *****************/
+/* .current-projects {
+  height: 100vh;
+} */
+
 .current-project-info {
   display: grid;
   grid-template-columns: 60% 1fr;
@@ -282,7 +407,7 @@ form {
 
 /******************************* FOOTER STYLES ******************************/
 .footer-distributed {
-	background-color: lightgray;
+	background-color: slategrey;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
 	font: bold 16px sans-serif;
@@ -305,12 +430,12 @@ form {
 
 .footer-distributed h3 {
 	color:  #ffffff;
-	font: normal 36px 'Cookie', cursive;
+	font: normal 36px 'helvetica';
   margin: 0;
 }
 
 .footer-distributed h3 span {
-  color:  #5383d3;
+  color: #ffb732;
 }
 
 /* Footer links */
@@ -329,7 +454,7 @@ form {
 }
 
 .footer-company-name {
-	color:  #8f9296;
+	color:  lightgray;
 	font-size: 14px;
 	font-weight: normal;
   margin: 0;
@@ -374,7 +499,7 @@ form {
 }
 
 .footer-center p a {
-	color:  #5383d3;
+	color:lightgray;
   text-decoration: none;
 }
 
@@ -384,7 +509,7 @@ form {
 }
 
 .footer-company-about {
-	color: #92999f;
+	color: lightgray;
 	font-size: 13px;
 	font-weight: normal;
 	line-height: 20px;
@@ -409,8 +534,8 @@ form {
 	color: #ffffff;
 	cursor: pointer;
 	display: inline-block;
-	font-size: 20px;
-	height: 35px;
+  font-size: 20px;
+  height: 35px;
   line-height: 35px;
   margin-bottom: 5px;
 	margin-right: 3px;
@@ -445,3 +570,88 @@ form {
     font-size: 12px;
   }
 }
+
+/******************************* Respsonsive ******************************/
+/* 
+@media(max-width:1130px) {
+  .header {
+    height:200px;
+  }
+  nav ul li {
+    padding:10px 16px;
+  }
+  li.nav-logo{
+    border: 2px solid white;
+    border-radius: 5px;
+}
+#google-signOut{
+  border: 2px solid white;
+    border-radius: 5px;
+}
+  .header h1 {
+  font-size: 130px;
+  position: relative;
+  top: 0;
+}
+.penguin-img {
+  padding:0;
+  height:100px;
+  display: inline;
+}
+.interstitial h1 {
+  font-size: 8rem;
+}
+}
+@media(max-width:588px) {
+  .penguin-img {
+    height: 80px;
+    display:block;
+    margin: 0 auto;
+    position: relative;
+    top: -50px;
+}
+.header h1 {
+    font-size: 75px;
+    position: relative;
+    top: -40px;
+}
+.header p {
+  position: relative;
+  top: -50px;
+}
+.interstitial h1 {
+  font-size: 6rem;
+}
+}
+@media(max-width:579px) {
+  .interstitial {
+    height: 20vh;
+}
+li.nav-logo {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+#google-signOut {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+#google-signIn1 {
+  position: relative;
+  top: 10px;
+}
+.penguin-img {
+  display:inline;
+  top:0;
+}
+.header h1 {
+  top: -10px;
+}
+.header p {
+  top:0;
+}
+}
+@media(max-width: 425px) {
+  .interstitial h1 {
+    font-size: 5rem;
+}
+} */
