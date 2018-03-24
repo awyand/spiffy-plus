@@ -1,6 +1,5 @@
 <nav>
   <ul>
-    <li class="nav-logo">Home</li>
     <li class="googleBtn" id="google-signIn1"></li>
   </ul>
 </nav>
@@ -15,9 +14,9 @@
   <div class="current-project-info" id="currentProjectInfo">
     <div id='map'></div>
     <div class="issues">
-      <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'><strong>Every</strong> issue. <strong>Every</strong> user.<br>You have been warned.</span>" id="viewAll">View All Issues</button>
-      <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Just your issues. Not that you <strong>have</strong> issues...</span>" id="viewOneUser">View My Issues</button>
-      <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Only new issues, these need <strong>votes</strong>!</span>" id="viewNew">View New Issues</button>
+      <button class="tippy-btn view-btn" data-tippy-animation="perspective" title="<span class='tippyTip'><strong>Every</strong> issue. <strong>Every</strong> user.<br>You have been warned.</span>" id="viewAll">View All Issues</button>
+      <button class="tippy-btn view-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Just your issues. Not that you <strong>have</strong> issues...</span>" id="viewOneUser">View My Issues</button>
+      <button class="tippy-btn view-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Only new issues, these need <strong>votes</strong>!</span>" id="viewNew">View New Issues</button>
       {{#each issue}}
       <div class="issue issue-header">
         <p class="issue-title">{{this.title}}</p>

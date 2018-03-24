@@ -36,7 +36,7 @@ $(document).ready(function() {
 
       ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
 
-     
+
 
     //////////////////////// TIPPY TOOLTIPS ////////////////////////////////
 
@@ -446,7 +446,6 @@ $(document).ready(function() {
       $("nav").empty();
       $("nav").html(`
         <ul>
-          <li class="nav-logo">Home</li>
           <li class="googleBtn" id="google-signOut">Sign Out</li>
         </ul>
       `)
@@ -494,7 +493,6 @@ $(document).ready(function() {
         $("nav").empty();
         $("nav").html(`
           <ul>
-            <li class="nav-logo">Home</li>
             <li class="googleBtn" id="google-signIn1">Sign Out</li>
           </ul>
         `)
@@ -517,5 +515,3 @@ $(document).ready(function() {
   });
 
 });
-
-

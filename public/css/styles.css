@@ -117,6 +117,7 @@ nav ul li {
   display: grid;
   grid-template-columns: 60% 1fr;
   grid-column-gap: 10px;
+  padding-bottom: 35px;
 }
 
 /***** MAP *****/
@@ -137,6 +138,7 @@ nav ul li {
 }
 
 /***** ISSUES ****/
+
 .issues {
   padding-bottom: 20px;
 }
@@ -160,8 +162,10 @@ nav ul li {
   display: block;
 }
 
-
-
+/****************************** ISSUE VIEW BUTTONS ****************************/
+.view-btn {
+  width: 40px;
+}
 /*MODALS*/
 .modal {
     display: none;
