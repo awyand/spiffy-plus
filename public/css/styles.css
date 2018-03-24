@@ -445,3 +445,112 @@ form {
     font-size: 12px;
   }
 }
+
+
+/******************************* Respsonsive ******************************/
+
+    @media(max-width:1130px) {
+
+      .header {
+        height:200px;
+      }
+
+      nav ul li {
+        padding:10px 16px;
+      }
+
+      li.nav-logo{
+        border: 2px solid white;
+        border-radius: 5px;
+    }
+
+    #google-signOut{
+      border: 2px solid white;
+        border-radius: 5px;
+    }
+
+      .header h1 {
+      font-size: 130px;
+      position: relative;
+      top: 0;
+    }
+
+    .penguin-img {
+      padding:0;
+      height:100px;
+      display: inline;
+    }
+
+    .interstitial h1 {
+      font-size: 8rem;
+    }
+
+    }
+
+    @media(max-width:588px) {
+      .penguin-img {
+        height: 80px;
+        display:block;
+        margin: 0 auto;
+        position: relative;
+        top: -50px;
+    }
+    .header h1 {
+        font-size: 75px;
+        position: relative;
+        top: -40px;
+    }
+    .header p {
+      position: relative;
+      top: -50px;
+    }
+    .interstitial h1 {
+      font-size: 6rem;
+  }
+
+
+    }
+
+    @media(max-width:579px) {
+      .interstitial {
+        height: 20vh;
+    }
+    li.nav-logo {
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+
+    #google-signOut {
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+
+    #google-signIn1 {
+      position: relative;
+      top: 10px;
+    }
+
+    .penguin-img {
+      display:inline;
+      top:0;
+    }
+
+    .header h1 {
+      top: -10px;
+    }
+    .header p {
+      top:0;
+    }
+    }
+
+    @media(max-width: 425px) {
+      .interstitial h1 {
+        font-size: 5rem;
+    }
+    }
+
+
+
+
+
+
