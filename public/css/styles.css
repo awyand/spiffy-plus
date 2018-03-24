@@ -140,6 +140,10 @@ nav ul li {
   cursor: pointer;
 }
 
+.leaflet-bottom.leaflet-right {
+  z-index: 900;
+}
+
 /***** ISSUES ****/
 .issues {
   padding-bottom: 20px;
