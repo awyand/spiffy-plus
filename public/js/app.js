@@ -15,10 +15,6 @@ $(document).ready(function() {
 
     //User Email
     var userEmail;
-    ////////////////////////////
-    ////// EVENT HANDLERS //////
-    ////////////////////////////
-
 
     //////////////////////// GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
 
@@ -36,13 +32,16 @@ $(document).ready(function() {
 
       ////////////////////////GOOGLE MAPS AUTOCOMPLETE ////////////////////////////////
 
-     
+
 
     //////////////////////// TIPPY TOOLTIPS ////////////////////////////////
 
     tippy('.tippy-btn', {
       arrow: true
     });
+
+    //////////////////////// POPULATE MAPBOX ////////////////////////////////
+    mapPoints("all", userEmail);
 
 
     //////////////////////// EVENT HANDLERS ////////////////////////////////
@@ -376,8 +375,9 @@ $(document).ready(function() {
       $.ajax("/api/issues/userEmail/" + userEmail, {
         type: "GET"
       }).then(function(data) {
+        mapPoints("mine", userEmail);
         createIssueCards(data);
-        console.log(data);
+        // console.log(data);
       })
       }
     });
@@ -388,8 +388,9 @@ $(document).ready(function() {
       $.ajax("api/all", {
         type: "GET"
       }).then(function(data){
+        mapPoints("all", userEmail);
         createIssueCards(data);
-        console.log(data);
+        // console.log(data);
       });
     });
 
@@ -399,8 +400,9 @@ $(document).ready(function() {
       $.ajax("api/issues/status/new", {
         type: "GET"
       }).then(function(data){
+        mapPoints("new", userEmail);
         createIssueCards(data);
-        console.log(data);
+        // console.log(data);
       });
     });
 
@@ -517,5 +519,3 @@ $(document).ready(function() {
   });
 
 });
-
-

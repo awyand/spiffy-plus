@@ -120,10 +120,14 @@ nav ul li {
 }
 
 /***** MAP *****/
+#map-container {
+  margin: 0 auto;
+}
 
 #map {
-  width:500px;
+  width: 80%;
   height: 400px;
+  margin: 0 auto 20px auto;
   /* overflow: visible; */
 }
 
