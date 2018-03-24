@@ -1,21 +1,50 @@
+<!-- Navbar -->
 <nav>
   <ul>
-    <li class="nav-logo">Home</li>
-    <li class="googleBtn" id="google-signIn1"></li>
+    <li>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="nav-close-btn">&times;</a>
+        <a href="#" class="nav-home">Home</a>
+        <a href="#" class="nav-about">About</a>
+        <a href="#" class="nav-current-projects">Current Projects</a>
+        <a href="#" class="nav-add-project">Add A Project</a>
+        <a href="mailto:SpiffyPlus@gmail.com" class="nav-contact"><i class="fa fa-envelope"></i>Contact</a>
+      </div>
+      <span style="font-size:30px;cursor:pointer" class="nav-open-btn">&#9776; menu</span>
+    </li>
+    <li class="googleBtn">
+      <div id="google-signIn1"></div>
+    </li>
   </ul>
 </nav>
 
-<div class="header">
-  <img class="penguin-img" src="images/logos/spiffy penguin logo.png">
-  <h1>SPIFFY<span>+</span></h1>
-  <p>It's your city. Make it Spiffy.</p>
-</div>
-<div class="container">
-  <h2>Take a Look at Our Current Projects</h1>
-  <div id="map-container"></div>
-  <div class="current-project-info" id="currentProjectInfo">
 
-    </div>
+<!-- Header -->
+<div class="header" id="home">
+  <img class="penguin-img" src="images/logos/spiffy-logo-penguin-white-eye.png">
+  <h1>SPIFFY<span>+</span></h1>
+  <p>Spiffy in a jiffy.</p>
+</div>
+
+
+<!-- About -->
+<div class="about" id="about">
+  <div class="interstitial form-title">
+    <h1>ABOUT SPIFFY+</h1>
+  </div>
+  <p>Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.</p>
+  <div class="grid-container examples"></div>
+</div>
+
+<!-- Current Projects -->
+<div class="current-projects" id="current-projects">
+  <div class="interstitial form-title">
+    <h1>CURRENT PROJECTS</h1>
+  </div>
+  <div class="container">
+    {{!-- <h2>Take a Look at Our Current Projects</h2> --}}
+    <div id="map-container"></div>
+    <div class="current-project-info" id="currentProjectInfo"></div>
     <div class="issues">
       <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'><strong>Every</strong> issue. <strong>Every</strong> user.<br>You have been warned.</span>" id="viewAll">View All Issues</button>
       <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Just your issues. Not that you <strong>have</strong> issues...</span>" id="viewOneUser">View My Issues</button>
@@ -25,29 +54,48 @@
         <p class="issue-title">{{this.title}}</p>
       </div>
       <div class="modal issue-body-modal">
-      <div class="issue-body">
-        <div class="issue-title">{{this.title}}</div>
-        <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
-        <div class="issue-details">
-          <p><u>CATEGORY:</u><span class="issue-type" data-id={{this.id}}> {{this.projectType}}</span></p>
-          <p><u>LOCATION:</u><span class="issue-location" data-id={{this.id}}> {{this.location}}</span></p>
-          <p><u>STATUS:</u><span class="issue-status {{this.status}}" data-id={{this.id}}> {{this.status}}</span></p>
-          <p><u>SCORE:</u><span class="issue-score" data-id={{this.id}}> {{this.score}}</span></p>
-          <p><u>DATE:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
-          <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
-          <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
-          <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
-          <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
+        <div class="issue-body">
+          <div class="issue-title">{{this.title}}</div>
+          <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
+          <div class="issue-details">
+            <p><u>CATEGORY:</u><span class="issue-type" data-id={{this.id}}> {{this.projectType}}</span></p>
+            <p><u>LOCATION:</u><span class="issue-location" data-id={{this.id}}> {{this.location}}</span></p>
+            <p><u>STATUS:</u><span class="issue-status {{this.status}}" data-id={{this.id}}> {{this.status}}</span></p>
+            <p><u>SCORE:</u><span class="issue-score" data-id={{this.id}}> {{this.score}}</span></p>
+            <p><u>DATE:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
+            <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
+            <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
+            <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
+            <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
+          </div>
+          <div class="modal issue-body-modal">
+            <div class="issue-body">
+              <div class="issue-title">{{this.title}}</div>
+              <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
+              <div class="issue-details">
+                <p><u>CATEGORY:</u><span class="issue-type" data-id={{this.id}}> {{this.projectType}}</span></p>
+                <p><u>LOCATION:</u><span class="issue-location" data-id={{this.id}}> {{this.location}}</span></p>
+                <p><u>STATUS:</u><span class="issue-status {{this.status}}" data-id={{this.id}}> {{this.status}}</span></p>
+                <p><u>SCORE:</u><span class="issue-score" data-id={{this.id}}> {{this.score}}</span></p>
+                <p><u>DATE:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
+                <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
+                <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>                  <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
+                <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
+              </div>
+              <button type="button" class="close">Close &times;</button>
+            </div>
+          </div>
+          {{/each}}
         </div>
-        <button type="button" class="close">Close &times;</button>
+      </div>
     </div>
-    </div>
-    {{/each}}
   </div>
 </div>
-</div>
-<div class="interstitial form-title">
-  <h1>NEW PROJECT</h1>
+
+
+<!-- Add A Project -->
+<div class="interstitial form-title" id="add-a-project">
+  <h1>ADD A PROJECT</h1>
 </div>
 <h2>Have a project in your neighborhood? Tell us about it!</h2>
   <div class="container">
@@ -97,46 +145,44 @@
   </div>
 
  <!-- footer -->
-    <footer class="footer-distributed" id="contact">
+<footer class="footer-distributed" id="contact">
 
-        <div class="footer-left">
-            <h3>Spiffy<span>+</span></h3>
-            <p class="footer-links">
-                <a href="#">stuff 1</a>
-                ·
-                <a href="#">stuff 2</a>
-                ·
-                <a href="#">stuff 3</a>
-                ·
-                <a href="#">stuff 4</a>
-                ·
-                <a href="#">stuff 5</a>
-            </p>
-            <p class="footer-company-name">Spiffy+ &copy; 2018</p>
-        </div>
+  <div class="footer-left">
+    <h3>Spiffy<span>+</span></h3>
+    <p class="footer-links">
+      <a href="https://github.com/awyand" target="_blank">Aaron Wyand</a>
+      ·
+      <a href="https://github.com/henryhankdc" target="_blank">Henry Mesias</a>
+      ·
+      <a href="https://github.com/hillary-joyce" target="_blank">Hillary Scofield</a>
+      ·
+      <a href="https://github.com/jfriedman823" target="_blank">Jeremy Friedman</a>
+    </p>
+    <p class="footer-company-name">Spiffy+ &copy; 2018</p>
+  </div>
 
-        <div class="footer-center">
-            <div>
-                <i class="fa fa-map-marker"></i>
-                <p><span></span>The Washington DC Metro Area</p>
-            </div>
+  <div class="footer-center">
+    </br>
+    <div>
+      <i class="fa fa-map-marker"></i>
+      <p><span></span>The Washington DC Metro Area</p>
+    </div>
+    </br>
+    <div>
+      <i class="fa fa-envelope"></i>
+      <p><a href="mailto:SpiffyPlus@gmail.com">SpiffyPlus@gmail.com</a></p>
+    </div>
+  </div>
 
-            <div>
-                <i class="fa fa-envelope"></i>
-                <p><a href="mailto:SpiffyPlus@gmail.com">SpiffyPlus@gmail.com</a></p>
-            </div>
-        </div>
+  <div class="footer-right">
+    <p class="footer-company-about">
+      <span>About: Spiffy+</span>
+        We're an app dedicated to giving you the tools to improve your communities and neighborhoods.
+    </p>
+    <div class="footer-icons">
+      <a href="https://github.com/awyand/spiffy-plus" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/spiffyplus" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
 
-        <div class="footer-right">
-            <p class="footer-company-about">
-                <span>About: Spiffy Plus</span>
-                Lorem ipsum dolor sit amet, consectateur adispicing elit.
-                Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
-            </p>
-            <div class="footer-icons">
-                <a href="https://github.com/awyand/spiffy-plus"><i class="fab fa-github"></i></a>
-                <a href="https://twitter.com/spiffyplus"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-
-    </footer>
+</footer>
