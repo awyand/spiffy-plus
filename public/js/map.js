@@ -31,20 +31,21 @@ function getGeoLocation(userEnteredLocation, cb) {
 }
 
 function mapPoints(typeOfMap, userEmail) {
+  // Empty map-container and append map div to refresh
   $("#map-container").empty();
   $("#map-container").append("<div id='map'</div>");
-  switch(typeOfMap) {
+  switch (typeOfMap) {
     // If typeOfMap is all
     case "all":
       // Route is for all issues
       var route = "/api/issues";
       break;
-    // If typeOfMap is mine
+      // If typeOfMap is mine
     case "mine":
       // Route is for userEmail
       var route = "/api/issues/userEmail/" + userEmail;
       break;
-    // If typeOfMap is new
+      // If typeOfMap is new
     case "new":
       // Route is for new
       var route = "/api/issues/status/new"
@@ -60,29 +61,55 @@ function mapPoints(typeOfMap, userEmail) {
     // Create map via leaflet.js
     var mymap = L.map("map").setView([38.931, -77.038], 12);
     // choose style of map via mapBox
-    L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A",
-        {
-          attribution: '<a href="http://mapbox.com">Mapbox</a>',
-          maxZoom: 18,
-          id: "mapbox.streets",
-          accessToken: "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
-        }
-      ).addTo(mymap);
+    L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A", {
+      attribution: '<a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: "mapbox.streets",
+      accessToken: "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
+    }).addTo(mymap);
 
     //  loop to create a array of data points to drop into map
     for (let i = 0; i < res.length; i++) {
       var parsedTitle = res[i].title;
       var parsedLocation = res[i].location;
-      var allpoints = [`<strong>Issue: ${parsedTitle}</strong><br>${parsedLocation}` , parseFloat(res[i].lon) , parseFloat(res[i].lat) ];
+      var allpoints = [`<strong>Issue: ${parsedTitle}</strong><br>${parsedLocation}`, parseFloat(res[i].lon), parseFloat(res[i].lat), res[i].status];
       // push all the points from database into map.
       points.push(allpoints);
     }
 
-   //  Loop through array of points to drop onto map.
+    //  Loop through array of points to drop onto map.
     for (var i = 0; i < points.length; i++) {
-     var marker = new L.marker([points[i][1],points[i][2]])
-       .bindPopup(points[i][0])
-       .addTo(mymap);
-     }
+      console.log(points[i][3]);
+      // Allow MakiMarkers access to Leaflet
+      L.MakiMarkers.accessToken = "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A";
+
+      // Choose color based on status
+      var mapStatus = points[i][3];
+      var iconColor;
+      switch (mapStatus) {
+        case "New":
+          iconColor = "#FF5C45";
+          break;
+        case "Open":
+          iconColor = "#FFE345";
+          break;
+        case "Closed":
+          iconColor = "#0DB264";
+          break;
+      }
+
+      // Set icon
+      var icon = L.MakiMarkers.icon({
+        icon: "marker",
+        color: iconColor,
+        size: "m"
+      });
+
+      var marker = new L.marker([points[i][1], points[i][2]], {
+          icon: icon
+        })
+        .bindPopup(points[i][0])
+        .addTo(mymap);
+    }
   });
 }
