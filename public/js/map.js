@@ -72,7 +72,8 @@ function mapPoints(typeOfMap, userEmail) {
     //  loop to create a array of data points to drop into map
     for (let i = 0; i < res.length; i++) {
       var parsedTitle = res[i].title;
-      var allpoints = [`${parsedTitle}` , parseFloat(res[i].lon) , parseFloat(res[i].lat) ];
+      var parsedLocation = res[i].location;
+      var allpoints = [`<strong>Issue: ${parsedTitle}</strong><br>${parsedLocation}` , parseFloat(res[i].lon) , parseFloat(res[i].lat) ];
       // push all the points from database into map.
       points.push(allpoints);
     }
