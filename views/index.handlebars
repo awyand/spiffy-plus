@@ -32,7 +32,10 @@
   <div class="interstitial form-title">
     <h1>ABOUT SPIFFY+</h1>
   </div>
-  <p>Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.</p>
+  <p>Spiffy+ puts neighborhood beautification back into the hands of residents.
+  You can post a new issue or project in your area you'd like to see fixed, and
+  other users can vote on if they'd like to see that change. Once you have enough
+  votes, we'll send our team out to start working on your project.</p>
   <div class="grid-container examples"></div>
 </div>
 
@@ -67,30 +70,13 @@
             <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
             <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
             <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
-          </div>
-          <div class="modal issue-body-modal">
-            <div class="issue-body">
-              <div class="issue-title">{{this.title}}</div>
-              <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
-              <div class="issue-details">
-                <p><u>CATEGORY:</u><span class="issue-type" data-id={{this.id}}> {{this.projectType}}</span></p>
-                <p><u>LOCATION:</u><span class="issue-location" data-id={{this.id}}> {{this.location}}</span></p>
-                <p><u>STATUS:</u><span class="issue-status {{this.status}}" data-id={{this.id}}> {{this.status}}</span></p>
-                <p><u>SCORE:</u><span class="issue-score" data-id={{this.id}}> {{this.score}}</span></p>
-                <p><u>DATE:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
-                <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
-                <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>                  <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
-                <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
-              </div>
-              <button type="button" class="close">Close &times;</button>
             </div>
-          </div>
-          {{/each}}
+            <button type="button" class="u-full-width close">Close &times;</button>
+            {{/each}}
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
 <!-- Add A Project -->
