@@ -350,7 +350,7 @@ $(document).ready(function() {
           + "<a class='button twitter-btn' data-id="+ data[i].id +" href='https://twitter.com/spiffyplus/status/"+ data[i].tweetID + "' target='_blank'><i class='fab fa-twitter'></i>&nbsp;View on Twitter</a>"
           + "<button type='button' class='close-issue-btn' data-id="+ data[i].id +"><i class='fas fa-flag-checkered'></i>&nbsp;Close Issue</button>"
         );
-      var newModal = $('<div class="modal issue-body-modal">');
+      var newModal = $('<div class="modal issue-body-modal"></div>');
       $(newIssueBody).prepend(newIssueDetails);
       $(newIssueBody).prepend(newIssueImg);
       $(newIssueBody).prepend(newIssueBodyTitle);
@@ -445,13 +445,8 @@ $(document).ready(function() {
       userName = profile.getName();
 
       // render sign out button
-      $("nav").empty();
-      $("nav").html(`
-        <ul>
-          <li class="nav-logo">Home</li>
-          <li class="googleBtn" id="google-signOut">Sign Out</li>
-        </ul>
-      `)
+      $(".googleBtn").empty();
+      $(".googleBtn").html(`<div id="google-signOut">Sign Out</div>`);
 
       //If the user is admin (spiffyplus@gmail.com), show the close issue button
       if (userEmail === "spiffyplus@gmail.com"){
@@ -493,13 +488,8 @@ $(document).ready(function() {
         userName = "";
 
         // render the sign in button
-        $("nav").empty();
-        $("nav").html(`
-          <ul>
-            <li class="nav-logo">Home</li>
-            <li class="googleBtn" id="google-signIn1">Sign Out</li>
-          </ul>
-        `)
+        $(".googleBtn").empty();
+        $(".googleBtn").html(`<div id="google-signIn1"></div>`);
 
         renderButton("1");
 
@@ -516,6 +506,112 @@ $(document).ready(function() {
 
   $(".close-btn").on("click", function() {
     document.getElementById("google-signIn-failure").style.display = "none";
+  });
+
+// ************************************************************************************************  
+// ***************************** Nav Menu *********************************************************
+// ************************************************************************************************
+
+$(".nav-open-btn").on("click", function() {
+  openNav();
+});
+
+$(".nav-close-btn").on("click", function() {
+  closeNav();
+});
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+
+// ************************************************************************************************
+// ***************************** JS EFFECTS *******************************************************
+// ************************************************************************************************
+
+
+// ************************************ NAV MENU SCROLL JUMP **************************************
+$(".nav-home").on("click", function() {
+  $('html,body').animate({
+    scrollTop: $("#home").offset().top
+  }, 1000);
+});
+
+$(".nav-about").on("click", function() {
+  $('html,body').animate({
+    scrollTop: $("#about").offset().top
+  }, 1000);
+});
+
+$(".nav-current-projects").on("click", function() {
+  $('html,body').animate({
+    scrollTop: $("#current-projects").offset().top
+  }, 1000);
+});
+
+$(".nav-add-project").on("click", function() {
+  $('html,body').animate({
+    scrollTop: $("#add-a-project").offset().top
+  }, 1000);
+});
+
+// ************************************ ABOUT PROJECT EXAMPLES **************************************
+var projects = [
+  {
+    title : "Clean Up",
+    desc : "Report areas in your community that require clean up.",
+    image : "images/clean-up.jpg",
+  },
+
+  {
+    title : "Paint",
+    desc : "Commission an artist to breath life in your community with a mural or other street art.",
+    image : "images/paint.jpg",
+  },
+
+  {
+    title : "Plant",
+    desc : "Coordinate with your county or city to enhance your community with plant life.",
+    image : "images/plant.jpg",
+  }
+]
+
+for (i = 0; i < projects.length; i++) {
+  $(".examples").append(`
+      <div class="grid-item">
+        <img class="card-image ${projects[i].title}" src="${projects[i].image}">
+        <div class="card-contents">
+          <h4>${projects[i].title}</h4> 
+          <p>${projects[i].desc}</p> 
+        </div>
+      </div>
+    `);
+
+  }
+
+  $(".Clean").on("click", function() {
+    $('html,body').animate({
+      scrollTop: $("#add-a-project").offset().top
+    }, 1000);
+    $("#userProjectType").val('Clean Up');
+  });
+
+  $(".Paint").on("click", function() {
+    $('html,body').animate({
+      scrollTop: $("#add-a-project").offset().top
+    }, 1000);
+    $("#userProjectType").val('Paint');
+  });
+
+  $(".Plant").on("click", function() {
+    $('html,body').animate({
+      scrollTop: $("#add-a-project").offset().top
+    }, 1000);
+    $("#userProjectType").val('Plant');
   });
 
 });
