@@ -10,30 +10,6 @@ p {
   margin-bottom: 5px;
 }
 
-/******************************* NAVBAR STYLES ******************************/
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #2c92b7;
-  font-size: 1.2em;
-}
-
-nav ul li {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.googleBtn {
-  cursor: pointer;
-  float: right;
-}
-
 /******************************* TIPPY BUTTONS ******************************/
 .tippyTip {
   font-size: 16px;
@@ -69,28 +45,109 @@ nav ul li {
       transition: border-bottom-width 0.1s 0s, height 0.2s 0.1s, width 0.2s 0.2s, margin 0.2s 0.2s;
 }
 
+/******************************* NAVBAR STYLES ******************************/
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 1.2em;
+  background-color: rgba(0,0,0,.5);
+  position: fixed;
+  top: 0;
+  z-index: 900;
+  width: 100%;
+}
+
+nav ul li {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.googleBtn {
+  cursor: pointer;
+  float: right;
+}
+
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+
+
 /************************ HEADERS AND INTERSTITIALS ***************************/
 .header,
 .interstitial {
-  background: #2c92b7;
-  height: 42vh;
+  background:#2c92b7;
+  height: 100vh;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 20px;
+  position: relative
 }
 
 .penguin-img {
   height: 27vh;
   display: inline;
   padding-right: 30px;
+  position: absolute;
+	left: 17%;
+	top: 50%;
+	transform: translate(-17%, -50%);
 }
+
 .header h1 {
   color: white;
   font-size: 27vh;
+  font-weight: bolder;
   margin: 0;
   display: inline-block;
+  text-shadow: 6px 4px rgba(0,0,0,0.5);
+  position: absolute;
+	left: 65%;
+	top: 50%;
+	transform: translate(-65%, -50%);
 }
 
 .header h1 span {
@@ -100,6 +157,10 @@ nav ul li {
 .header p {
   color: white;
   font-size: 2rem;
+  position: absolute;
+	left: 50%;
+	top: 70%;
+	transform: translate(-50%, -70%);
 }
 
 .interstitial {
@@ -112,7 +173,16 @@ nav ul li {
   padding-top: 5vh;
 }
 
+/******************************* ABOUT SPIFFY+ ********************************/
+.about {
+  height: 100vh;
+}
+
 /******************** CURRENT PROJECTS DIV (MAP & ISSUE LIST) *****************/
+.current-projects {
+  height: 100vh;
+}
+
 .current-project-info {
   display: grid;
   grid-template-columns: 60% 1fr;

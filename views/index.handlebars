@@ -1,51 +1,80 @@
+{{!-- Header/Nav --}}
 <nav>
-  <ul>
-    <li class="nav-logo">Home</li>
-    <li class="googleBtn" id="google-signIn1"></li>
-  </ul>
-</nav>
-
-<div class="header">
-  <img class="penguin-img" src="images/logos/spiffy penguin logo.png">
-  <h1>SPIFFY<span>+</span></h1>
-  <p>It's your city. Make it Spiffy.</p>
-</div>
-<div class="container">
-  <h2>Take a Look at Our Current Projects</h1>
-  <div class="current-project-info" id="currentProjectInfo">
-    <div id='map'></div>
-    <div class="issues">
-      <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'><strong>Every</strong> issue. <strong>Every</strong> user.<br>You have been warned.</span>" id="viewAll">View All Issues</button>
-      <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Just your issues. Not that you <strong>have</strong> issues...</span>" id="viewOneUser">View My Issues</button>
-      <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Only new issues, these need <strong>votes</strong>!</span>" id="viewNew">View New Issues</button>
-      {{#each issue}}
-      <div class="issue issue-header">
-        <p class="issue-title">{{this.title}}</p>
-      </div>
-      <div class="modal issue-body-modal">
-      <div class="issue-body">
-        <div class="issue-title">{{this.title}}</div>
-        <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
-        <div class="issue-details">
-          <p><u>CATEGORY:</u><span class="issue-type" data-id={{this.id}}> {{this.projectType}}</span></p>
-          <p><u>LOCATION:</u><span class="issue-location" data-id={{this.id}}> {{this.location}}</span></p>
-          <p><u>STATUS:</u><span class="issue-status {{this.status}}" data-id={{this.id}}> {{this.status}}</span></p>
-          <p><u>SCORE:</u><span class="issue-score" data-id={{this.id}}> {{this.score}}</span></p>
-          <p><u>DATE:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
-          <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
-          <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
-          <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
-          <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
+    <ul>
+      <li>
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="nav-close-btn">&times;</a>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#current-projects">Current Projects</a>
+          <a href="#add-a-project">Add A Project</a>
+          <a href="#contact">Contact</a>
         </div>
-        <button type="button" class="close">Close &times;</button>
+        <span style="font-size:30px;cursor:pointer" class="nav-open-btn">&#9776; menu</span>
+      </li>
+      <li class="googleBtn" id="google-signIn1"></li>
+    </ul>
+  </nav>
+
+<div class="header" id="home">
+  <img class="penguin-img" src="images/logos/spiffy-logo-penguin-white-eye.png">
+  <h1>SPIFFY<span>+</span></h1>
+  <p>Spiffy in a jiffy.</p>
+</div>
+
+{{!-- About --}}
+<div class="about" id="about">
+  <div class="interstitial form-title">
+    <h1>ABOUT SPIFFY+</h1>
+  </div>
+  <p>Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.</p>
+</div>
+
+{{!-- Current Projects --}}
+<div class="current-projects" id="current-projects">
+  <div class="interstitial form-title">
+    <h1>CURRENT PROJECTS</h1>
+  </div>
+  <div class="container">
+    <h2>Take a Look at Our Current Projects</h1>
+    <div class="current-project-info" id="currentProjectInfo">
+      <div id='map'></div>
+      <div class="issues">
+        <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'><strong>Every</strong> issue. <strong>Every</strong> user.<br>You have been warned.</span>" id="viewAll">View All Issues</button>
+        <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Just your issues. Not that you <strong>have</strong> issues...</span>" id="viewOneUser">View My Issues</button>
+        <button class="tippy-btn" data-tippy-animation="perspective" title="<span class='tippyTip'>Only new issues, these need <strong>votes</strong>!</span>" id="viewNew">View New Issues</button>
+        {{#each issue}}
+        <div class="issue issue-header">
+          <p class="issue-title">{{this.title}}</p>
+        </div>
+        <div class="modal issue-body-modal">
+          <div class="issue-body">
+            <div class="issue-title">{{this.title}}</div>
+            <div class="issue-img-div"><img class="issue-img" src={{this.imglocation}}></div>
+            <div class="issue-details">
+              <p><u>CATEGORY:</u><span class="issue-type" data-id={{this.id}}> {{this.projectType}}</span></p>
+              <p><u>LOCATION:</u><span class="issue-location" data-id={{this.id}}> {{this.location}}</span></p>
+              <p><u>STATUS:</u><span class="issue-status {{this.status}}" data-id={{this.id}}> {{this.status}}</span></p>
+              <p><u>SCORE:</u><span class="issue-score" data-id={{this.id}}> {{this.score}}</span></p>
+              <p><u>DATE:</u><span class="issue-date" data-id={{this.id}}> {{this.createdAt}}</span></p>
+              <button type="button" class="vote-btn upvote-btn" data-id={{this.id}}><i class="far fa-thumbs-up"></i></button>
+              <button type="button" class="vote-btn downvote-btn" data-id={{this.id}}><i class="far fa-thumbs-down"></i></button>
+              <a class="button twitter-btn" data-id={{this.id}} href="https://twitter.com/spiffyplus/status/{{this.tweetID}}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;View on Twitter</a>
+              <button type="button" class="close-issue-btn" data-id={{this.id}}><i class="fas fa-flag-checkered"></i>&nbsp;Close Issue</button>
+            </div>
+            <button type="button" class="close">Close &times;</button>
+          </div>
+        </div>
+        {{/each}}
+      </div>
     </div>
-    </div>
-    {{/each}}
   </div>
 </div>
-</div>
-<div class="interstitial form-title">
-  <h1>NEW PROJECT</h1>
+
+
+{{!-- Add A Project --}}
+<div class="interstitial form-title" id="add-a-project">
+  <h1>ADD A PROJECT</h1>
 </div>
 <h2>Have a project in your neighborhood? Tell us about it!</h2>
   <div class="container">

@@ -446,7 +446,6 @@ $(document).ready(function() {
       $("nav").empty();
       $("nav").html(`
         <ul>
-          <li class="nav-logo">Home</li>
           <li class="googleBtn" id="google-signOut">Sign Out</li>
         </ul>
       `)
@@ -494,7 +493,6 @@ $(document).ready(function() {
         $("nav").empty();
         $("nav").html(`
           <ul>
-            <li class="nav-logo">Home</li>
             <li class="googleBtn" id="google-signIn1">Sign Out</li>
           </ul>
         `)
@@ -515,6 +513,32 @@ $(document).ready(function() {
   $(".close-btn").on("click", function() {
     document.getElementById("google-signIn-failure").style.display = "none";
   });
+
+// ************************************************************************************************  
+// ***************************** Nav Menu *********************************************************
+// ************************************************************************************************
+
+$(".nav-open-btn").on("click", function() {
+  openNav();
+});
+
+$(".nav-close-btn").on("click", function() {
+  closeNav();
+});
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+
+// ************************************************************************************************
+// ***************************** JS EFFECTS *******************************************************
+// ************************************************************************************************
+
 
 });
 
