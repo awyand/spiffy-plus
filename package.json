@@ -4,6 +4,7 @@
   "description": "spiffy app",
   "main": "server.js",
   "dependencies": {
+    "aos": "^2.2.0",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",

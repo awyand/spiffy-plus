@@ -52,10 +52,10 @@ nav ul {
   padding: 0;
   overflow: hidden;
   font-size: 1.2em;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0,0,0,.1);
   position: fixed;
   top: 0;
-  z-index: 900;
+  z-index: 999;
   width: 100%;
 }
 
@@ -71,6 +71,19 @@ nav ul li {
 .googleBtn {
   cursor: pointer;
   float: right;
+}
+
+#google-signOut {
+  background-color: lightgray;
+  box-shadow: 2px 2px rgb(65, 64, 64);
+  color: black;
+  height: 40px;
+  padding-top: 10px;
+  width: 240px;
+}
+
+#google-signOut:hover {
+  background-color: rgb(241, 236, 236);
 }
 
 
@@ -124,7 +137,11 @@ nav ul li {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 20px;
-  position: relative
+  position: relative;
+}
+
+.header {
+  margin-bottom: 0;
 }
 
 .penguin-img {
@@ -178,10 +195,48 @@ nav ul li {
   height: 100vh;
 }
 
-/******************** CURRENT PROJECTS DIV (MAP & ISSUE LIST) *****************/
-.current-projects {
-  height: 100vh;
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+  position: relative;
+  top: 6%;
 }
+
+.grid-item {
+  font-size: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  opacity: .8;
+}
+
+.grid-item:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.card-image {
+  height: 40vh;
+  width: 100%;
+}
+
+.card-contents h4 {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.card-contents p {
+  font-size: 14px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+/******************** CURRENT PROJECTS DIV (MAP & ISSUE LIST) *****************/
+/* .current-projects {
+  height: 100vh;
+} */
 
 .current-project-info {
   display: grid;
@@ -190,10 +245,14 @@ nav ul li {
 }
 
 /***** MAP *****/
+#map-container {
+  margin: 0 auto;
+}
 
 #map {
-  width:500px;
+  width: 80%;
   height: 400px;
+  margin: 0 auto 20px auto;
   /* overflow: visible; */
 }
 
@@ -206,22 +265,28 @@ nav ul li {
   cursor: pointer;
 }
 
+.leaflet-bottom.leaflet-right {
+  z-index: 900;
+}
+
 /***** ISSUES ****/
 .issues {
   padding-bottom: 20px;
 }
 
 .issue {
-  margin: 10px;
-  border: 1px solid grey;
-  background: #eaeaea;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 9px;
+  border: 1px solid #135679;
+  background: #1b89b7;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   width: 100%;
+  color: white;
+  font-size: 1.8rem;
 }
 
 .issue:hover {
-  background: #cccccc;
+  background: #126182;
 }
 
 .issue-title {
@@ -241,6 +306,7 @@ nav ul li {
     top: 0;
     width: 100%;
     height: 100%;
+    z-index:999;
     overflow: auto;
     background-color: rgb(50,69,82);
     background-color: rgba(50,69,82,0.5);
@@ -341,7 +407,7 @@ form {
 
 /******************************* FOOTER STYLES ******************************/
 .footer-distributed {
-	background-color: lightgray;
+	background-color: slategrey;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
 	font: bold 16px sans-serif;
@@ -364,12 +430,12 @@ form {
 
 .footer-distributed h3 {
 	color:  #ffffff;
-	font: normal 36px 'Cookie', cursive;
+	font: normal 36px 'helvetica';
   margin: 0;
 }
 
 .footer-distributed h3 span {
-  color:  #5383d3;
+  color: #ffb732;
 }
 
 /* Footer links */
@@ -388,7 +454,7 @@ form {
 }
 
 .footer-company-name {
-	color:  #8f9296;
+	color:  lightgray;
 	font-size: 14px;
 	font-weight: normal;
   margin: 0;
@@ -433,7 +499,7 @@ form {
 }
 
 .footer-center p a {
-	color:  #5383d3;
+	color:lightgray;
   text-decoration: none;
 }
 
@@ -443,7 +509,7 @@ form {
 }
 
 .footer-company-about {
-	color: #92999f;
+	color: lightgray;
 	font-size: 13px;
 	font-weight: normal;
 	line-height: 20px;
@@ -468,8 +534,8 @@ form {
 	color: #ffffff;
 	cursor: pointer;
 	display: inline-block;
-	font-size: 20px;
-	height: 35px;
+  font-size: 20px;
+  height: 35px;
   line-height: 35px;
   margin-bottom: 5px;
 	margin-right: 3px;
@@ -504,3 +570,105 @@ form {
     font-size: 12px;
   }
 }
+
+/******************************* Respsonsive ******************************/
+/* 
+@media(max-width:1130px) {
+
+  .header {
+    height:200px;
+  }
+
+  nav ul li {
+    padding:10px 16px;
+  }
+
+  li.nav-logo{
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+#google-signOut{
+  border: 2px solid white;
+    border-radius: 5px;
+}
+
+  .header h1 {
+  font-size: 130px;
+  position: relative;
+  top: 0;
+}
+
+.penguin-img {
+  padding:0;
+  height:100px;
+  display: inline;
+}
+
+.interstitial h1 {
+  font-size: 8rem;
+}
+
+}
+
+@media(max-width:588px) {
+  .penguin-img {
+    height: 80px;
+    display:block;
+    margin: 0 auto;
+    position: relative;
+    top: -50px;
+}
+.header h1 {
+    font-size: 75px;
+    position: relative;
+    top: -40px;
+}
+.header p {
+  position: relative;
+  top: -50px;
+}
+.interstitial h1 {
+  font-size: 6rem;
+}
+
+
+}
+
+@media(max-width:579px) {
+  .interstitial {
+    height: 20vh;
+}
+li.nav-logo {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#google-signOut {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+#google-signIn1 {
+  position: relative;
+  top: 10px;
+}
+
+.penguin-img {
+  display:inline;
+  top:0;
+}
+
+.header h1 {
+  top: -10px;
+}
+.header p {
+  top:0;
+}
+}
+
+@media(max-width: 425px) {
+  .interstitial h1 {
+    font-size: 5rem;
+}
+} */
