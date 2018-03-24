@@ -142,16 +142,18 @@ nav ul li {
 }
 
 .issue {
-  margin: 10px;
-  border: 1px solid grey;
-  background: #eaeaea;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 9px;
+  border: 1px solid #135679;
+  background: #1b89b7;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   width: 100%;
+  color: white;
+  font-size: 1.8rem;
 }
 
 .issue:hover {
-  background: #cccccc;
+  background: #126182;
 }
 
 .issue-title {
