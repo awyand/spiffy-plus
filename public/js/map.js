@@ -30,7 +30,7 @@ function getGeoLocation(userEnteredLocation, cb) {
   });
 }
 
-// All new leaflet shit
+// All new leaflet stuff
 // This needs to go into function
 // Set API route based on ID
      var apiRoute = `/api/issues/`;
@@ -51,7 +51,7 @@ $.ajax(apiRoute, {
             attribution:
               '<a href="http://mapbox.com">Mapbox</a>',
             maxZoom: 18,
-            id: "mapbox.comic",
+            id: "mapbox.streets",
             accessToken:
               "pk.eyJ1IjoiaGVucnloYW5rZGMiLCJhIjoiY2plcmF4YXkwMHQxbTJ3bXV2cG9kNjY3NCJ9.nR_dD4v96HlpfLDnjcim-A"
           }
@@ -66,7 +66,6 @@ $.ajax(apiRoute, {
           points.push(allpoints);
 
          }
-         console.log(points);
         //  Loop through array of points to drop onto map.
          for (var i = 0; i < points.length; i++) {
           marker = new L.marker([points[i][1],points[i][2]])
